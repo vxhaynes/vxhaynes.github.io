@@ -122,19 +122,33 @@
       font-size: 1.31rem;
       line-height: 1.56;
       font-weight: 300;
+      margin: 0;
       margin-bottom: 1.875rem;
     }
     mainContent {
       margin: 25px;
     }
     ul.topnav {
+      position: sticky;
+      top: 0;
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: #333;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.98rem;
+      font-weight: 700;
+      letter-spacing: .034rem;
+      line-height: 1.26;
     }
-    ul.topnav li {float: left;}
+    ul.topnav li {
+      float: left;
+      border-right: 1px solid #bbbbbb;
+    }
+    ul.topnav li:last-child {
+      border-right: none;
+    }
     ul.topnav li a {
       display: block;
       color: white;
@@ -142,9 +156,15 @@
       padding: 14px 16px;
       text-decoration: none;
     }
-    ul.topnav li a:hover:not(.active) {background-color: #111;}
-    ul.topnav li a.active {background-color: #04AA6D;}
-    ul.topnav li.right {float: right;}
+    ul.topnav li a:hover:not(.active) {
+      background-color: #111;
+    }
+    ul.topnav li a.active {
+      background-color: #60bf60;
+    }
+    ul.topnav li.right {
+      float: right;
+    }
     @media screen and (max-width: 600px) {
       ul.topnav li.right, 
       ul.topnav li {float: none;}
@@ -325,6 +345,3 @@
   </div>
   </body>
 </html>
-
-
-
