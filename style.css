@@ -192,6 +192,40 @@
       font-weight: bold;
       color: #60bf60;
     }
+    .bigName{
+      font-family: Metropolis, sans-serif;
+      font-size: 1.98rem;
+      font-weight: 700;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+    }
+    
+    .city{
+      float: right;
+      text-decoration: underline;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+    }
+    
+    .myPos{
+      font-family: Metropolis, sans-serif;
+      font-size: 1.98rem;
+      font-style: italic;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+    }
+    
+    .myYears{
+      float: right;
+      font-style: italic;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+    }
     .mainContent {
       margin: 25px;
     }
