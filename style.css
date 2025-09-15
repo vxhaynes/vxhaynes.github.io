@@ -224,9 +224,10 @@
       line-height: 1.26;
     }
     .rezItem{
-    border-radius: 25px;
-    padding: .5vw 1vw .5vw 1vw;
-    margin: 1vw 0px 1vw 0px;
+      border-radius: 25px;
+      padding: .5vw 1vw .5vw 1vw;
+      margin: 1vw 0px 1vw 0px;
+    }
     .mainContent {
       margin: 25px;
     }
