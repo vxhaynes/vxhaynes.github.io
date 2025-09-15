@@ -198,6 +198,7 @@
       font-weight: 700;
       letter-spacing: .034rem;
       line-height: 1.26;
+      text-decoration: none;
     }
     .city{
       float: right;
