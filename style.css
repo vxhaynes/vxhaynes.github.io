@@ -199,7 +199,6 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
-    
     .city{
       float: right;
       text-decoration: underline;
@@ -208,7 +207,6 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
-    
     .myPos{
       font-family: Metropolis, sans-serif;
       font-size: 1.98rem;
@@ -216,7 +214,6 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
-    
     .myYears{
       float: right;
       font-style: italic;
@@ -226,6 +223,10 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
+    .rezItem{
+    border-radius: 25px;
+    padding: .5vw 1vw .5vw 1vw;
+    margin: 1vw 0px 1vw 0px;
     .mainContent {
       margin: 25px;
     }
