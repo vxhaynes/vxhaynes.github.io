@@ -224,11 +224,11 @@
       line-height: 1.26;
     }
     .rezItem{
-      background-image: linear-gradient(to bottom right, #cccccc, #ffffff);
+      background-image: linear-gradient(to bottom right, #e3e3e3, #ffffff);
       border-radius: 25px;
       padding: .5vw 1vw .5vw 1vw;
       margin: 1vw 0px 1vw 0px;
-      max-width: 500px;
+      max-width: 1000px;
     }
     .mainContent {
       margin: 25px;
