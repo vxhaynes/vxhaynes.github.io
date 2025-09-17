@@ -224,6 +224,23 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
+    .myGrade{
+      float: right;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.98rem;
+      font-weight: 700 !important;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+      text-decoration: none !important;
+    }
+    .mycourseNo{
+      text-indent: 50px;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      letter-spacing: .034rem;
+      line-height: 1.26;
+    }
     .rezItem{
       background-image: linear-gradient(to bottom right, #e3e3e3, #ffffff);
       border-radius: 25px;
