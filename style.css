@@ -217,7 +217,7 @@
       line-height: 1.1;
     }
     .credit{
-      text-align: center;
+      justify-content: center;
       font-style: italic;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
@@ -225,7 +225,6 @@
       line-height: .8;
     }
     .honors{
-      float: left;
       font-style: italic;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
