@@ -217,7 +217,7 @@
       line-height: 1.1;
     }
     .credit{
-      justify-content: center;
+      margin: auto;
       font-style: italic;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
