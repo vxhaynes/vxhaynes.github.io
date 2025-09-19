@@ -208,6 +208,14 @@
       letter-spacing: .034rem;
       line-height: 1.26;
     }
+    .inst{
+      float: right;
+      font-style: italic;
+      font-family: Metropolis, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .028rem;
+      line-height: 1.1;
+    }
     .myPos{
       font-family: Metropolis, sans-serif;
       font-size: 1.85rem;
