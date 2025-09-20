@@ -260,6 +260,7 @@
       text-decoration: none !important;
     }
     .myCourseNo{
+      float: left;
       text-indent: 50px;
       font-family: Metropolis, sans-serif;
       font-size: 1.5rem;
