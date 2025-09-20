@@ -217,7 +217,7 @@
       line-height: 1.1;
     }
     .credit{
-      margin-left: 25%;
+      text-indent: 50px;
       font-style: italic;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
@@ -225,8 +225,8 @@
       line-height: .8;
     }
     .honors{
+      text-indent: 50px;
       font-style: italic;
-      margin-left: 50%;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
       letter-spacing: .02rem;
@@ -258,7 +258,6 @@
       text-decoration: none !important;
     }
     .myCourseNo{
-      float: left;
       text-indent: 50px;
       font-family: Metropolis, sans-serif;
       font-size: 1.5rem;
