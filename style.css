@@ -217,7 +217,8 @@
       line-height: 1.1;
     }
     .credit{
-      margin: auto;
+      float: left;
+      margin-left: 25%;
       font-style: italic;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
@@ -226,6 +227,8 @@
     }
     .honors{
       font-style: italic;
+      float: left;
+      margin-left: 50%;
       font-family: Metropolis, sans-serif;
       font-size: .9rem;
       letter-spacing: .02rem;
