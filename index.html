@@ -150,23 +150,60 @@
 
     </div>
     <div id="lightbox">
+      <span class="lightbox-btn" id="prevBtn">&#10094;</span>
       <img src="" alt="Expanded image">
+      <span class="lightbox-btn" id="nextBtn">&#10095;</span>
+      <span class="lightbox-btn" id="closeBtn">✕</span>
     </div>
+    
     <script>
-      document.querySelectorAll('.projImg img').forEach(img => {
-        img.addEventListener('click', () => {
-          const lightbox = document.getElementById('lightbox');
-          const lightImg = lightbox.querySelector('img');
-          lightImg.src = img.src;
-          lightbox.style.display = 'flex';
+      const lightbox = document.getElementById('lightbox');
+      const lightImg = lightbox.querySelector('img');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const closeBtn = document.getElementById('closeBtn');
+    
+      let currentGallery = [];
+      let currentIndex = 0;
+    
+      function showImage(index) {
+        currentIndex = index;
+        lightImg.src = currentGallery[currentIndex].src;
+        lightbox.style.display = 'flex';
+      }
+    
+      document.querySelectorAll('.projImg').forEach(gallery => {
+        const imgs = gallery.querySelectorAll('img');
+        imgs.forEach((img, index) => {
+          img.addEventListener('click', () => {
+            currentGallery = Array.from(imgs);
+            showImage(index);
+          });
         });
       });
     
-      document.getElementById('lightbox').addEventListener('click', () => {
-        document.getElementById('lightbox').style.display = 'none';
+      prevBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        showImage((currentIndex - 1 + currentGallery.length) % currentGallery.length);
+      });
+    
+      nextBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        showImage((currentIndex + 1) % currentGallery.length);
+      });
+    
+      closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+      });
+    
+      lightbox.addEventListener('click', e => {
+        if (e.target === lightbox) {
+          lightbox.style.display = 'none';
+        }
       });
     </script>
   </body>
 </html>
+
 
 
