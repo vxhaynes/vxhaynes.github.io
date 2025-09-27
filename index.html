@@ -149,6 +149,24 @@
       </div>
 
     </div>
+    <div id="lightbox">
+      <img src="" alt="Expanded image">
+    </div>
+    <script>
+      document.querySelectorAll('.projImg img').forEach(img => {
+        img.addEventListener('click', () => {
+          const lightbox = document.getElementById('lightbox');
+          const lightImg = lightbox.querySelector('img');
+          lightImg.src = img.src;
+          lightbox.style.display = 'flex';
+        });
+      });
+    
+      document.getElementById('lightbox').addEventListener('click', () => {
+        document.getElementById('lightbox').style.display = 'none';
+      });
+    </script>
   </body>
 </html>
+
 
