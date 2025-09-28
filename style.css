@@ -176,20 +176,39 @@ a:hover, a:active {
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
+.transHeader {
+  display: grid;
+  grid-template-columns: 120px 80px 1fr 120px 70px; 
+  align-items: center;
+  gap: 0.5rem;
+  font-family: Metropolis, sans-serif;
+  margin-bottom: 0.25rem;
+}
 .transHeader .mycourseNo {
   font-weight: 600;
 }
-.transHeader .credit,
-.transHeader .honors {
-  color: #666;
-  font-size: 0.9rem;
-}
-.transHeader .inst {
-  font-style: italic;
+.transHeader .credit {
+  text-align: center;
+  white-space: nowrap;
   color: #555;
 }
+.transHeader .inst {
+  text-align: left;
+  color: #444;
+}
+.transHeader .honors {
+  text-align: left;
+  font-style: italic;
+  color: #60bf60;
+  white-space: nowrap;
+}
 .transHeader .myGrade {
-  margin-left: auto;
+  text-align: right;
+  font-weight: bold;
+  background: #60bf60;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
 }
 
 .rezHeader .bigName {
