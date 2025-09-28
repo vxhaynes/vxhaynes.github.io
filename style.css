@@ -272,3 +272,7 @@ a:hover, a:active {
   transform: none;
   font-size: 2rem;
 }
+.logoImg {
+  height: 1.4rem;
+  width: auto;
+}
