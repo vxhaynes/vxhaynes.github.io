@@ -178,7 +178,7 @@ a:hover, a:active {
 }
 .transHeader {
   display: grid;
-  grid-template-columns: 120px 80px 1fr 120px 70px; 
+  grid-template-columns: 120px 80px 1fr 120px auto;
   align-items: center;
   gap: 0.5rem;
   font-family: Metropolis, sans-serif;
