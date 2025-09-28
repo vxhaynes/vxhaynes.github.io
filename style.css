@@ -276,3 +276,32 @@ a:hover, a:active {
   height: 1.4rem;
   width: auto;
 }
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.tabBtn {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-family: Metropolis, sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.tabBtn:hover {
+  background: #ddd;
+}
+.tabBtn.active {
+  background: #60bf60;
+  color: white;
+  border-color: #60bf60;
+}
+.tabContent {
+  display: none;
+}
+.tabContent.active {
+  display: block;
+}
