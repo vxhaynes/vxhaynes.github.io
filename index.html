@@ -233,89 +233,146 @@
            }
          });
       </script>
-      <script type="module">
-         import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-         
-         const container = document.getElementById('hero3d');
-         if (!container) return;
-         
-         const scene = new THREE.Scene();
-         scene.background = null;
-         
-         const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
-         camera.position.set(0, 0.5, 4);
-         
-         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-         container.appendChild(renderer.domElement);
-         
-         const light = new THREE.DirectionalLight(0xffffff, 1.0);
-         light.position.set(3, 4, 5);
-         scene.add(light);
-         scene.add(new THREE.AmbientLight(0xffffff, 0.45));
-         
-         const ACCENT = 0x60bf60;
-         const group = new THREE.Group();
-         scene.add(group);
-         
-         const bookGeo = new THREE.BoxGeometry(0.8, 1.1, 0.2);
-         const mat = new THREE.MeshStandardMaterial({ color: ACCENT, roughness: 0.5, metalness: 0.1 });
-         
-         const BOOK_COUNT = 12;
-         for (let i = 0; i < BOOK_COUNT; i++) {
-           const m = new THREE.Mesh(bookGeo, mat.clone());
-           m.position.set(
-             (Math.random() - 0.5) * 6,
-             (Math.random() - 0.5) * 2,
-             (Math.random() - 0.5) * 2
-           );
-           m.rotation.set(
-             Math.random() * Math.PI,
-             Math.random() * Math.PI,
-             Math.random() * Math.PI
-           );
-           m.material.color.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1);
-           group.add(m);
-         }
-         
-         const plane = new THREE.Mesh(
-           new THREE.PlaneGeometry(20, 6),
-           new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, transparent: true, opacity: 0.25 })
-         );
-         plane.position.set(0, 0, -2.5);
-         scene.add(plane);
-         
-         function resize() {
-           const w = container.clientWidth;
-           const h = container.clientHeight;
-           renderer.setSize(w, h, false);
-           camera.aspect = w / h;
-           camera.updateProjectionMatrix();
-         }
-         resize();
-         window.addEventListener('resize', resize);
-         
-         let running = true;
-         document.addEventListener('visibilitychange', () => {
-           running = !document.hidden;
-         });
-         
-         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-         function animate(t = 0) {
-           if (!running || prefersReduced.matches) return;
-         
-           const time = t * 0.001;
-           group.children.forEach((mesh, i) => {
-             mesh.rotation.x += 0.002 + (i % 3) * 0.0004;
-             mesh.rotation.y += 0.003 + ((i + 1) % 3) * 0.0003;
-             mesh.position.y = Math.sin(time + i) * 0.15 + mesh.position.y * 0.999;
-           });
-         
-           renderer.render(scene, camera);
-           requestAnimationFrame(animate);
-         }
-         requestAnimationFrame(animate);
-      </script>
+<script>
+  (function mountThreeHero() {
+    const container = document.getElementById('hero3d');
+    if (!container) return;
+    container.style.height = container.style.height || '300px';
+    const mod = document.createElement('script');
+    mod.type = 'module';
+    mod.textContent = `
+      import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const container = document.getElementById('hero3d');
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+      camera.position.set(0, 0.5, 4);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      container.appendChild(renderer.domElement);
+
+      const dir = new THREE.DirectionalLight(0xffffff, 1.0);
+      dir.position.set(3,4,5); scene.add(dir);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+
+      const ACCENT = 0x60bf60;
+      const group = new THREE.Group(); scene.add(group);
+
+      const bookGeo = new THREE.BoxGeometry(0.8, 1.1, 0.2);
+      for (let i=0;i<12;i++){
+        const mat = new THREE.MeshStandardMaterial({ color: ACCENT, roughness: 0.5, metalness: 0.1 });
+        const m = new THREE.Mesh(bookGeo, mat);
+        m.position.set((Math.random()-0.5)*6,(Math.random()-0.5)*2,(Math.random()-0.5)*2);
+        m.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
+        group.add(m);
+      }
+
+      const plane = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 6),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, transparent: true, opacity: 0.25 })
+      );
+      plane.position.set(0,0,-2.5); scene.add(plane);
+
+      function resize(){
+        const w = container.clientWidth, h = container.clientHeight || 300;
+        renderer.setSize(w,h,false); camera.aspect = w/h; camera.updateProjectionMatrix();
+      }
+      resize(); addEventListener('resize', resize);
+
+      let running = true;
+      document.addEventListener('visibilitychange', ()=> running = !document.hidden);
+
+      function renderOnce(){
+        renderer.render(scene, camera);
+      }
+
+      function animate(t=0){
+        if (!running) return;
+        const time = t*0.001;
+        group.children.forEach((mesh,i)=>{
+          mesh.rotation.x += 0.002 + (i%3)*0.0004;
+          mesh.rotation.y += 0.003 + ((i+1)%3)*0.0003;
+          mesh.position.y = 0.15*Math.sin(time+i);
+        });
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      // If reduced motion, render a static frame and stop.
+      if (prefersReduced.matches){ renderOnce(); }
+      else { requestAnimationFrame(animate); }
+    `;
+    mod.onerror = function(){
+      const umd = document.createElement('script');
+      umd.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+      umd.onload = function(){
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+        camera.position.set(0, 0.5, 4);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        container.appendChild(renderer.domElement);
+
+        const dir = new THREE.DirectionalLight(0xffffff, 1.0);
+        dir.position.set(3,4,5); scene.add(dir);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+
+        const ACCENT = 0x60bf60;
+        const group = new THREE.Group(); scene.add(group);
+
+        const bookGeo = new THREE.BoxGeometry(0.8, 1.1, 0.2);
+        for (let i=0;i<12;i++){
+          const mat = new THREE.MeshStandardMaterial({ color: ACCENT, roughness: 0.5, metalness: 0.1 });
+          const m = new THREE.Mesh(bookGeo, mat);
+          m.position.set((Math.random()-0.5)*6,(Math.random()-0.5)*2,(Math.random()-0.5)*2);
+          m.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
+          group.add(m);
+        }
+
+        const plane = new THREE.Mesh(
+          new THREE.PlaneGeometry(20, 6),
+          new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, transparent: true, opacity: 0.25 })
+        );
+        plane.position.set(0,0,-2.5); scene.add(plane);
+
+        function resize(){
+          const w = container.clientWidth, h = container.clientHeight || 300;
+          renderer.setSize(w,h,false); camera.aspect = w/h; camera.updateProjectionMatrix();
+        }
+        resize(); addEventListener('resize', resize);
+
+        let running = true;
+        document.addEventListener('visibilitychange', ()=> running = !document.hidden);
+
+        function renderOnce(){
+          renderer.render(scene, camera);
+        }
+        function animate(t){
+          if (!running) return;
+          const time = t*0.001;
+          for(let i=0;i<group.children.length;i++){
+            const mesh = group.children[i];
+            mesh.rotation.x += 0.002 + (i%3)*0.0004;
+            mesh.rotation.y += 0.003 + ((i+1)%3)*0.0003;
+            mesh.position.y = 0.15*Math.sin(time+i);
+          }
+          renderer.render(scene, camera);
+          requestAnimationFrame(animate);
+        }
+
+        if (prefersReduced.matches){ renderOnce(); }
+        else { requestAnimationFrame(animate); }
+      };
+      document.body.appendChild(umd);
+    };
+    document.body.appendChild(mod);
+  })();
+</script>
    </body>
 </html>
+
 
