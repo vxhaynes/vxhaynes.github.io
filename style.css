@@ -324,34 +324,3 @@ a:hover, a:active {
 .tabContent.active {
   display: block;
 }
-
-.mainContent {
-  perspective: 1000px;
-}
-
-.card-3d {
-  transform-style: preserve-3d;
-  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-  will-change: transform, box-shadow;
-  position: relative;
-}
-
-.card-3d:hover {
-  filter: brightness(1.02);
-}
-
-.card-3d .card-shine {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.25), rgba(255,255,255,0) 60%);
-  opacity: 0;
-  transition: opacity 180ms ease;
-  mix-blend-mode: screen;
-  transform: translateZ(1px);
-}
-
-.card-3d.is-tilting .card-shine {
-  opacity: 1;
-}
