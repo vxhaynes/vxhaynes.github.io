@@ -341,6 +341,3 @@ a:hover, a:active {
   height: 100% !important;
   display: block;
 }
-@media (prefers-reduced-motion: reduce) {
-  #hero3d { display: none; }
-}
