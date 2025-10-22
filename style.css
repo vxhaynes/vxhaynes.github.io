@@ -324,3 +324,23 @@ a:hover, a:active {
 .tabContent.active {
   display: block;
 }
+
+#hero3d {
+  position: relative;
+  height: 300px;
+  margin: 1rem 0 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f3f7f3, #e8f4ea);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+#hero3d canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  #hero3d { display: none; }
+}
