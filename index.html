@@ -13,7 +13,7 @@
       </ul>
       <div class="mainContent">
          <h1>GSA Portfolio</h1>
-<div id="hero3d" aria-label="Decorative 3D animation" role="img"></div>
+         <div id="hero3d" aria-label="Decorative 3D animation" role="img"></div>
          <div class="projItem">
             <h2>Detroit Music Exhibit</h2>
             <ul>
@@ -233,8 +233,88 @@
            }
          });
       </script>
+      <script type="module">
+         import * as THREE from 'https://unpkg.com/three@0.180.0/build/three.module.js';
+         
+         const container = document.getElementById('hero3d');
+         if (!container) return;
+         
+         const scene = new THREE.Scene();
+         scene.background = null;
+         
+         const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+         camera.position.set(0, 0.5, 4);
+         
+         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+         container.appendChild(renderer.domElement);
+         
+         const light = new THREE.DirectionalLight(0xffffff, 1.0);
+         light.position.set(3, 4, 5);
+         scene.add(light);
+         scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+         
+         const ACCENT = 0x60bf60;
+         const group = new THREE.Group();
+         scene.add(group);
+         
+         const bookGeo = new THREE.BoxGeometry(0.8, 1.1, 0.2);
+         const mat = new THREE.MeshStandardMaterial({ color: ACCENT, roughness: 0.5, metalness: 0.1 });
+         
+         const BOOK_COUNT = 12;
+         for (let i = 0; i < BOOK_COUNT; i++) {
+           const m = new THREE.Mesh(bookGeo, mat.clone());
+           m.position.set(
+             (Math.random() - 0.5) * 6,
+             (Math.random() - 0.5) * 2,
+             (Math.random() - 0.5) * 2
+           );
+           m.rotation.set(
+             Math.random() * Math.PI,
+             Math.random() * Math.PI,
+             Math.random() * Math.PI
+           );
+           m.material.color.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1);
+           group.add(m);
+         }
+         
+         const plane = new THREE.Mesh(
+           new THREE.PlaneGeometry(20, 6),
+           new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, transparent: true, opacity: 0.25 })
+         );
+         plane.position.set(0, 0, -2.5);
+         scene.add(plane);
+         
+         function resize() {
+           const w = container.clientWidth;
+           const h = container.clientHeight;
+           renderer.setSize(w, h, false);
+           camera.aspect = w / h;
+           camera.updateProjectionMatrix();
+         }
+         resize();
+         window.addEventListener('resize', resize);
+         
+         let running = true;
+         document.addEventListener('visibilitychange', () => {
+           running = !document.hidden;
+         });
+         
+         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+         function animate(t = 0) {
+           if (!running || prefersReduced.matches) return;
+         
+           const time = t * 0.001;
+           group.children.forEach((mesh, i) => {
+             mesh.rotation.x += 0.002 + (i % 3) * 0.0004;
+             mesh.rotation.y += 0.003 + ((i + 1) % 3) * 0.0003;
+             mesh.position.y = Math.sin(time + i) * 0.15 + mesh.position.y * 0.999;
+           });
+         
+           renderer.render(scene, camera);
+           requestAnimationFrame(animate);
+         }
+         requestAnimationFrame(animate);
+      </script>
    </body>
 </html>
-
-
-
