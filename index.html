@@ -13,7 +13,6 @@
       </ul>
       <div class="mainContent">
          <h1>GSA Portfolio</h1>
-         <div id="hero3d" aria-label="Decorative 3D animation" role="img"></div>
          <div class="projItem">
             <h2>Detroit Music Exhibit</h2>
             <ul>
@@ -371,8 +370,80 @@
     };
     document.body.appendChild(mod);
   })();
+(function () {
+  const supportsPointer = 'PointerEvent' in window;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const cards = document.querySelectorAll('.projItem, .rezItem, .transItem');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    card.classList.add('card-3d');
+    const shine = document.createElement('div');
+    shine.className = 'card-shine';
+    card.appendChild(shine);
+
+    const maxTilt = 10;
+    const maxLift = 16;
+    const shadowBase = 'rgba(0,0,0,0.18)';
+
+    let raf = null;
+
+    function applyTilt(x, y) {
+      const rect = card.getBoundingClientRect();
+      const mx = (x - rect.left) / rect.width;
+      const my = (y - rect.top) / rect.height;
+      const tiltX = (my - 0.5) * -2 * maxTilt;
+      const tiltY = (mx - 0.5) *  2 * maxTilt;
+
+      const lift = maxLift * (0.6 + 0.4 * Math.hypot(mx - 0.5, my - 0.5));
+      const shadowX = ((mx - 0.5) * 24).toFixed(2);
+      const shadowY = ((my - 0.5) * 24).toFixed(2);
+
+      card.style.transform =
+        `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(${lift.toFixed(1)}px)`;
+      card.style.boxShadow =
+        `${shadowX}px ${shadowY}px 24px ${shadowBase}`;
+
+      shine.style.background =
+        `radial-gradient(60% 60% at ${mx*100}% ${my*100}%, rgba(255,255,255,0.30), rgba(255,255,255,0) 60%)`;
+    }
+
+    function onMove(e) {
+      const x = supportsPointer ? e.clientX : (e.touches ? e.touches[0].clientX : e.clientX);
+      const y = supportsPointer ? e.clientY : (e.touches ? e.touches[0].clientY : e.clientY);
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => applyTilt(x, y));
+    }
+
+    function onEnter() {
+      card.classList.add('is-tilting');
+    }
+
+    function onLeave() {
+      card.classList.remove('is-tilting');
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    }
+
+    if (supportsPointer) {
+      card.addEventListener('pointerenter', onEnter);
+      card.addEventListener('pointermove', onMove);
+      card.addEventListener('pointerleave', onLeave);
+    } else {
+      card.addEventListener('mouseenter', onEnter);
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', onLeave);
+      card.addEventListener('touchstart', (e) => { onEnter(); onMove(e); }, {passive:true});
+      card.addEventListener('touchmove', onMove, {passive:true});
+      card.addEventListener('touchend', onLeave);
+      card.addEventListener('touchcancel', onLeave);
+    }
+  });
+})();
 </script>
    </body>
 </html>
+
 
 
