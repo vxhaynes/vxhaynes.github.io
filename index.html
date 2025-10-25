@@ -261,6 +261,7 @@
            if (!cards.length) return;
          
            const sortRadios = document.querySelectorAll('input[name="projSort"]');
+           const sortNote = document.getElementById('sortNote');
          
            const parseTags = (card) => {
              const raw = card.getAttribute('data-tags') || '';
@@ -281,18 +282,18 @@
              const idNum = getId(card, idx);
              const tags = parseTags(card);
          
-             card.querySelectorAll('.projTagPill').forEach(n => n.remove());
+             card.querySelectorAll('.projTagRow').forEach(n => n.remove());
          
              if (tags.length) {
                const row = document.createElement('div');
+               row.className = 'projTagRow';
                tags.forEach(t => {
                  const pill = document.createElement('span');
                  pill.className = 'projTagPill';
                  pill.textContent = t;
                  row.appendChild(pill);
                });
-               const h2 = card.querySelector('h2');
-               (h2?.after) ? h2.after(row) : card.prepend(row);
+               card.appendChild(row);
              }
          
              return { card, title, idNum, domIndex: idx, tags };
@@ -308,17 +309,15 @@
              container.appendChild(frag);
            };
          
-            const sortChron = () => {
-              removeGroupHeaders();
-              const withId = meta.filter(m => Number.isFinite(m.idNum));
-              const noId   = meta.filter(m => !Number.isFinite(m.idNum));
-            
-              withId.sort((a, b) => a.idNum - b.idNum);
-            
-              noId.sort((a, b) => a.domIndex - b.domIndex);
-            
-              mountInOrder([...withId, ...noId]);
-            };
+           const sortChron = () => {
+             removeGroupHeaders();
+             const withId = meta.filter(m => Number.isFinite(m.idNum));
+             const noId   = meta.filter(m => !Number.isFinite(m.idNum));
+             withId.sort((a,b) => a.idNum - b.idNum);
+             noId.sort((a,b) => a.domIndex - b.domIndex);
+             mountInOrder([...withId, ...noId]);
+             sortNote.textContent = 'Sorted by ID (lowest → highest). Items without ID are at the end.';
+           };
          
            const sortByTags = () => {
              removeGroupHeaders();
@@ -327,6 +326,7 @@
              if (!hasAnyTags) {
                const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
                mountInOrder(byTitle);
+               sortNote.textContent = 'No data-tags on items; sorted by title.';
                return;
              }
          
@@ -349,10 +349,11 @@
                items.forEach(m => frag.appendChild(m.card));
              });
              container.appendChild(frag);
+             sortNote.textContent = 'Sorted by tags (A → Z), grouped by first tag.';
            };
          
            sortChron();
-         
+            
            sortRadios.forEach(r => {
              r.addEventListener('change', () => {
                if (!r.checked) return;
@@ -364,4 +365,5 @@
       </script>
    </body>
 </html>
+
 
