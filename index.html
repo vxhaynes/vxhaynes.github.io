@@ -261,24 +261,21 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!cards.length) return;
 
   const sortRadios = document.querySelectorAll('input[name="projSort"]');
-  const sortNote = document.getElementById('sortNote');
 
   const parseTags = (card) => {
     const raw = card.getAttribute('data-tags') || '';
     return raw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
   };
 
-  const getId = (card, domIndex) => {
+  const getId = (card) => {
     const raw = card.getAttribute('data-id');
     if (raw != null && raw !== '' && !isNaN(+raw)) return +raw;
     return -Infinity;
   };
 
-  const setNote = (msg) => { if (sortNote) sortNote.textContent = msg; };
-
   const meta = cards.map((card, idx) => {
     const title = card.querySelector('h2')?.innerText?.trim() || '';
-    const idNum = getId(card, idx);
+    const idNum = getId(card);
     const tags = parseTags(card);
 
     card.querySelectorAll('.projTagRow').forEach(n => n.remove());
@@ -318,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function () {
     noId.sort((a,b) => a.domIndex - b.domIndex);
 
     mountInOrder([...withId, ...noId]);
-    setNote('Sorted by ID (lowest → highest). Items without ID are at the end.');
   };
 
   const sortByTags = () => {
@@ -328,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!hasAnyTags) {
       const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
       mountInOrder(byTitle);
-      setNote('No data-tags on items; sorted by title.');
       return;
     }
 
@@ -341,8 +336,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const order = Array.from(groups.keys()).sort((a,b)=>a.localeCompare(b));
     const headersFrag = document.createDocumentFragment();
-
     const itemsInOrder = [];
+
     order.forEach(tag => {
       const hdr = document.createElement('div');
       hdr.className = 'groupHeader';
@@ -354,7 +349,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     mountInOrder(itemsInOrder, headersFrag);
-    setNote('Sorted by tags (A → Z), grouped by first tag.');
   };
 
   sortChron();
@@ -367,9 +361,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
       </script>
    </body>
 </html>
+
 
 
 
