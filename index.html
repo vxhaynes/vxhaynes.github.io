@@ -253,117 +253,123 @@
            }
          });
          
-         (function(){
-           const container = document.querySelector('.gsaProjs');
-           if (!container) return;
-         
-           const cards = Array.from(container.querySelectorAll('.projItem'));
-           if (!cards.length) return;
-         
-           const sortRadios = document.querySelectorAll('input[name="projSort"]');
-           const sortNote = document.getElementById('sortNote');
-         
-           const parseTags = (card) => {
-             const raw = card.getAttribute('data-tags') || '';
-             return raw
-               .split(',')
-               .map(s => s.trim().toLowerCase())
-               .filter(Boolean);
-           };
-         
-           const getId = (card, domIndex) => {
-             const raw = card.getAttribute('data-id');
-             if (raw != null && raw !== '' && !isNaN(+raw)) return +raw;
-             return -Infinity;
-           };
-         
-           const meta = cards.map((card, idx) => {
-             const title = card.querySelector('h2')?.innerText?.trim() || '';
-             const idNum = getId(card, idx);
-             const tags = parseTags(card);
-         
-             card.querySelectorAll('.projTagRow').forEach(n => n.remove());
-         
-             if (tags.length) {
-               const row = document.createElement('div');
-               row.className = 'projTagRow';
-               tags.forEach(t => {
-                 const pill = document.createElement('span');
-                 pill.className = 'projTagPill';
-                 pill.textContent = t;
-                 row.appendChild(pill);
-               });
-               card.appendChild(row);
-             }
-         
-             return { card, title, idNum, domIndex: idx, tags };
-           });
-         
-           const removeGroupHeaders = () => {
-             container.querySelectorAll('.groupHeader').forEach(n => n.remove());
-           };
-         
-           const mountInOrder = (items) => {
-             const frag = document.createDocumentFragment();
-             items.forEach(it => frag.appendChild(it.card));
-             container.appendChild(frag);
-           };
-         
-           const sortChron = () => {
-             removeGroupHeaders();
-             const withId = meta.filter(m => Number.isFinite(m.idNum));
-             const noId   = meta.filter(m => !Number.isFinite(m.idNum));
-             withId.sort((a,b) => a.idNum - b.idNum);
-             noId.sort((a,b) => a.domIndex - b.domIndex);
-             mountInOrder([...withId, ...noId]);
-             sortNote.textContent = 'Sorted by ID (lowest → highest). Items without ID are at the end.';
-           };
-         
-           const sortByTags = () => {
-             removeGroupHeaders();
-         
-             const hasAnyTags = meta.some(m => m.tags.length);
-             if (!hasAnyTags) {
-               const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
-               mountInOrder(byTitle);
-               sortNote.textContent = 'No data-tags on items; sorted by title.';
-               return;
-             }
-         
-             const groups = new Map();
-             meta.forEach(m => {
-               const key = m.tags[0] || '(untagged)';
-               if (!groups.has(key)) groups.set(key, []);
-               groups.get(key).push(m);
-             });
-         
-             const order = Array.from(groups.keys()).sort((a,b)=>a.localeCompare(b));
-             const frag = document.createDocumentFragment();
-             order.forEach(tag => {
-               const hdr = document.createElement('div');
-               hdr.className = 'groupHeader';
-               hdr.textContent = tag;
-               frag.appendChild(hdr);
-         
-               const items = groups.get(tag).sort((a,b)=>a.title.localeCompare(b.title));
-               items.forEach(m => frag.appendChild(m.card));
-             });
-             container.appendChild(frag);
-             sortNote.textContent = 'Sorted by tags (A → Z), grouped by first tag.';
-           };
-         
-           sortChron();
-            
-           sortRadios.forEach(r => {
-             r.addEventListener('change', () => {
-               if (!r.checked) return;
-               if (r.value === 'chron') sortChron();
-               else sortByTags();
-             });
-           });
-         })();
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.querySelector('.gsaProjs');
+  if (!container) return;
+
+  const cards = Array.from(container.querySelectorAll('.projItem'));
+  if (!cards.length) return;
+
+  const sortRadios = document.querySelectorAll('input[name="projSort"]');
+  const sortNote = document.getElementById('sortNote');
+
+  const parseTags = (card) => {
+    const raw = card.getAttribute('data-tags') || '';
+    return raw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+  };
+
+  const getId = (card, domIndex) => {
+    const raw = card.getAttribute('data-id');
+    if (raw != null && raw !== '' && !isNaN(+raw)) return +raw;
+    return -Infinity;
+  };
+
+  const setNote = (msg) => { if (sortNote) sortNote.textContent = msg; };
+
+  const meta = cards.map((card, idx) => {
+    const title = card.querySelector('h2')?.innerText?.trim() || '';
+    const idNum = getId(card, idx);
+    const tags = parseTags(card);
+
+    card.querySelectorAll('.projTagRow').forEach(n => n.remove());
+
+    if (tags.length) {
+      const row = document.createElement('div');
+      row.className = 'projTagRow';
+      tags.forEach(t => {
+        const pill = document.createElement('span');
+        pill.className = 'projTagPill';
+        pill.textContent = t;
+        row.appendChild(pill);
+      });
+      card.appendChild(row);
+    }
+
+    return { card, title, idNum, domIndex: idx, tags };
+  });
+
+  const removeGroupHeaders = () => {
+    container.querySelectorAll('.groupHeader').forEach(n => n.remove());
+  };
+
+  const mountInOrder = (items, withHeadersFrag = null) => {
+    const frag = document.createDocumentFragment();
+    if (withHeadersFrag) frag.appendChild(withHeadersFrag);
+    items.forEach(it => frag.appendChild(it.card));
+    container.appendChild(frag);
+  };
+
+  const sortChron = () => {
+    removeGroupHeaders();
+    const withId = meta.filter(m => Number.isFinite(m.idNum));
+    const noId   = meta.filter(m => !Number.isFinite(m.idNum));
+
+    withId.sort((a,b) => a.idNum - b.idNum);
+    noId.sort((a,b) => a.domIndex - b.domIndex);
+
+    mountInOrder([...withId, ...noId]);
+    setNote('Sorted by ID (lowest → highest). Items without ID are at the end.');
+  };
+
+  const sortByTags = () => {
+    removeGroupHeaders();
+
+    const hasAnyTags = meta.some(m => m.tags.length);
+    if (!hasAnyTags) {
+      const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
+      mountInOrder(byTitle);
+      setNote('No data-tags on items; sorted by title.');
+      return;
+    }
+
+    const groups = new Map();
+    meta.forEach(m => {
+      const key = m.tags[0] || '(untagged)';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(m);
+    });
+
+    const order = Array.from(groups.keys()).sort((a,b)=>a.localeCompare(b));
+    const headersFrag = document.createDocumentFragment();
+
+    const itemsInOrder = [];
+    order.forEach(tag => {
+      const hdr = document.createElement('div');
+      hdr.className = 'groupHeader';
+      hdr.textContent = tag;
+      headersFrag.appendChild(hdr);
+
+      const items = groups.get(tag).sort((a,b)=>a.title.localeCompare(b.title));
+      items.forEach(m => itemsInOrder.push(m));
+    });
+
+    mountInOrder(itemsInOrder, headersFrag);
+    setNote('Sorted by tags (A → Z), grouped by first tag.');
+  };
+
+  sortChron();
+
+  sortRadios.forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      if (r.value === 'chron') sortChron();
+      else if (r.value === 'tags') sortByTags();
+    });
+  });
+});
       </script>
    </body>
 </html>
+
 
 
