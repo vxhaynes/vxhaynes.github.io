@@ -317,39 +317,40 @@ document.addEventListener('DOMContentLoaded', function () {
     mountInOrder([...withId, ...noId]);
   };
 
-  const sortByTags = () => {
-    removeGroupHeaders();
+const sortByTags = () => {
+  removeGroupHeaders();
 
-    const hasAnyTags = meta.some(m => m.tags.length);
-    if (!hasAnyTags) {
-      const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
-      mountInOrder(byTitle);
-      return;
-    }
+  const hasAnyTags = meta.some(m => m.tags.length);
+  if (!hasAnyTags) {
+    const byTitle = [...meta].sort((a,b) => a.title.localeCompare(b.title));
+    const frag = document.createDocumentFragment();
+    byTitle.forEach(m => frag.appendChild(m.card));
+    container.appendChild(frag);
+    return;
+  }
 
-    const groups = new Map();
-    meta.forEach(m => {
-      const key = m.tags[0] || '(untagged)';
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(m);
-    });
+  const groups = new Map();
+  meta.forEach(m => {
+    const key = m.tags[0] || '(untagged)';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(m);
+  });
 
-    const order = Array.from(groups.keys()).sort((a,b)=>a.localeCompare(b));
-    const headersFrag = document.createDocumentFragment();
-    const itemsInOrder = [];
+  const order = Array.from(groups.keys()).sort((a,b)=>a.localeCompare(b));
+  const frag = document.createDocumentFragment();
 
-    order.forEach(tag => {
-      const hdr = document.createElement('div');
-      hdr.className = 'groupHeader';
-      hdr.textContent = tag;
-      headersFrag.appendChild(hdr);
+  order.forEach(tag => {
+    const hdr = document.createElement('div');
+    hdr.className = 'groupHeader';
+    hdr.textContent = tag;
+    frag.appendChild(hdr);
 
-      const items = groups.get(tag).sort((a,b)=>a.title.localeCompare(b.title));
-      items.forEach(m => itemsInOrder.push(m));
-    });
+    const items = groups.get(tag).sort((a,b)=>a.title.localeCompare(b.title));
+    items.forEach(m => frag.appendChild(m.card));
+  });
 
-    mountInOrder(itemsInOrder, headersFrag);
-  };
+  container.appendChild(frag);
+};
 
   sortChron();
 
@@ -365,6 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </script>
    </body>
 </html>
+
 
 
 
