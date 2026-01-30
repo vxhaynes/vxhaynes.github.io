@@ -244,6 +244,7 @@ a:hover, a:active {
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  cursor: pointer;
 }
 #lightbox {
   position: fixed;
