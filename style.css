@@ -45,6 +45,7 @@ ul.topnav {
   letter-spacing: 0.02rem;
   position: sticky;
   top: 0;
+  z-index: 6666;
 }
 ul.topnav li {
   border: none;
