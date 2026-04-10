@@ -370,3 +370,7 @@ a:hover, a:active {
   border-left: 4px solid #60bf60;
   padding-left: 0.5rem;
 }
+.pubPrez {
+  text-indent: -36px;
+  padding-left: 36px;
+}
