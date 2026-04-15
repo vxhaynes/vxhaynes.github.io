@@ -31,6 +31,37 @@ body {
   background: #f2f2f2;
   margin: 0;
 }
+.siteNav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #222;
+  border-bottom: 1px solid #3a3a3a;
+}
+.navToggle {
+  display: none;
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1rem;
+  font-family: Metropolis, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.navToggle:hover {
+  background: #2c2c2c;
+}
+.navToggle::after {
+  content: "▾";
+  float: right;
+  transition: transform 0.2s ease;
+}
+.navToggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
 ul.topnav {
   background: #222;
   display: flex;
@@ -56,6 +87,7 @@ ul.topnav li a {
   padding: 0.5rem 1rem;
   border-radius: 6px;
   transition: background 0.3s ease, color 0.3s ease;
+  display: block;
 }
 ul.topnav li a:hover {
   background: #60bf60;
@@ -64,6 +96,36 @@ ul.topnav li a:hover {
 ul.topnav li a.active {
   background: #60bf60;
   color: white;
+}
+@media screen and (max-width: 700px) {
+  .navToggle {
+    display: block;
+  }
+
+  ul.topnav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-top: 1px solid #3a3a3a;
+  }
+
+  ul.topnav.open {
+    display: flex;
+  }
+
+  ul.topnav li {
+    width: 100%;
+  }
+
+  ul.topnav li a {
+    border-radius: 0;
+    padding: 0.9rem 1rem;
+  }
+
+  ul.topnav li + li a {
+    border-top: 1px solid #3a3a3a;
+  }
 }
 .mainContent {
   margin: 2rem auto;
