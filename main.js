@@ -1,3 +1,15 @@
+  document.addEventListener('DOMContentLoaded', function () {
+    const navToggle = document.querySelector('.navToggle');
+    const topnav = document.querySelector('.topnav');
+
+    if (!navToggle || !topnav) return;
+
+    navToggle.addEventListener('click', function () {
+      const isOpen = topnav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
 const lightbox = document.getElementById('lightbox');
 const lightImg = lightbox.querySelector('img');
 const prevBtn = document.getElementById('prevBtn');
