@@ -7,13 +7,28 @@
       <p>text text text</p>
       <p>text text text</p>
       <p>text text text</p>
-      <iframe
-  src="https://spri-reading-lists.pages.dev/widget.html?data=eyJsaXN0SURzIjpbIjY0NTMwNDcyMTgiLCI2NDQ5NTA0NDY5IiwiNjQ1MjM2ODM1MSIsIjY0NTIzNjQyMzciLCI2NDUyMzcwMDM5IiwiNjQ0OTUwNTQ1MSJdfQ&title=0&desc=0"
+<iframe
+  id="spriReadingList_bymovl2j"
+  src="https://spri-reading-lists.pages.dev/widget.html?data=eyJsaXN0SURzIjpbIjY0NTMwNDcyMTgiLCI2NDQ5NTA1MjMwIiwiNjQ1MjM3MDAzOSIsIjY0NTIzNjQ0NDIiLCI2NDUyMzY4MzUxIiwiNjQ0OTQ5Mzc4MiIsIjY0NTIzNjgyNjYiLCI2NDQzOTY3NTEyIiwiNjQ0Mzk4MjM2MyIsIjY0NDQyMjA4NzUiLCI2NDQzOTY3NjgzIiwiNjQ0MzkxMzQ0OSIsIjY0NDE1NDU1NjAiXX0&title=0&desc=0"
   width="100%"
-  height="900"
   style="border:0;"
   loading="lazy"
   title="Reading list"></iframe>
+<script>
+(function() {
+  var iframe = document.getElementById("spriReadingList_bymovl2j");
+  if (!iframe) return;
+  iframe.style.height = '200px';
+  function receive(event) {
+    if (event.origin !== 'https://spri-reading-lists.pages.dev') return;
+    if (!event.data || event.data.type !== 'tln-widget-height') return;
+    var height = Number(event.data.height);
+    if (!Number.isFinite(height) || height < 100) return;
+    iframe.style.height = Math.ceil(height) + 'px';
+  }
+  window.addEventListener('message', receive, false);
+})();
+</script>
       <p>text text text</p>
       <p>text text text</p>
       <p>text text text</p>
