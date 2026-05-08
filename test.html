@@ -50,6 +50,28 @@
          .spri-nyt-status {
          font-weight: 700;
          }
+         .spri-nyt-book {
+         display: flex;
+         gap: .75rem;
+         align-items: flex-start;
+         }
+         .spri-nyt-cover {
+         width: 56px;
+         max-height: 84px;
+         object-fit: cover;
+         flex: 0 0 auto;
+         border: 1px solid #ddd;
+         }
+         .spri-nyt-info {
+         min-width: 0;
+         }
+         .spri-nyt-title a {
+         color: inherit;
+         text-decoration: underline;
+         }
+         .spri-nyt-title a:hover {
+         text-decoration-thickness: 2px;
+         }
          .spri-nyt-status[data-status="available"] {
          color: #116611;
          }
@@ -104,6 +126,19 @@
              return String(value || "").replace(/[^0-9X]/gi, "");
            }
          
+         function getCoverIsbn(book) {
+           const isbns = Array.isArray(book.isbns) && book.isbns.length
+             ? book.isbns
+             : [book.primary_isbn13, book.primary_isbn10].filter(Boolean);
+         
+           return cleanIsbn(isbns[0] || "");
+         }
+         
+         function makeCoverUrl(book) {
+           const isbn = getCoverIsbn(book);
+           return isbn ? "https://static01.nyt.com/bestsellers/images/" + isbn + ".jpg" : "";
+         }
+            
            function makeBookId(listKey, index) {
              return "spri-nyt-" + listKey.replace(/[^a-z0-9]/gi, "-") + "-" + index;
            }
@@ -167,25 +202,41 @@
                          ${list.books.map(function (book, index) {
                            const id = makeBookId(list.key, index);
          
-                           return `
-                             <li class="spri-nyt-item" id="${escapeHtml(id)}">
-                               <div class="spri-nyt-title">
-                                 #${escapeHtml(book.rank || index + 1)} ${escapeHtml(book.title)}
-                               </div>
-                               <div class="spri-nyt-author">
-                                 by ${escapeHtml(book.author)}
-                               </div>
-                               ${book.description ? `
-                                 <div class="spri-nyt-desc">
-                                   ${escapeHtml(book.description)}
-                                 </div>
-                               ` : ""}
-                               <div class="spri-nyt-status" data-status="checking">
-                                 Checking availability…
-                               </div>
-                               <div class="spri-nyt-link"></div>
-                             </li>
-                           `;
+         return `
+         <li class="spri-nyt-item" id="${escapeHtml(id)}">
+         <div class="spri-nyt-book">
+         ${makeCoverUrl(book) ? `
+         <img
+          class="spri-nyt-cover"
+          src="${escapeHtml(makeCoverUrl(book))}"
+          alt=""
+          loading="lazy"
+          onerror="this.remove();"
+         >
+         ` : ""}
+         
+         <div class="spri-nyt-info">
+         <div class="spri-nyt-title" data-title-text="${escapeHtml(book.title)}">
+          #${escapeHtml(book.rank || index + 1)} ${escapeHtml(book.title)}
+         </div>
+         
+         <div class="spri-nyt-author">
+          by ${escapeHtml(book.author)}
+         </div>
+         
+         ${book.description ? `
+          <div class="spri-nyt-desc">
+            ${escapeHtml(book.description)}
+          </div>
+         ` : ""}
+         
+         <div class="spri-nyt-status" data-status="checking">
+          Checking availability…
+         </div>
+         </div>
+         </div>
+         </li>
+         `;
                          }).join("")}
                        </ol>
                      </section>
@@ -195,39 +246,42 @@
              `;
            }
          
-           async function checkAvailability(list, book, index) {
-             const id = makeBookId(list.key, index);
-             const item = document.getElementById(id);
-             if (!item) return;
+         async function checkAvailability(list, book, index) {
+         const id = makeBookId(list.key, index);
+         const item = document.getElementById(id);
+         if (!item) return;
          
-             const statusEl = item.querySelector(".spri-nyt-status");
-             const linkEl = item.querySelector(".spri-nyt-link");
+         const titleEl = item.querySelector(".spri-nyt-title");
+         const statusEl = item.querySelector(".spri-nyt-status");
          
-             const isbn = cleanIsbn(book.primary_isbn13 || book.primary_isbn10);
+         const isbns = Array.isArray(book.isbns) && book.isbns.length
+         ? book.isbns
+         : [book.primary_isbn13, book.primary_isbn10].filter(Boolean);
          
-             const params = new URLSearchParams();
-             params.set("isbn", isbn);
-             params.set("title", book.title || "");
-             params.set("author", book.author || "");
+         const params = new URLSearchParams();
+         params.set("isbns", isbns.join(","));
          
-             try {
-               const data = await fetchJson(workerUrl + "/catalog?" + params.toString());
+         try {
+         const response = await fetch(workerUrl + "/catalog?" + params.toString());
+         const data = await response.json();
          
-               statusEl.textContent = data.label || "Check catalog";
-               statusEl.dataset.status = data.status || "unknown";
+         statusEl.textContent = data.label || data.error || "Check catalog";
+         statusEl.dataset.status = data.status || "unknown";
          
-               if (data.catalog_url) {
-                 linkEl.innerHTML = `
-                   <a href="${escapeHtml(data.catalog_url)}" target="_blank" rel="noopener">
-                     View in catalog
-                   </a>
-                 `;
-               }
-             } catch (error) {
-               statusEl.textContent = "Catalog check failed";
-               statusEl.dataset.status = "error";
-             }
-           }
+         if (data.catalog_url && data.status !== "not-found") {
+         const currentTitle = titleEl.innerHTML;
+         
+         titleEl.innerHTML = `
+         <a href="${escapeHtml(data.catalog_url)}" target="_blank" rel="noopener">
+          ${currentTitle}
+         </a>
+         `;
+         }
+         } catch (error) {
+         statusEl.textContent = "Catalog check failed: " + String(error.message || error);
+         statusEl.dataset.status = "error";
+         }
+         }
          
            async function checkAllAvailability(listData) {
              for (const list of listData) {
