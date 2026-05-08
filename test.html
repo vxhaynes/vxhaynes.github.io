@@ -159,6 +159,11 @@
                   : "";
             }
 
+            function makeMelUrl(book) {
+              const isbn = getCoverIsbn(book);
+              return isbn ? "https://search.mel.org/iii/encore/search/C__S" + encodeURIComponent(isbn) : "";
+            }
+
             function makeBookId(listKey, index) {
                return (
                   "spri-nyt-" +
@@ -312,26 +317,29 @@
                      data.label || data.error || "Check catalog";
                   statusEl.dataset.status = data.status || "unknown";
 
-                  if (data.catalog_url && data.status !== "not-found") {
-                     const currentTitle = titleEl.innerHTML;
-                     const coverWrap = item.querySelector(
-                        ".spri-nyt-cover-wrap",
-                     );
-
-                     titleEl.innerHTML = `
-    <a href="${escapeHtml(data.catalog_url)}" target="_blank" rel="noopener">
-      ${currentTitle}
-    </a>
-  `;
-
-                     if (coverWrap) {
-                        coverWrap.innerHTML = `
-      <a href="${escapeHtml(data.catalog_url)}" target="_blank" rel="noopener">
-        ${coverWrap.innerHTML}
-      </a>
-    `;
-                     }
-                  }
+            const linkUrl = data.status === "not-found"
+              ? makeMelUrl(book)
+              : data.catalog_url;
+            
+            if (linkUrl) {
+              const currentTitle = titleEl.innerHTML;
+              const coverWrap = item.querySelector(".spri-nyt-cover-wrap");
+            
+              titleEl.innerHTML = `
+                <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                  ${currentTitle}
+                </a>
+              `;
+            
+              if (coverWrap) {
+                coverWrap.innerHTML = `
+                  <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                    ${coverWrap.innerHTML}
+                  </a>
+                `;
+              }
+            }
+                  
                } catch (error) {
                   statusEl.textContent =
                      "Catalog check failed: " + String(error.message || error);
