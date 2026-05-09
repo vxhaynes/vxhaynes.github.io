@@ -22,14 +22,14 @@
         }
       
         .spri-nyt-column h2 {
-          margin: 0 0 .25rem;
-          font-size: 1.2rem;
+          margin: 0 0 .35rem;
+          font-size: 1.35rem;
         }
       
         .spri-nyt-date {
-          margin-bottom: .75rem;
+          margin-bottom: .85rem;
           color: #555;
-          font-size: .9rem;
+          font-size: 1rem;
         }
       
         .spri-nyt-list {
@@ -40,12 +40,12 @@
       
         .spri-nyt-item {
           border-top: 1px solid #ddd;
-          padding: .75rem 0;
+          padding: .9rem 0;
         }
       
         .spri-nyt-book {
           display: flex;
-          gap: .75rem;
+          gap: .9rem;
           align-items: flex-start;
         }
       
@@ -63,8 +63,8 @@
         }
       
         .spri-nyt-cover {
-          width: 56px;
-          max-height: 84px;
+          width: 68px;
+          max-height: 102px;
           object-fit: cover;
           border: 1px solid #ddd;
         }
@@ -75,6 +75,8 @@
       
         .spri-nyt-title {
           font-weight: 700;
+          font-size: 1.05rem;
+          line-height: 1.3;
         }
       
         .spri-nyt-title a,
@@ -92,8 +94,9 @@
         .spri-nyt-desc,
         .spri-nyt-status,
         .spri-nyt-libby {
-          margin-top: .25rem;
-          font-size: .92rem;
+          margin-top: .3rem;
+          font-size: 1rem;
+          line-height: 1.35;
         }
       
         .spri-nyt-desc {
@@ -118,13 +121,12 @@
         }
       
         .spri-nyt-libby {
-          margin-top: .35rem;
-          font-size: .9rem;
+          margin-top: .45rem;
         }
       
         .spri-nyt-libby a {
           display: inline-block;
-          margin-right: .75rem;
+          margin-right: .85rem;
         }
       
         .spri-nyt-error {
@@ -283,11 +285,11 @@
           root.innerHTML = `
             <div class="spri-nyt-grid">
               <section class="spri-nyt-column">
-                <h2>Fiction</h2>
+                <h2>Adult Fiction</h2>
                 <div class="spri-nyt-date">Loading…</div>
               </section>
               <section class="spri-nyt-column">
-                <h2>Nonfiction</h2>
+                <h2>Adult Nonfiction</h2>
                 <div class="spri-nyt-date">Loading…</div>
               </section>
             </div>
@@ -333,7 +335,7 @@
                   <section class="spri-nyt-column">
                     <h2>${escapeHtml(list.heading)}</h2>
                     <div class="spri-nyt-date">
-                      ${list.publishedDate ? "Published " + escapeHtml(list.publishedDate) : ""}
+                      ${list.publishedDate ? "Week ending " + escapeHtml(list.publishedDate) : ""}
                     </div>
       
                     <ol class="spri-nyt-list">
