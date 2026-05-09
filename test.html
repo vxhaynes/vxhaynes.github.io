@@ -159,6 +159,15 @@
            .spri-nyt-status {
              font-size: .82rem;
            }
+            .spri-nyt-libby {
+              margin-top: .35rem;
+              font-size: .9rem;
+            }
+            
+            .spri-nyt-libby a {
+              display: inline-block;
+              margin-right: .75rem;
+            }
          }
       </style>
       <script>
@@ -333,6 +342,7 @@
         <div class="spri-nyt-status" data-status="checking">
           Checking availability…
         </div>
+        <div class="spri-nyt-libby"></div>
       </div>
     </div>
   </li>
@@ -403,6 +413,29 @@
                   statusEl.textContent =
                      "Catalog check failed: " + String(error.message || error);
                   statusEl.dataset.status = "error";
+               }
+               const libbyEl = item.querySelector(".spri-nyt-libby");
+               const libbyLinks = data.libby_links || {};
+               const libbyItems = [];
+               
+               if (libbyLinks.ebook_url) {
+                 libbyItems.push(`
+                   <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
+                     Read eBook on Libby
+                   </a>
+                 `);
+               }
+               
+               if (libbyLinks.eaudiobook_url) {
+                 libbyItems.push(`
+                   <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
+                     Listen to audiobook on Libby
+                   </a>
+                 `);
+               }
+               
+               if (libbyEl) {
+                 libbyEl.innerHTML = libbyItems.join(" ");
                }
             }
 
