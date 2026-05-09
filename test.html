@@ -114,6 +114,15 @@
         .spri-nyt-status[data-status="not-found"] {
           color: #777;
         }
+
+         .spri-nyt-status a {
+           color: inherit;
+           text-decoration: underline;
+         }
+         
+         .spri-nyt-status a:hover {
+           text-decoration-thickness: 2px;
+         }
       
         .spri-nyt-libby {
           margin-top: .35rem;
@@ -382,34 +391,45 @@
           `;
         }
       
-        function applyCatalogLink(item, book, data) {
-          const titleEl = item.querySelector(".spri-nyt-title");
-          const coverWrap = item.querySelector(".spri-nyt-cover-wrap");
-      
-          const linkUrl = data.status === "not-found"
-            ? makeMelUrl(book)
-            : data.catalog_url;
-      
-          if (!linkUrl || !titleEl) return;
-      
-          if (!titleEl.querySelector("a")) {
-            const currentTitle = titleEl.innerHTML;
-      
-            titleEl.innerHTML = `
-              <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
-                ${currentTitle}
-              </a>
-            `;
-          }
-      
-          if (coverWrap && !coverWrap.querySelector("a")) {
-            coverWrap.innerHTML = `
-              <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
-                ${coverWrap.innerHTML}
-              </a>
-            `;
-          }
-        }
+         function applyCatalogLink(item, book, data) {
+           const titleEl = item.querySelector(".spri-nyt-title");
+           const coverWrap = item.querySelector(".spri-nyt-cover-wrap");
+           const statusEl = item.querySelector(".spri-nyt-status");
+         
+           const linkUrl = data.status === "not-found"
+             ? makeMelUrl(book)
+             : data.catalog_url;
+         
+           if (!linkUrl) return;
+         
+           if (titleEl && !titleEl.querySelector("a")) {
+             const currentTitle = titleEl.innerHTML;
+         
+             titleEl.innerHTML = `
+               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                 ${currentTitle}
+               </a>
+             `;
+           }
+         
+           if (coverWrap && !coverWrap.querySelector("a")) {
+             coverWrap.innerHTML = `
+               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                 ${coverWrap.innerHTML}
+               </a>
+             `;
+           }
+         
+           if (statusEl && !statusEl.querySelector("a")) {
+             const currentStatus = statusEl.textContent;
+         
+             statusEl.innerHTML = `
+               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                 ${escapeHtml(currentStatus)}
+               </a>
+             `;
+           }
+         }
       
         function renderLibbyLinks(item, data) {
           const libbyEl = item.querySelector(".spri-nyt-libby");
