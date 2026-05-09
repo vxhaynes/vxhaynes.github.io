@@ -232,11 +232,26 @@
           return String(value || "").replace(/[^0-9X]/gi, "");
         }
       
-        function getBookIsbns(book) {
-          return Array.isArray(book.isbns) && book.isbns.length
-            ? book.isbns.map(cleanIsbn).filter(Boolean)
-            : [book.primary_isbn13, book.primary_isbn10].map(cleanIsbn).filter(Boolean);
-        }
+         function getBookIsbns(book) {
+           const rawIsbns = [];
+         
+           if (Array.isArray(book.isbns)) {
+             book.isbns.forEach(function (isbn) {
+               rawIsbns.push(isbn);
+             });
+           }
+         
+           if (book.primary_isbn13) rawIsbns.push(book.primary_isbn13);
+           if (book.primary_isbn10) rawIsbns.push(book.primary_isbn10);
+         
+           return Array.from(
+             new Set(
+               rawIsbns
+                 .map(cleanIsbn)
+                 .filter(Boolean)
+             )
+           );
+         }
       
         function getCoverIsbn(book) {
           const isbns = getBookIsbns(book);
@@ -428,13 +443,14 @@
           if (!item) return;
       
           const statusEl = item.querySelector(".spri-nyt-status");
-          const isbns = getBookIsbns(book);
-      
-          const params = new URLSearchParams();
-          params.set("isbns", isbns.join(","));
+         const isbns = getBookIsbns(book);
+         
+         const params = new URLSearchParams();
+         params.set("isbns", isbns.join(","));
       
           try {
-            const data = await fetchJson(workerUrl + "/catalog?" + params.toString());
+            const debugBust = "&_=" + Date.now();
+            const data = await fetchJson(workerUrl + "/catalog?" + params.toString() + debugBust);
       
             statusEl.textContent = data.label || data.error || "Check catalog";
             statusEl.dataset.status = data.status || "unknown";
