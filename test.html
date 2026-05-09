@@ -6,509 +6,506 @@
 
    <body>
       <div
-        id="spri-nyt-bestsellers"
-        data-worker-url="https://spri-nyt-list.vxavier000.workers.dev">
+        id="spri-nyt-bestsellers"
+        data-worker-url="https://spri-nyt-list.vxavier000.workers.dev">
       </div>
       
       <style>
-        #spri-nyt-bestsellers {
-          font-family: inherit;
-        }
+        #spri-nyt-bestsellers {
+          font-family: inherit;
+        }
       
-        .spri-nyt-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1.25rem;
-        }
+        .spri-nyt-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.25rem;
+        }
       
-        .spri-nyt-column h2 {
-          margin: 0 0 .25rem;
-          font-size: 1.2rem;
-        }
+        .spri-nyt-column h2 {
+          margin: 0 0 .25rem;
+          font-size: 1.2rem;
+        }
       
-        .spri-nyt-date {
-          margin-bottom: .75rem;
-          color: #555;
-          font-size: .9rem;
-        }
+        .spri-nyt-date {
+          margin-bottom: .75rem;
+          color: #555;
+          font-size: .9rem;
+        }
       
-        .spri-nyt-list {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
+        .spri-nyt-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
       
-        .spri-nyt-item {
-          border-top: 1px solid #ddd;
-          padding: .75rem 0;
-        }
+        .spri-nyt-item {
+          border-top: 1px solid #ddd;
+          padding: .75rem 0;
+        }
       
-        .spri-nyt-book {
-          display: flex;
-          gap: .75rem;
-          align-items: flex-start;
-        }
+        .spri-nyt-book {
+          display: flex;
+          gap: .75rem;
+          align-items: flex-start;
+        }
       
-        .spri-nyt-cover-wrap {
-          flex: 0 0 auto;
-        }
+        .spri-nyt-cover-wrap {
+          flex: 0 0 auto;
+        }
       
-        .spri-nyt-cover-wrap a {
-          display: inline-block;
-        }
+        .spri-nyt-cover-wrap a {
+          display: inline-block;
+        }
       
-        .spri-nyt-cover-wrap a:focus {
-          outline: 2px solid currentColor;
-          outline-offset: 2px;
-        }
+        .spri-nyt-cover-wrap a:focus {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
       
-        .spri-nyt-cover {
-          width: 56px;
-          max-height: 84px;
-          object-fit: cover;
-          border: 1px solid #ddd;
-        }
+        .spri-nyt-cover {
+          width: 56px;
+          max-height: 84px;
+          object-fit: cover;
+          border: 1px solid #ddd;
+        }
       
-        .spri-nyt-info {
-          min-width: 0;
-        }
+        .spri-nyt-info {
+          min-width: 0;
+        }
       
-        .spri-nyt-title {
-          font-weight: 700;
-        }
+        .spri-nyt-title {
+          font-weight: 700;
+        }
       
-        .spri-nyt-title a {
-          color: inherit;
-          text-decoration: underline;
-        }
+        .spri-nyt-title a,
+        .spri-nyt-status a {
+          color: inherit;
+          text-decoration: underline;
+        }
       
-        .spri-nyt-title a:hover {
-          text-decoration-thickness: 2px;
-        }
+        .spri-nyt-title a:hover,
+        .spri-nyt-status a:hover {
+          text-decoration-thickness: 2px;
+        }
       
-        .spri-nyt-author,
-        .spri-nyt-desc,
-        .spri-nyt-status,
-        .spri-nyt-libby {
-          margin-top: .25rem;
-          font-size: .92rem;
-        }
+        .spri-nyt-author,
+        .spri-nyt-desc,
+        .spri-nyt-status,
+        .spri-nyt-libby {
+          margin-top: .25rem;
+          font-size: .92rem;
+        }
       
-        .spri-nyt-desc {
-          color: #444;
-        }
+        .spri-nyt-desc {
+          color: #444;
+        }
       
-        .spri-nyt-status {
-          font-weight: 700;
-        }
+        .spri-nyt-status {
+          font-weight: 700;
+        }
       
-        .spri-nyt-status[data-status="available"] {
-          color: #116611;
-        }
+        .spri-nyt-status[data-status="available"] {
+          color: #116611;
+        }
       
-        .spri-nyt-status[data-status="checked-out"] {
-          color: #8a5a00;
-        }
+        .spri-nyt-status[data-status="checked-out"] {
+          color: #8a5a00;
+        }
       
-        .spri-nyt-status[data-status="not-available"],
-        .spri-nyt-status[data-status="not-found"] {
-          color: #777;
-        }
-
-         .spri-nyt-status a {
-           color: inherit;
-           text-decoration: underline;
-         }
-         
-         .spri-nyt-status a:hover {
-           text-decoration-thickness: 2px;
-         }
+        .spri-nyt-status[data-status="not-available"],
+        .spri-nyt-status[data-status="not-found"] {
+          color: #777;
+        }
       
-        .spri-nyt-libby {
-          margin-top: .35rem;
-          font-size: .9rem;
-        }
+        .spri-nyt-libby {
+          margin-top: .35rem;
+          font-size: .9rem;
+        }
       
-        .spri-nyt-libby a {
-          display: inline-block;
-          margin-right: .75rem;
-        }
+        .spri-nyt-libby a {
+          display: inline-block;
+          margin-right: .75rem;
+        }
       
-        .spri-nyt-error {
-          border: 1px solid #ddd;
-          padding: .75rem;
-        }
+        .spri-nyt-error {
+          border: 1px solid #ddd;
+          padding: .75rem;
+        }
       
-        @media (max-width: 700px) {
-          #spri-nyt-bestsellers {
-            width: 100%;
-          }
+        @media (max-width: 700px) {
+          #spri-nyt-bestsellers {
+            width: 100%;
+          }
       
-          .spri-nyt-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
+          .spri-nyt-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
       
-          .spri-nyt-column h2 {
-            font-size: 1.1rem;
-          }
+          .spri-nyt-column h2 {
+            font-size: 1.1rem;
+          }
       
-          .spri-nyt-item {
-            padding: .7rem 0;
-          }
+          .spri-nyt-item {
+            padding: .7rem 0;
+          }
       
-          .spri-nyt-book {
-            gap: .65rem;
-          }
+          .spri-nyt-book {
+            gap: .65rem;
+          }
       
-          .spri-nyt-cover {
-            width: 48px;
-            max-height: 72px;
-          }
+          .spri-nyt-cover {
+            width: 48px;
+            max-height: 72px;
+          }
       
-          .spri-nyt-title {
-            font-size: .95rem;
-            line-height: 1.25;
-          }
+          .spri-nyt-title {
+            font-size: .95rem;
+            line-height: 1.25;
+          }
       
-          .spri-nyt-author,
-          .spri-nyt-desc,
-          .spri-nyt-status,
-          .spri-nyt-libby {
-            font-size: .86rem;
-            line-height: 1.3;
-          }
+          .spri-nyt-author,
+          .spri-nyt-desc,
+          .spri-nyt-status,
+          .spri-nyt-libby {
+            font-size: .86rem;
+            line-height: 1.3;
+          }
       
-          .spri-nyt-desc {
-            margin-top: .3rem;
-          }
-        }
+          .spri-nyt-desc {
+            margin-top: .3rem;
+          }
+        }
       
-        @media (max-width: 420px) {
-          .spri-nyt-book {
-            gap: .55rem;
-          }
+        @media (max-width: 420px) {
+          .spri-nyt-book {
+            gap: .55rem;
+          }
       
-          .spri-nyt-cover {
-            width: 42px;
-            max-height: 64px;
-          }
+          .spri-nyt-cover {
+            width: 42px;
+            max-height: 64px;
+          }
       
-          .spri-nyt-title {
-            font-size: .9rem;
-          }
+          .spri-nyt-title {
+            font-size: .9rem;
+          }
       
-          .spri-nyt-author,
-          .spri-nyt-desc,
-          .spri-nyt-status,
-          .spri-nyt-libby {
-            font-size: .82rem;
-          }
-        }
+          .spri-nyt-author,
+          .spri-nyt-desc,
+          .spri-nyt-status,
+          .spri-nyt-libby {
+            font-size: .82rem;
+          }
+        }
       </style>
       
       <script>
       (function () {
-        const root = document.getElementById("spri-nyt-bestsellers");
-        if (!root) return;
+        const root = document.getElementById("spri-nyt-bestsellers");
+        if (!root) return;
       
-        const workerUrl = String(root.dataset.workerUrl || "").replace(/\/$/, "");
+        const workerUrl = String(root.dataset.workerUrl || "").replace(/\/$/, "");
       
-        const lists = [
-          {
-            key: "hardcover-fiction",
-            heading: "Fiction"
-          },
-          {
-            key: "hardcover-nonfiction",
-            heading: "Nonfiction"
-          }
-        ];
+        const lists = [
+          {
+            key: "hardcover-fiction",
+            heading: "Fiction"
+          },
+          {
+            key: "hardcover-nonfiction",
+            heading: "Nonfiction"
+          }
+        ];
       
-        function escapeHtml(value) {
-          return String(value || "").replace(/[&<>"']/g, function (char) {
-            return {
-              "&": "&amp;",
-              "<": "&lt;",
-              ">": "&gt;",
-              '"': "&quot;",
-              "'": "&#039;"
-            }[char];
-          });
-        }
+        function escapeHtml(value) {
+          return String(value || "").replace(/[&<>"']/g, function (char) {
+            return {
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#039;"
+            }[char];
+          });
+        }
       
-        function cleanIsbn(value) {
-          return String(value || "").replace(/[^0-9X]/gi, "");
-        }
+        function cleanIsbn(value) {
+          return String(value || "").replace(/[^0-9X]/gi, "");
+        }
       
-         function getBookIsbns(book) {
-           const rawIsbns = [];
-         
-           if (Array.isArray(book.isbns)) {
-             book.isbns.forEach(function (isbn) {
-               rawIsbns.push(isbn);
-             });
-           }
-         
-           if (book.primary_isbn13) rawIsbns.push(book.primary_isbn13);
-           if (book.primary_isbn10) rawIsbns.push(book.primary_isbn10);
-         
-           return Array.from(
-             new Set(
-               rawIsbns
-                 .map(cleanIsbn)
-                 .filter(Boolean)
-             )
-           );
-         }
+        function getBookIsbns(book) {
+          const rawIsbns = [];
       
-        function getCoverIsbn(book) {
-          const isbns = getBookIsbns(book);
-          return isbns[0] || "";
-        }
+          if (Array.isArray(book.isbns)) {
+            book.isbns.forEach(function (entry) {
+              if (typeof entry === "string") {
+                rawIsbns.push(entry);
+              } else if (entry && typeof entry === "object") {
+                if (entry.isbn13) rawIsbns.push(entry.isbn13);
+                if (entry.isbn10) rawIsbns.push(entry.isbn10);
+              }
+            });
+          }
       
-        function makeCoverUrl(book) {
-          const isbn = getCoverIsbn(book);
-          return isbn ? "https://static01.nyt.com/bestsellers/images/" + isbn + ".jpg" : "";
-        }
+          if (book.primary_isbn13) rawIsbns.push(book.primary_isbn13);
+          if (book.primary_isbn10) rawIsbns.push(book.primary_isbn10);
       
-        function makeMelUrl(book) {
-          const isbn = getCoverIsbn(book);
-          return isbn ? "https://search.mel.org/iii/encore/search/C__S" + encodeURIComponent(isbn) : "";
-        }
+          return Array.from(
+            new Set(
+              rawIsbns
+                .map(cleanIsbn)
+                .filter(Boolean)
+            )
+          );
+        }
       
-        function makeBookId(listKey, index) {
-          return "spri-nyt-" + listKey.replace(/[^a-z0-9]/gi, "-") + "-" + index;
-        }
+        function getCoverIsbn(book) {
+          const isbns = getBookIsbns(book);
+          return isbns[0] || "";
+        }
       
-        function renderLoading() {
-          root.innerHTML = `
-            <div class="spri-nyt-grid">
-              <section class="spri-nyt-column">
-                <h2>Fiction</h2>
-                <div class="spri-nyt-date">Loading…</div>
-              </section>
-              <section class="spri-nyt-column">
-                <h2>Nonfiction</h2>
-                <div class="spri-nyt-date">Loading…</div>
-              </section>
-            </div>
-          `;
-        }
+        function makeCoverUrl(book) {
+          const isbn = getCoverIsbn(book);
+          return isbn ? "https://static01.nyt.com/bestsellers/images/" + isbn + ".jpg" : "";
+        }
       
-        function renderError(message) {
-          root.innerHTML = `
-            <div class="spri-nyt-error">
-              ${escapeHtml(message)}
-            </div>
-          `;
-        }
+        function makeMelUrl(book) {
+          const isbn = getCoverIsbn(book);
+          return isbn ? "https://search.mel.org/iii/encore/search/C__S" + encodeURIComponent(isbn) : "";
+        }
       
-        async function fetchJson(url) {
-          const response = await fetch(url);
-          const data = await response.json();
+        function makeBookId(listKey, index) {
+          return "spri-nyt-" + listKey.replace(/[^a-z0-9]/gi, "-") + "-" + index;
+        }
       
-          if (!response.ok) {
-            throw new Error(data.detail || data.error || "Request failed: " + response.status);
-          }
+        function renderLoading() {
+          root.innerHTML = `
+            <div class="spri-nyt-grid">
+              <section class="spri-nyt-column">
+                <h2>Fiction</h2>
+                <div class="spri-nyt-date">Loading…</div>
+              </section>
+              <section class="spri-nyt-column">
+                <h2>Nonfiction</h2>
+                <div class="spri-nyt-date">Loading…</div>
+              </section>
+            </div>
+          `;
+        }
       
-          return data;
-        }
+        function renderError(message) {
+          root.innerHTML = `
+            <div class="spri-nyt-error">
+              ${escapeHtml(message)}
+            </div>
+          `;
+        }
       
-        async function loadList(list) {
-          const data = await fetchJson(
-            workerUrl + "/nyt?list=" + encodeURIComponent(list.key)
-          );
+        async function fetchJson(url) {
+          const response = await fetch(url);
+          const data = await response.json();
       
-          return {
-            ...list,
-            publishedDate: data.published_date || "",
-            books: Array.isArray(data.books) ? data.books : []
-          };
-        }
+          if (!response.ok) {
+            throw new Error(data.detail || data.error || "Request failed: " + response.status);
+          }
       
-        function renderLists(listData) {
-          root.innerHTML = `
-            <div class="spri-nyt-grid">
-              ${listData.map(function (list) {
-                return `
-                  <section class="spri-nyt-column">
-                    <h2>${escapeHtml(list.heading)}</h2>
-                    <div class="spri-nyt-date">
-                      ${list.publishedDate ? "Published " + escapeHtml(list.publishedDate) : ""}
-                    </div>
+          return data;
+        }
       
-                    <ol class="spri-nyt-list">
-                      ${list.books.map(function (book, index) {
-                        const id = makeBookId(list.key, index);
-                        const coverUrl = makeCoverUrl(book);
+        async function loadList(list) {
+          const data = await fetchJson(
+            workerUrl + "/nyt?list=" + encodeURIComponent(list.key)
+          );
       
-                        return `
-                          <li class="spri-nyt-item" id="${escapeHtml(id)}">
-                            <div class="spri-nyt-book">
-                              ${coverUrl ? `
-                                <span class="spri-nyt-cover-wrap">
-                                  <img
-                                    class="spri-nyt-cover"
-                                    src="${escapeHtml(coverUrl)}"
-                                    alt=""
-                                    loading="lazy"
-                                    onerror="this.closest('.spri-nyt-cover-wrap').remove();"
-                                  >
-                                </span>
-                              ` : ""}
+          return {
+            ...list,
+            publishedDate: data.published_date || "",
+            books: Array.isArray(data.books) ? data.books : []
+          };
+        }
       
-                              <div class="spri-nyt-info">
-                                <div class="spri-nyt-title">
-                                  #${escapeHtml(book.rank || index + 1)} ${escapeHtml(book.title)}
-                                </div>
+        function renderLists(listData) {
+          root.innerHTML = `
+            <div class="spri-nyt-grid">
+              ${listData.map(function (list) {
+                return `
+                  <section class="spri-nyt-column">
+                    <h2>${escapeHtml(list.heading)}</h2>
+                    <div class="spri-nyt-date">
+                      ${list.publishedDate ? "Published " + escapeHtml(list.publishedDate) : ""}
+                    </div>
       
-                                <div class="spri-nyt-author">
-                                  by ${escapeHtml(book.author)}
-                                </div>
+                    <ol class="spri-nyt-list">
+                      ${list.books.map(function (book, index) {
+                        const id = makeBookId(list.key, index);
+                        const coverUrl = makeCoverUrl(book);
       
-                                ${book.description ? `
-                                  <div class="spri-nyt-desc">
-                                    ${escapeHtml(book.description)}
-                                  </div>
-                                ` : ""}
+                        return `
+                          <li class="spri-nyt-item" id="${escapeHtml(id)}">
+                            <div class="spri-nyt-book">
+                              ${coverUrl ? `
+                                <span class="spri-nyt-cover-wrap">
+                                  <img
+                                    class="spri-nyt-cover"
+                                    src="${escapeHtml(coverUrl)}"
+                                    alt=""
+                                    loading="lazy"
+                                    onerror="this.closest('.spri-nyt-cover-wrap').remove();"
+                                  >
+                                </span>
+                              ` : ""}
       
-                                <div class="spri-nyt-status" data-status="checking">
-                                  Checking availability…
-                                </div>
+                              <div class="spri-nyt-info">
+                                <div class="spri-nyt-title">
+                                  #${escapeHtml(book.rank || index + 1)} ${escapeHtml(book.title)}
+                                </div>
       
-                                <div class="spri-nyt-libby"></div>
-                              </div>
-                            </div>
-                          </li>
-                        `;
-                      }).join("")}
-                    </ol>
-                  </section>
-                `;
-              }).join("")}
-            </div>
-          `;
-        }
+                                <div class="spri-nyt-author">
+                                  by ${escapeHtml(book.author)}
+                                </div>
       
-         function applyCatalogLink(item, book, data) {
-           const titleEl = item.querySelector(".spri-nyt-title");
-           const coverWrap = item.querySelector(".spri-nyt-cover-wrap");
-           const statusEl = item.querySelector(".spri-nyt-status");
-         
-           const linkUrl = data.status === "not-found"
-             ? makeMelUrl(book)
-             : data.catalog_url;
-         
-           if (!linkUrl) return;
-         
-           if (titleEl && !titleEl.querySelector("a")) {
-             const currentTitle = titleEl.innerHTML;
-         
-             titleEl.innerHTML = `
-               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
-                 ${currentTitle}
-               </a>
-             `;
-           }
-         
-           if (coverWrap && !coverWrap.querySelector("a")) {
-             coverWrap.innerHTML = `
-               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
-                 ${coverWrap.innerHTML}
-               </a>
-             `;
-           }
-         
-           if (statusEl && !statusEl.querySelector("a")) {
-             const currentStatus = statusEl.textContent;
-         
-             statusEl.innerHTML = `
-               <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
-                 ${escapeHtml(currentStatus)}
-               </a>
-             `;
-           }
-         }
+                                ${book.description ? `
+                                  <div class="spri-nyt-desc">
+                                    ${escapeHtml(book.description)}
+                                  </div>
+                                ` : ""}
       
-        function renderLibbyLinks(item, data) {
-          const libbyEl = item.querySelector(".spri-nyt-libby");
-          if (!libbyEl) return;
+                                <div class="spri-nyt-status" data-status="checking">
+                                  Checking availability...
+                                </div>
       
-          const libbyLinks = data.libby_links || {};
-          const links = [];
+                                <div class="spri-nyt-libby"></div>
+                              </div>
+                            </div>
+                          </li>
+                        `;
+                      }).join("")}
+                    </ol>
+                  </section>
+                `;
+              }).join("")}
+            </div>
+          `;
+        }
       
-          if (libbyLinks.ebook_url) {
-            links.push(`
-              <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
-                🕮 Read Libby eBook
-              </a>
-            `);
-          }
+        function applyCatalogLink(item, book, data) {
+          const titleEl = item.querySelector(".spri-nyt-title");
+          const coverWrap = item.querySelector(".spri-nyt-cover-wrap");
+          const statusEl = item.querySelector(".spri-nyt-status");
       
-          if (libbyLinks.eaudiobook_url) {
-            links.push(`
-              <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
-                🕪 Listen to Libby audiobook
-              </a>
-            `);
-          }
+          const linkUrl = data.status === "not-found"
+            ? makeMelUrl(book)
+            : data.catalog_url;
       
-          libbyEl.innerHTML = links.join(" ");
-        }
+          if (!linkUrl) return;
       
-        async function checkAvailability(list, book, index) {
-          const id = makeBookId(list.key, index);
-          const item = document.getElementById(id);
-          if (!item) return;
+          if (titleEl && !titleEl.querySelector("a")) {
+            const currentTitle = titleEl.innerHTML;
       
-          const statusEl = item.querySelector(".spri-nyt-status");
-         const isbns = getBookIsbns(book);
-         
-         const params = new URLSearchParams();
-         params.set("isbns", isbns.join(","));
+            titleEl.innerHTML = `
+              <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                ${currentTitle}
+              </a>
+            `;
+          }
       
-          try {
-            const debugBust = "&_=" + Date.now();
-            const data = await fetchJson(workerUrl + "/catalog?" + params.toString() + debugBust);
+          if (coverWrap && !coverWrap.querySelector("a")) {
+            coverWrap.innerHTML = `
+              <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                ${coverWrap.innerHTML}
+              </a>
+            `;
+          }
       
-            statusEl.textContent = data.label || data.error || "Check catalog";
-            statusEl.dataset.status = data.status || "unknown";
+          if (statusEl && !statusEl.querySelector("a")) {
+            const currentStatus = statusEl.textContent;
       
-            applyCatalogLink(item, book, data);
-            renderLibbyLinks(item, data);
-          } catch (error) {
-            statusEl.textContent = "Catalog check failed: " + String(error.message || error);
-            statusEl.dataset.status = "error";
-          }
-        }
+            statusEl.innerHTML = `
+              <a href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">
+                ${escapeHtml(currentStatus)}
+              </a>
+            `;
+          }
+        }
       
-        function checkAllAvailability(listData) {
-          listData.forEach(function (list) {
-            list.books.forEach(function (book, index) {
-              checkAvailability(list, book, index);
-            });
-          });
-        }
+        function renderLibbyLinks(item, data) {
+          const libbyEl = item.querySelector(".spri-nyt-libby");
+          if (!libbyEl) return;
       
-        async function init() {
-          if (!workerUrl) {
-            renderError("Missing Cloudflare Worker URL.");
-            return;
-          }
+          const libbyLinks = data.libby_links || {};
+          const links = [];
       
-          renderLoading();
+          if (libbyLinks.ebook_url) {
+            links.push(`
+              <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
+                Read Libby eBook
+              </a>
+            `);
+          }
       
-          try {
-            const listData = await Promise.all(lists.map(loadList));
-            renderLists(listData);
-            checkAllAvailability(listData);
-          } catch (error) {
-            renderError("The bestseller lists could not be loaded.");
-          }
-        }
+          if (libbyLinks.eaudiobook_url) {
+            links.push(`
+              <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
+                Listen to Libby audiobook
+              </a>
+            `);
+          }
       
-        init();
+          libbyEl.innerHTML = links.join(" ");
+        }
+      
+        async function checkAvailability(list, book, index) {
+          const id = makeBookId(list.key, index);
+          const item = document.getElementById(id);
+          if (!item) return;
+      
+          const statusEl = item.querySelector(".spri-nyt-status");
+          const isbns = getBookIsbns(book);
+      
+          const params = new URLSearchParams();
+          params.set("isbns", isbns.join(","));
+      
+          try {
+            const data = await fetchJson(workerUrl + "/catalog?" + params.toString());
+      
+            statusEl.textContent = data.label || data.error || "Check catalog";
+            statusEl.dataset.status = data.status || "unknown";
+      
+            applyCatalogLink(item, book, data);
+            renderLibbyLinks(item, data);
+          } catch (error) {
+            statusEl.textContent = "Catalog check failed: " + String(error.message || error);
+            statusEl.dataset.status = "error";
+          }
+        }
+      
+        function checkAllAvailability(listData) {
+          listData.forEach(function (list) {
+            list.books.forEach(function (book, index) {
+              checkAvailability(list, book, index);
+            });
+          });
+        }
+      
+        async function init() {
+          if (!workerUrl) {
+            renderError("Missing Cloudflare Worker URL.");
+            return;
+          }
+      
+          renderLoading();
+      
+          try {
+            const listData = await Promise.all(lists.map(loadList));
+            renderLists(listData);
+            checkAllAvailability(listData);
+          } catch (error) {
+            renderError("The bestseller lists could not be loaded.");
+          }
+        }
+      
+        init();
       })();
       </script>
    </body>
