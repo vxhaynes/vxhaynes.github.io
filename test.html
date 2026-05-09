@@ -372,7 +372,7 @@
                                 ` : ""}
       
                                 <div class="spri-nyt-status" data-status="checking">
-                                  Checking availability…
+                                  Checking availability...
                                 </div>
       
                                 <div class="spri-nyt-libby"></div>
@@ -436,21 +436,21 @@
           const libbyLinks = data.libby_links || {};
           const links = [];
       
-          if (libbyLinks.ebook_url) {
-            links.push(`
-              <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
-                Read Libby eBook
-              </a>
-            `);
-          }
-      
-          if (libbyLinks.eaudiobook_url) {
-            links.push(`
-              <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
-                Listen to Libby audiobook
-              </a>
-            `);
-          }
+         if (libbyLinks.ebook_url) {
+           links.push(`
+             <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
+               🕮 Read Libby eBook
+             </a>
+           `);
+         }
+         
+         if (libbyLinks.eaudiobook_url) {
+           links.push(`
+             <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
+               🕪 Listen to Libby audiobook
+             </a>
+           `);
+         }
       
           libbyEl.innerHTML = links.join(" ");
         }
