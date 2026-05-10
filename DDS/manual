@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Digital Desk Stats Manual</title>
+    <link rel="icon" type="image/x-icon" href="/DDS/favicon.ico">
   </head>
   <body>
       <h1 class="title">Hello World!</h1>
