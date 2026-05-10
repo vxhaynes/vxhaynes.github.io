@@ -41,6 +41,9 @@
       <h2>First time opening</h2>
       <ol>
          <li>You&rsquo;ll be greeted by a popup saying that default settings have been initialized. This is the part where you&rsquo;ll customize the program to your specific needs.</li>
+         <ol type="a">
+            <li>The settings you edit will be written to a file called <code>config.json</code>. In general, you shouldn't ever have to worry about this, but in case something goes wrong and you need to change it, it's in the folder you installed the program in.</li>
+         </ol>
          <li>Navigate up to File &rarr; Options. This is where you&rsquo;ll customize the program to your needs.</li>
          <li>In the <em>General</em> menu:</li>
          <ol type="a">
@@ -51,7 +54,7 @@
                <li>Click the checkbox next to &ldquo;Network Directory&rdquo; if you plan on using a shared network drive, sometimes called an <code>H: Drive</code>. Do this if you have multiple computers that will be writing the same stats and sharing the same settings (for example, two computers at the reference desk). If you do this, make sure the folder is on a drive that all computers have read/write permissions for. <strong>Make sure to click Save after you pick the folder and click the Network Directory Box &ndash; this will make DDS &ldquo;read&rdquo; your settings into the program.</strong></li>
                <li>If you will be using a network drive, <strong>pause here, go back to step 1 on each of the computers that will be sharing settings, get to this step, and repeat until all computers are pointing at the same network drive</strong>. Then, continue on.</li>
             </ol>
-            <li>Set an optional password in the <em>Admin password</em> field. This will lock your options menu behind a password. If you forget it, you can find it in the config file under &ldquo;admin_password.&rdquo;</li>
+            <li>Set an optional password in the <em>Admin password</em> field. This will lock your options menu behind a password. If you forget it, you can find it in <code>config.json</code> under &ldquo;admin_password.&rdquo;</li>
          </ol>
       <p>Note that all these settings are optional. However, it is highly recommended that you pick a convenient location on your computer for the stats log location for easy retrieval.</p>
          <li>In the <em>Statistics &amp; Subcategories</em> menu:</li>
@@ -76,7 +79,7 @@
          <ol type="a">
             <li>In the left hand side (&ldquo;Profiles&rdquo;) box are a list of users. Select one and sign in to modify or remove it.</li>
             <li>On the right-hand side are the parameters for editing or creating a new profile. Enter an email, display name, and password, and choose an optional profile icon. Click &ldquo;Save profile&rdquo; to save any changes made.</li>
-            <li>Profile information can be found in the config file under &ldquo;profiles.&rdquo; Passwords are encrypted &ndash; if a user forgets their password, it&rsquo;s better to remove their profile here and have them create a new one.</li>
+            <li>Profile information can be found in <code>config.json</code> under &ldquo;profiles.&rdquo; Passwords are encrypted &ndash; if a user forgets their password, it&rsquo;s better to remove their profile in the file and have them create a new one in DDS.</li>
          </ol>
       </ol>
       <ul>
@@ -87,7 +90,7 @@
       <ol>
          <li>Select a statistic you wish to record on the left hand side.</li>
          <li>Select a subcategory of that statistic on the right hand side.</li>
-         <li>This will record the date, time, statistic, and subcategory in a .CSV file in the folder you specified in Options. If you forget where that is, you can see in the options menu or at the bottom left of the main interface.</li>
+         <li>This will record the date, time, statistic, and subcategory in a .CSV file in the folder you specified in Options. If you forget where that is, you can see in the options menu or in &ldquo;log_file&rdquo; in <code>config.json</code>.</li>
          <ol type="a">
             <li>If a user is signed in, their name will be recorded along with the statistic.</li>
          </ol>
@@ -95,7 +98,7 @@
          <li>At the bottom left of the screen, a message will appear stating the range of dates on your statistics. This range shows the earliest date on your stats record to the most current date.</li>
       </ol>
       <h2>Retrieving your stats</h2>
-      <p>You can retrieve stats either from the stat log directory you specified in the options menu, or, you can select File &rarr; Export Summary (recommended).</p>
+      <p>You can retrieve stats either from the stat log directory you specified in the options menu, or, you can select File &rarr; Export Summary for a cleaner breakdown (recommended).</p>
       <h2>Miscellaneous</h2>
       <p>You can check for updates at Help &rarr; Check for Updates. Plans for the future include:</p>
       <ul>
