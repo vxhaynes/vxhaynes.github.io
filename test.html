@@ -11,9 +11,16 @@
       </div>
       
       <style>
+         @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
          #spri-nyt-bestsellers {
-           font-family: Arial, Helvetica, sans-serif;
-           color: #111;
+           --spri-green: #008037;
+           --spri-blue: #5271ff;
+           --spri-black: #111;
+           --spri-light: #f7faf8;
+         
+           font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+           color: var(--spri-black);
            max-width: 1100px;
            margin: 0 auto;
          }
@@ -24,15 +31,18 @@
          }
          
          .spri-print-button {
-           border: 1px solid #bbb;
+           border: 2px solid var(--spri-green);
            background: #fff;
-           padding: .5rem .8rem;
-           font: inherit;
+           color: var(--spri-green);
+           padding: .55rem .9rem;
+           font-family: "Kollektif", Arial, Helvetica, sans-serif;
+           font-weight: 700;
            cursor: pointer;
          }
          
          .spri-print-button:hover {
-           background: #f5f5f5;
+           background: var(--spri-green);
+           color: #fff;
          }
          
          .spri-nyt-grid {
@@ -41,30 +51,57 @@
          
          .spri-nyt-column {
            background: #fff;
-           margin: 0 auto 2rem;
+           margin: 0 auto 2.25rem;
            padding: 1rem 1rem 1.25rem;
            box-sizing: border-box;
+           border-top: 6px solid var(--spri-green);
          }
          
          .spri-nyt-header {
-           background: #58ad4d;
+           background: linear-gradient(90deg, var(--spri-green), var(--spri-blue));
            color: #fff;
-           text-align: center;
-           padding: 1.1rem 1rem;
-           margin-bottom: 1.3rem;
+           display: grid;
+           grid-template-columns: 105px 1fr;
+           gap: 1rem;
+           align-items: center;
+           padding: 1rem 1.25rem;
+           margin-bottom: 1.35rem;
          }
          
-         .spri-nyt-column h2 {
+         .spri-brand-logo {
+           width: 100px;
+           height: 100px;
+           object-fit: contain;
+           background: #fff;
+           border-radius: 50%;
+           padding: .35rem;
+         }
+         
+         .spri-header-text {
+           text-align: left;
+         }
+         
+         .spri-brand-name {
+           font-family: "Bebas Neue", Impact, sans-serif;
+           font-size: 2rem;
+           letter-spacing: .04em;
+           line-height: 1;
+           margin: 0 0 .25rem;
+         }
+         
+         .spri-list-title {
+           font-family: "Kollektif", Arial, Helvetica, sans-serif;
+           font-size: 2.25rem;
+           font-weight: 700;
+           line-height: 1.05;
            margin: 0;
-           font-size: 2.1rem;
-           font-weight: 400;
-           line-height: 1.1;
          }
          
          .spri-nyt-date {
-           margin-top: .65rem;
+           margin-top: .45rem;
            color: #fff;
-           font-size: 1.35rem;
+           font-size: 1.15rem;
+           font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
          }
          
          .spri-nyt-list {
@@ -74,7 +111,7 @@
            display: grid;
            grid-template-columns: repeat(3, 1fr);
            column-gap: 1rem;
-           row-gap: .9rem;
+           row-gap: 1rem;
          }
          
          .spri-nyt-item {
@@ -87,7 +124,7 @@
          .spri-nyt-book {
            display: grid;
            grid-template-columns: 112px 1fr;
-           gap: .55rem;
+           gap: .65rem;
            align-items: start;
          }
          
@@ -103,8 +140,8 @@
            width: 112px;
            height: 168px;
            object-fit: cover;
-           border: 0;
-           box-shadow: 0 1px 3px rgba(0,0,0,.25);
+           border: 2px solid #eee;
+           box-shadow: 0 1px 4px rgba(0,0,0,.22);
          }
          
          .spri-nyt-info {
@@ -112,9 +149,10 @@
          }
          
          .spri-nyt-title {
+           font-family: "Kollektif", Arial, Helvetica, sans-serif;
            font-weight: 800;
-           font-size: 1.05rem;
-           line-height: 1.03;
+           font-size: 1.08rem;
+           line-height: 1.05;
          }
          
          .spri-nyt-title a,
@@ -129,27 +167,28 @@
          }
          
          .spri-nyt-author {
-           margin-top: .1rem;
-           font-size: .9rem;
-           line-height: 1.05;
-         }
-         
-         .spri-nyt-desc {
-           margin-top: .18rem;
-           color: #111;
-           font-size: .82rem;
+           margin-top: .12rem;
+           font-size: .92rem;
            line-height: 1.08;
          }
          
+         .spri-nyt-desc {
+           margin-top: .2rem;
+           color: #111;
+           font-size: .84rem;
+           line-height: 1.12;
+         }
+         
          .spri-nyt-status {
-           margin-top: .3rem;
-           font-weight: 700;
-           font-size: .8rem;
+           margin-top: .32rem;
+           font-weight: 800;
+           font-size: .82rem;
            line-height: 1.1;
+           font-family: "Kollektif", Arial, Helvetica, sans-serif;
          }
          
          .spri-nyt-status[data-status="available"] {
-           color: #116611;
+           color: var(--spri-green);
          }
          
          .spri-nyt-status[data-status="checked-out"] {
@@ -162,14 +201,21 @@
          }
          
          .spri-nyt-libby {
-           margin-top: .22rem;
-           font-size: .78rem;
-           line-height: 1.12;
+           margin-top: .25rem;
+           font-size: .8rem;
+           line-height: 1.14;
          }
          
          .spri-nyt-libby a {
            display: block;
            margin: .08rem 0 0;
+           color: var(--spri-blue);
+           font-weight: 700;
+           text-decoration: none;
+         }
+         
+         .spri-nyt-libby a:hover {
+           text-decoration: underline;
          }
          
          .spri-nyt-error {
@@ -177,14 +223,27 @@
            padding: .75rem;
          }
          
-         /* Tablet / small screens */
+         /* Tablet */
          @media (max-width: 900px) {
            .spri-nyt-list {
              grid-template-columns: repeat(2, 1fr);
            }
+         
+           .spri-nyt-header {
+             grid-template-columns: 85px 1fr;
+           }
+         
+           .spri-brand-logo {
+             width: 82px;
+             height: 82px;
+           }
+         
+           .spri-list-title {
+             font-size: 1.9rem;
+           }
          }
          
-         /* Phone screens */
+         /* Phone */
          @media (max-width: 600px) {
            #spri-nyt-bestsellers {
              max-width: none;
@@ -199,31 +258,43 @@
            }
          
            .spri-nyt-header {
-             padding: .85rem .75rem;
+             grid-template-columns: 64px 1fr;
+             gap: .75rem;
+             padding: .85rem;
              margin-bottom: 1rem;
            }
          
-           .spri-nyt-column h2 {
-             font-size: 1.55rem;
+           .spri-brand-logo {
+             width: 62px;
+             height: 62px;
+             padding: .2rem;
+           }
+         
+           .spri-brand-name {
+             font-size: 1.35rem;
+           }
+         
+           .spri-list-title {
+             font-size: 1.45rem;
            }
          
            .spri-nyt-date {
-             font-size: 1rem;
+             font-size: .95rem;
            }
          
            .spri-nyt-list {
              grid-template-columns: 1fr;
-             row-gap: .85rem;
+             row-gap: .9rem;
            }
          
            .spri-nyt-book {
-             grid-template-columns: 76px 1fr;
-             gap: .65rem;
+             grid-template-columns: 78px 1fr;
+             gap: .7rem;
            }
          
            .spri-nyt-cover {
-             width: 76px;
-             height: 114px;
+             width: 78px;
+             height: 117px;
            }
          
            .spri-nyt-title {
@@ -240,7 +311,7 @@
            }
          }
          
-         /* Print layout */
+         /* Print */
          @media print {
            @page {
              size: letter portrait;
@@ -263,9 +334,9 @@
          
            .spri-nyt-column {
              width: 100%;
-             min-height: auto;
              margin: 0;
              padding: 0;
+             border-top: 0;
              page-break-after: always;
              break-after: page;
            }
@@ -276,58 +347,72 @@
            }
          
            .spri-nyt-header {
-             background: #58ad4d !important;
+             background: linear-gradient(90deg, #008037, #5271ff) !important;
              color: #fff !important;
              -webkit-print-color-adjust: exact;
              print-color-adjust: exact;
-             padding: .32in .25in;
+             grid-template-columns: .82in 1fr;
+             gap: .16in;
+             padding: .22in .28in;
              margin: 0 0 .22in;
            }
          
-           .spri-nyt-column h2 {
-             font-size: 28pt;
+           .spri-brand-logo {
+             width: .78in;
+             height: .78in;
+             padding: .04in;
+             box-shadow: none;
+           }
+         
+           .spri-brand-name {
+             font-size: 18pt;
+           }
+         
+           .spri-list-title {
+             font-size: 27pt;
            }
          
            .spri-nyt-date {
-             font-size: 16pt;
-             margin-top: .12in;
+             font-size: 14pt;
+             margin-top: .06in;
            }
          
            .spri-nyt-list {
              grid-template-columns: repeat(3, 1fr);
-             column-gap: .18in;
+             column-gap: .17in;
              row-gap: .13in;
            }
          
            .spri-nyt-book {
-             grid-template-columns: .95in 1fr;
+             grid-template-columns: .9in 1fr;
              gap: .08in;
            }
          
            .spri-nyt-cover {
-             width: .95in;
-             height: 1.42in;
+             width: .9in;
+             height: 1.35in;
              box-shadow: none;
+             border: 0;
            }
          
            .spri-nyt-title {
-             font-size: 10pt;
-             line-height: .95;
+             font-size: 9.7pt;
+             line-height: .96;
            }
          
            .spri-nyt-author {
-             font-size: 8.5pt;
-             line-height: .95;
+             font-size: 8.2pt;
+             line-height: .96;
            }
          
            .spri-nyt-desc {
-             font-size: 7.7pt;
+             font-size: 7.3pt;
              line-height: .98;
            }
          
            .spri-nyt-status,
            .spri-nyt-libby {
-             font-size: 7pt;
+             font-size: 6.8pt;
              line-height: .95;
            }
          
@@ -477,9 +562,20 @@
                  return `
                    <section class="spri-nyt-column">
                      <header class="spri-nyt-header">
-                       <h2>New York Times ${escapeHtml(list.heading)} Best Sellers</h2>
-                       <div class="spri-nyt-date">
-                         ${list.publishedDate ? formatDisplayDate(list.publishedDate) : ""}
+                       <img
+                         class="spri-brand-logo"
+                         src="spriLogo.png"
+                         alt="Springfield Township Library logo"
+                       >
+         
+                       <div class="spri-header-text">
+                         <div class="spri-brand-name">Springfield Township Library</div>
+                         <h2 class="spri-list-title">
+                           New York Times ${escapeHtml(list.heading)} Best Sellers
+                         </h2>
+                         <div class="spri-nyt-date">
+                           ${list.publishedDate ? formatDisplayDate(list.publishedDate) : ""}
+                         </div>
                        </div>
                      </header>
          
@@ -586,7 +682,7 @@
           if (libbyLinks.ebook_url) {
             links.push(`
               <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
-                🕮 Read Libby eBook
+                🕮 eBook available on Libby
               </a>
             `);
           }
@@ -594,7 +690,7 @@
           if (libbyLinks.eaudiobook_url) {
             links.push(`
               <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
-                🕪 Listen to Libby audiobook
+                🕪 Audiobook available on Libby
               </a>
             `);
           }
