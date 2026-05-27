@@ -222,6 +222,16 @@
            border: 1px solid #ddd;
            padding: .75rem;
          }
+
+         .spri-print-footer {
+           margin-top: 1rem;
+           padding-top: .5rem;
+           border-top: 2px solid var(--spri-green);
+           color: #555;
+           font-size: .9rem;
+           text-align: right;
+           font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+         }
          
          /* Tablet */
          @media (max-width: 900px) {
@@ -421,6 +431,15 @@
            .spri-nyt-libby a {
              text-decoration: none;
            }
+
+            .spri-print-footer {
+              margin-top: .12in;
+              padding-top: .06in;
+              border-top: 1.5pt solid #008037;
+              font-size: 7.5pt;
+              text-align: right;
+              color: #555;
+            }
          }
       </style>
       
@@ -431,16 +450,24 @@
       
         const workerUrl = String(root.dataset.workerUrl || "").replace(/\/$/, "");
       
-        const lists = [
-          {
-            key: "hardcover-fiction",
-            heading: "Fiction"
-          },
-          {
-            key: "hardcover-nonfiction",
-            heading: "Nonfiction"
-          }
-        ];
+         const lists = [
+           {
+             key: "hardcover-fiction",
+             heading: "Fiction"
+           },
+           {
+             key: "hardcover-nonfiction",
+             heading: "Nonfiction"
+           },
+           {
+             key: "young-adult-hardcover",
+             heading: "Young Adult Hardcover"
+           },
+           {
+             key: "picture-books",
+             heading: "Children’s Picture Books"
+           }
+         ];
       
         function escapeHtml(value) {
           return String(value || "").replace(/[&<>"']/g, function (char) {
@@ -625,6 +652,10 @@
                          `;
                        }).join("")}
                      </ol>
+
+                     <footer class="spri-print-footer">
+                       Printed on ${escapeHtml(getPrintedDate())}
+                     </footer>
                    </section>
                  `;
                }).join("")}
@@ -722,7 +753,15 @@
             statusEl.dataset.status = "error";
           }
         }
-      
+
+         function getPrintedDate() {
+           return new Date().toLocaleDateString("en-US", {
+             month: "long",
+             day: "numeric",
+             year: "numeric"
+           });
+         }
+         
         function checkAllAvailability(listData) {
           listData.forEach(function (list) {
             list.books.forEach(function (book, index) {
