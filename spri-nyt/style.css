@@ -206,13 +206,15 @@
  color: #666;
 }
 
-.spri-nyt-libby {
+.spri-nyt-libby,
+.spri-nyt-hoopla {
  margin-top: .25rem;
  font-size: .8rem;
  line-height: 1.14;
 }
 
-.spri-nyt-libby a {
+.spri-nyt-libby a,
+.spri-nyt-hoopla a {
  display: block;
  margin: .08rem 0 0;
  color: var(--spri-blue);
@@ -220,7 +222,8 @@
  text-decoration: none;
 }
 
-.spri-nyt-libby a:hover {
+.spri-nyt-libby a:hover,
+.spri-nyt-hoopla a:hover {
  text-decoration: underline;
 }
 
@@ -319,7 +322,8 @@
  .spri-nyt-author,
  .spri-nyt-desc,
  .spri-nyt-status,
- .spri-nyt-libby {
+ .spri-nyt-libby,
+ .spri-nyt-hoopla {
    font-size: .9rem;
    line-height: 1.18;
  }
@@ -424,14 +428,16 @@
  }
 
  .spri-nyt-status,
- .spri-nyt-libby {
+ .spri-nyt-libby,
+ .spri-nyt-hoopla {
    font-size: 6.8pt;
    line-height: .95;
  }
 
  .spri-nyt-title a,
  .spri-nyt-status a,
- .spri-nyt-libby a {
+ .spri-nyt-libby a,
+ .spri-nyt-hoopla a {
    text-decoration: none;
  }
 

@@ -200,6 +200,7 @@
                            </div>
    
                            <div class="spri-nyt-libby"></div>
+                           <div class="spri-nyt-hoopla"></div>
                          </div>
                        </div>
                      </li>
@@ -302,6 +303,7 @@
 
       applyCatalogLink(item, book, data);
       renderLibbyLinks(item, data);
+      checkHooplaAvailability(item, book);
     } catch (error) {
       statusEl.textContent = "Catalog check failed: " + String(error.message || error);
       statusEl.dataset.status = "error";
@@ -323,6 +325,45 @@
       });
     });
   }
+
+async function checkHooplaAvailability(item, book) {
+  const params = new URLSearchParams();
+  params.set("title", book.title || "");
+  params.set("author", book.author || "");
+
+  try {
+    const data = await fetchJson(workerUrl + "/hoopla?" + params.toString());
+    renderHooplaLinks(item, data);
+  } catch (error) {
+    // Keep Hoopla silent if it fails.
+  }
+}
+
+function renderHooplaLinks(item, data) {
+  const hooplaEl = item.querySelector(".spri-nyt-hoopla");
+  if (!hooplaEl) return;
+
+  const hooplaLinks = data.hoopla_links || {};
+  const links = [];
+
+  if (hooplaLinks.ebook_url) {
+    links.push(`
+      <a href="${escapeHtml(hooplaLinks.ebook_url)}" target="_blank" rel="noopener">
+        🕮 Read Hoopla eBook
+      </a>
+    `);
+  }
+
+  if (hooplaLinks.audiobook_url) {
+    links.push(`
+      <a href="${escapeHtml(hooplaLinks.audiobook_url)}" target="_blank" rel="noopener">
+        🕪 Listen to Hoopla audiobook
+      </a>
+    `);
+  }
+
+  hooplaEl.innerHTML = links.join(" ");
+}
 
    function formatDisplayDate(value) {
      if (!value) return "";
