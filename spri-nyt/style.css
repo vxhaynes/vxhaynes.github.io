@@ -332,6 +332,8 @@
  }
 
  body {
+   -webkit-print-color-adjust: exact;
+   print-color-adjust: exact;
    margin: 0;
    background: #fff;
  }
@@ -362,8 +364,6 @@
  .spri-nyt-header {
    background: linear-gradient(90deg, #008037, #5271ff) !important;
    color: #fff !important;
-   -webkit-print-color-adjust: exact;
-   print-color-adjust: exact;
    grid-template-columns: .82in 1fr;
    gap: .16in;
    padding: .22in .28in;
