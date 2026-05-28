@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>NYT Test Catalog</title>
-   </head>
+      <title>SPRI NYT Catalog</title>
 
-   <body>
-      <div
-        id="spri-nyt-bestsellers"
-        data-worker-url="https://spri-nyt-list.vxavier000.workers.dev">
-      </div>
-      
       <style>
-         @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+         @font-face {
+           font-family: "Bebas Neue";
+           src: url("fonts/BebasNeue-Regular.ttf") format("truetype");
+           font-weight: 400;
+           font-style: normal;
+         }
+         
+         @font-face {
+           font-family: "Kollektif";
+           src: url("fonts/Kollektif.ttf") format("truetype");
+           font-weight: 400 800;
+           font-style: normal;
+         }
+         
+         @font-face {
+           font-family: "Open Sauce";
+           src: url("fonts/OpenSauceSans-Regular.ttf") format("truetype");
+           font-weight: 400;
+           font-style: normal;
+         }
 
          #spri-nyt-bestsellers {
            --spri-green: #008037;
@@ -233,7 +245,6 @@
            font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
          }
          
-         /* Tablet */
          @media (max-width: 900px) {
            .spri-nyt-list {
              grid-template-columns: repeat(2, 1fr);
@@ -253,7 +264,6 @@
            }
          }
          
-         /* Phone */
          @media (max-width: 600px) {
            #spri-nyt-bestsellers {
              max-width: none;
@@ -321,7 +331,6 @@
            }
          }
          
-         /* Print */
          @media print {
            @page {
              size: letter portrait;
@@ -442,7 +451,12 @@
             }
          }
       </style>
-      
+   </head>
+   <body>
+      <div
+        id="spri-nyt-bestsellers"
+        data-worker-url="https://spri-nyt-list.vxavier000.workers.dev">
+      </div>
       <script>
       (function () {
         const root = document.getElementById("spri-nyt-bestsellers");
