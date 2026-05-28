@@ -275,7 +275,7 @@
     if (libbyLinks.ebook_url) {
       links.push(`
         <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
-          🕮 Read Libby eBook
+          🕮 eBook on Libby
         </a>
       `);
     }
@@ -283,7 +283,7 @@
     if (libbyLinks.eaudiobook_url) {
       links.push(`
         <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
-          🕪 Listen to Libby audiobook
+          🕪 Audiobook on Libby
         </a>
       `);
     }
@@ -302,7 +302,7 @@
     if (hooplaLinks.ebook_url) {
       links.push(`
         <a href="${escapeHtml(hooplaLinks.ebook_url)}" target="_blank" rel="noopener">
-          🕮 Read Hoopla eBook
+          🕮 eBook on Hoopla
         </a>
       `);
     }
@@ -310,7 +310,7 @@
     if (hooplaLinks.audiobook_url) {
       links.push(`
         <a href="${escapeHtml(hooplaLinks.audiobook_url)}" target="_blank" rel="noopener">
-          🕪 Listen to Hoopla audiobook
+          🕪 Audiobook on Hoopla
         </a>
       `);
     }
