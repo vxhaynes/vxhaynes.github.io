@@ -1,3 +1,4 @@
+console.log("SPRI NYT widget loaded");
 (function () {
   const root = document.getElementById("spri-nyt-bestsellers");
   if (!root) return;
