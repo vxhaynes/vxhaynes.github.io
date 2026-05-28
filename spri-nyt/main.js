@@ -87,14 +87,20 @@
   function renderLoading() {
     root.innerHTML = `
       <div class="spri-nyt-grid">
-        <section class="spri-nyt-column">
-          <h2>Adult Fiction</h2>
-          <div class="spri-nyt-date">Loading…</div>
-        </section>
-        <section class="spri-nyt-column">
-          <h2>Adult Nonfiction</h2>
-          <div class="spri-nyt-date">Loading…</div>
-        </section>
+        ${lists.map(function (list) {
+          return `
+            <section class="spri-nyt-column">
+              <header class="spri-nyt-header">
+                <img class="spri-brand-logo" src="spriLogo.png" alt="Springfield Township Library logo">
+                <div class="spri-header-text">
+                  <div class="spri-brand-name">Springfield Township Library</div>
+                  <h2 class="spri-list-title">New York Times ${escapeHtml(list.heading)} Best Sellers</h2>
+                  <div class="spri-nyt-date">Loading…</div>
+                </div>
+              </header>
+            </section>
+          `;
+        }).join("")}
       </div>
     `;
   }
@@ -200,6 +206,7 @@
                            </div>
    
                            <div class="spri-nyt-libby"></div>
+
                            <div class="spri-nyt-hoopla"></div>
                          </div>
                        </div>
@@ -268,7 +275,7 @@
     if (libbyLinks.ebook_url) {
       links.push(`
         <a href="${escapeHtml(libbyLinks.ebook_url)}" target="_blank" rel="noopener">
-          🕮 eBook available on Libby
+          🕮 Read Libby eBook
         </a>
       `);
     }
@@ -276,12 +283,39 @@
     if (libbyLinks.eaudiobook_url) {
       links.push(`
         <a href="${escapeHtml(libbyLinks.eaudiobook_url)}" target="_blank" rel="noopener">
-          🕪 Audiobook available on Libby
+          🕪 Listen to Libby audiobook
         </a>
       `);
     }
 
     libbyEl.innerHTML = links.join(" ");
+  }
+
+
+  function renderHooplaLinks(item, data) {
+    const hooplaEl = item.querySelector(".spri-nyt-hoopla");
+    if (!hooplaEl) return;
+
+    const hooplaLinks = data.hoopla_links || {};
+    const links = [];
+
+    if (hooplaLinks.ebook_url) {
+      links.push(`
+        <a href="${escapeHtml(hooplaLinks.ebook_url)}" target="_blank" rel="noopener">
+          🕮 Read Hoopla eBook
+        </a>
+      `);
+    }
+
+    if (hooplaLinks.audiobook_url) {
+      links.push(`
+        <a href="${escapeHtml(hooplaLinks.audiobook_url)}" target="_blank" rel="noopener">
+          🕪 Listen to Hoopla audiobook
+        </a>
+      `);
+    }
+
+    hooplaEl.innerHTML = links.join(" ");
   }
 
   async function checkAvailability(list, book, index) {
@@ -293,19 +327,21 @@
     const isbns = getBookIsbns(book);
 
     const params = new URLSearchParams();
+    params.set("title", book.title || "");
+    params.set("author", book.author || "");
     params.set("isbns", isbns.join(","));
 
     try {
-      const data = await fetchJson(workerUrl + "/catalog?" + params.toString());
+      const data = await fetchJson(workerUrl + "/book?" + params.toString());
 
       statusEl.textContent = data.label || data.error || "Check catalog";
       statusEl.dataset.status = data.status || "unknown";
 
       applyCatalogLink(item, book, data);
       renderLibbyLinks(item, data);
-      checkHooplaAvailability(item, book);
+      renderHooplaLinks(item, data);
     } catch (error) {
-      statusEl.textContent = "Catalog check failed: " + String(error.message || error);
+      statusEl.textContent = "Availability check failed: " + String(error.message || error);
       statusEl.dataset.status = "error";
     }
   }
@@ -319,51 +355,39 @@
    }
    
   function checkAllAvailability(listData) {
+    const jobs = [];
+
     listData.forEach(function (list) {
-      list.books.forEach(function (book, index) {
-        checkAvailability(list, book, index);
+      list.books.slice(0, 15).forEach(function (book, index) {
+        jobs.push(function () {
+          return checkAvailability(list, book, index);
+        });
       });
     });
+
+    runLimited(jobs, 6);
   }
 
-async function checkHooplaAvailability(item, book) {
-  const params = new URLSearchParams();
-  params.set("title", book.title || "");
-  params.set("author", book.author || "");
+  async function runLimited(jobs, limit) {
+    const queue = jobs.slice();
+    const workers = [];
 
-  try {
-    const data = await fetchJson(workerUrl + "/hoopla?" + params.toString());
-    renderHooplaLinks(item, data);
-  } catch (error) {
-    // Keep Hoopla silent if it fails.
+    for (let i = 0; i < Math.min(limit, queue.length); i++) {
+      workers.push((async function () {
+        while (queue.length) {
+          const job = queue.shift();
+
+          try {
+            await job();
+          } catch (error) {
+            // Individual book errors are handled in checkAvailability().
+          }
+        }
+      })());
+    }
+
+    await Promise.allSettled(workers);
   }
-}
-
-function renderHooplaLinks(item, data) {
-  const hooplaEl = item.querySelector(".spri-nyt-hoopla");
-  if (!hooplaEl) return;
-
-  const hooplaLinks = data.hoopla_links || {};
-  const links = [];
-
-  if (hooplaLinks.ebook_url) {
-    links.push(`
-      <a href="${escapeHtml(hooplaLinks.ebook_url)}" target="_blank" rel="noopener">
-        🕮 Read Hoopla eBook
-      </a>
-    `);
-  }
-
-  if (hooplaLinks.audiobook_url) {
-    links.push(`
-      <a href="${escapeHtml(hooplaLinks.audiobook_url)}" target="_blank" rel="noopener">
-        🕪 Listen to Hoopla audiobook
-      </a>
-    `);
-  }
-
-  hooplaEl.innerHTML = links.join(" ");
-}
 
    function formatDisplayDate(value) {
      if (!value) return "";
