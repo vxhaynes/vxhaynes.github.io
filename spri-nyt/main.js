@@ -134,7 +134,7 @@
      root.innerHTML = `
        <div class="spri-print-actions">
          <button class="spri-print-button" type="button" onclick="window.print()">
-           Print lists (make sure to select "Background graphics" and deselect "Headers and footers" under "More Settings"!)
+           Print lists
          </button>
        </div>
    
