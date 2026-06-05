@@ -28,8 +28,8 @@
 }
 @font-face {
   font-family: "Garamond";
-  src: url("fonts/EBGaramond-VariableFont_wght.woff2") format("woff2"),
-    url("fonts/EBGaramond-VariableFont_wght.woff") format("woff");
+  src: url("fonts/EBGaramond-Regular.woff2") format("woff2"),
+    url("fonts/EBGaramond-Regular.woff") format("woff");
   font-weight: normal;
   font-display: swap;
 }
