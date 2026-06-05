@@ -1,27 +1,37 @@
 @font-face {
   font-family: Metropolis;
-  src: url("fonts/Metropolis-Thin.ttf") format("TrueType");
+  src: url("fonts/Metropolis-Thin.woff2") format("woff2"),
+    url("fonts/Metropolis-Thin.woff") format("woff");
   font-weight: 100;
+  font-display: swap;
 }
 @font-face {
   font-family: Metropolis;
-  src: url("fonts/Metropolis-Regular.ttf") format("TrueType");
+  src: url("fonts/Metropolis-Regular.woff2") format("woff2"),
+    url("fonts/Metropolis-Regular.woff") format("woff");
   font-weight: 400;
+  font-display: swap;
 }
 @font-face {
   font-family: Metropolis;
-  src: url("fonts/Metropolis-SemiBold.ttf") format("TrueType");
+  src: url("fonts/Metropolis-SemiBold.woff2") format("woff2"),
+    url("fonts/Metropolis-SemiBold.woff") format("woff");
   font-weight: 600;
+  font-display: swap;
 }
 @font-face {
   font-family: Metropolis;
-  src: url("fonts/Metropolis-Bold.ttf") format("TrueType");
+  src: url("fonts/Metropolis-Bold.woff2") format("woff2"),
+    url("fonts/Metropolis-Bold.woff") format("woff");
   font-weight: 700;
+  font-display: swap;
 }
 @font-face {
   font-family: "Garamond";
-  src: url("fonts/EBGaramond-VariableFont_wght.ttf") format("truetype");
+  src: url("fonts/EBGaramond-VariableFont_wght.woff2") format("woff2"),
+    url("fonts/EBGaramond-VariableFont_wght.woff") format("woff");
   font-weight: normal;
+  font-display: swap;
 }
 body {
   font-family: Garamond, serif;
