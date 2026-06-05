@@ -161,6 +161,11 @@ h3 {
   font-weight: 600;
   margin: 1.5rem 0 0.75rem;
 }
+footer {
+  background: #222;
+  border-top: 1px solid #3a3a3a;
+  color: white;
+}
 .indentMe {
   margin-left: 2rem;
 }
