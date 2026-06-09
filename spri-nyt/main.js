@@ -2,7 +2,7 @@
   const root = document.getElementById("spri-nyt-bestsellers");
   if (!root) return;
 
-  const workerUrl = String(root.dataset.workerUrl || "").replace(/\/$/, "");
+  const workerUrl = "https://spri-nyt-list.vxha.workers.dev";
 
    const lists = [
      {
