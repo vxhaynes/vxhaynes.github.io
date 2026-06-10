@@ -1,213 +1,259 @@
+@font-face {
+ font-family: "Bebas Neue";
+ src: url('/spri-nyt/fonts/BebasNeue-Regular.woff2') format('woff2'),
+  url('/spri-nyt/fonts/BebasNeue-Regular.woff') format('woff');
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+
+@font-face {
+ font-family: "Kollektif";
+ src: url('/spri-nyt/fonts/Kollektif.woff2') format('woff2'),
+  url('/spri-nyt/fonts/Kollektif.woff') format('woff');
+ font-weight: 400 800;
+ font-style: normal;
+ font-display: swap;
+}
+
+@font-face {
+ font-family: "Open Sauce";
+ src: url('/spri-nyt/fonts/OpenSauceOne-Regular.woff2') format('woff2'),
+  url('/spri-nyt/fonts/OpenSauceOne-Regular.woff') format('woff');
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+
 :root {
-  --bg: #fff;
+  --green: #008037;
+  --blue: #5271ff;
   --ink: #1f1f1f;
-  --muted: #666;
-  --line: #d8d8d8;
-  --soft: #f4f4f4;
-  --accent: #111;
+  --muted: #555;
+  --line: #d9d9d9;
+  --paper: #fff;
+  --soft: #f5f7f6;
   --error: #8f1d1d;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --title-font: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --subtitle-font: "Open Sauce", "Open Sans", "Segoe UI", Arial, sans-serif;
+  --heading-font: "Kollektif", "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --body-font: "Open Sauce One", "Open Sans", "Segoe UI", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: #eeeeee;
   color: var(--ink);
-}
-
-a { color: inherit; }
-
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--ink);
-}
-
-h1,
-h2,
-h3,
-p { margin-top: 0; }
-
-h1 {
-  margin-bottom: 6px;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  line-height: 1;
-}
-
-.site-header p,
-.author,
-.count,
-.status,
-footer { color: var(--muted); }
-
-.controls {
-  min-width: 180px;
-  text-align: right;
+  font-family: var(--body-font);
 }
 
 button {
-  border: 1px solid var(--accent);
-  background: var(--accent);
+  border: 1px solid var(--green);
+  background: var(--green);
   color: #fff;
-  padding: 8px 12px;
-  font: inherit;
-  font-weight: 700;
+  padding: 0.55rem 0.85rem;
+  font: 700 0.95rem var(--heading-font);
   cursor: pointer;
 }
 
-button.secondary {
-  background: #fff;
-  color: var(--accent);
-}
+button + button { margin-left: 0.4rem; }
 
 button:disabled {
   opacity: 0.55;
   cursor: wait;
 }
 
-.status {
-  margin: 8px 0 0;
+.screen-tools {
+  max-width: 8.5in;
+  margin: 1rem auto;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.screen-tools p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
-.notice,
 .error {
-  margin-top: 14px;
-  padding: 12px;
-  border: 1px solid var(--line);
-  background: var(--soft);
+  max-width: 8.5in;
+  margin: 1rem auto;
+  padding: 0.75rem 1rem;
+  color: var(--error);
+  background: #fff;
+  border: 1px solid #e0b8b8;
   white-space: pre-wrap;
 }
 
-.error {
-  color: var(--error);
-  border-color: #e0b8b8;
-  background: #fff6f6;
+.pages {
+  display: grid;
+  gap: 1rem;
+  max-width: 8.5in;
+  margin: 0 auto 2rem;
 }
 
-.list-section {
-  margin-top: 28px;
+.book-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 11in;
+  padding: 0.45in;
+  background: var(--paper);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
 }
 
-.section-head {
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.22in;
+  padding-bottom: 0.16in;
+  border-bottom: 0.045in solid var(--green);
+}
+
+.library-logo {
+  width: 1.1in;
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.header-copy h1,
+.header-copy p,
+.list-heading h2,
+.book-title,
+.author,
+.call-number,
+.description,
+.digital-options { margin: 0; }
+
+.header-copy h1 {
+  color: var(--green);
+  font-family: var(--title-font);
+  font-size: 0.55in;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+}
+
+.header-copy p {
+  color: var(--blue);
+  font-family: var(--subtitle-font);
+  font-size: 0.15in;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.list-heading {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 10px;
+  padding: 0.14in 0 0.1in;
 }
 
-.section-head h2 {
-  margin-bottom: 0;
-  font-size: 1.4rem;
+.list-heading h2 {
+  color: var(--ink);
+  font-family: var(--heading-font);
+  font-size: 0.22in;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .book-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 0.1in;
+  flex: 1;
 }
 
 .book-card {
   display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 12px;
-  padding: 12px;
+  grid-template-columns: 0.72in 1fr;
+  gap: 0.09in;
+  min-height: 0;
+  padding: 0.08in;
   border: 1px solid var(--line);
   background: #fff;
+  overflow: hidden;
 }
 
-.cover-link,
+.cover,
 .cover-placeholder {
-  display: block;
-  width: 82px;
-  height: 123px;
+  width: 0.72in;
+  height: 1.08in;
   border: 1px solid var(--line);
   background: var(--soft);
-  text-decoration: none;
+}
+
+.cover {
+  display: block;
+  object-fit: cover;
 }
 
 .cover-placeholder {
   display: grid;
   place-items: center;
-  padding: 8px;
-  text-align: center;
+  padding: 0.05in;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.08in;
+  text-align: center;
 }
 
-.cover-link img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.book-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.025in;
 }
 
 .book-title {
-  margin-bottom: 3px;
-  font-size: 1rem;
-  line-height: 1.2;
+  font-family: var(--heading-font);
+  font-size: 0.125in;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .author {
-  margin-bottom: 7px;
-  font-size: 0.9rem;
-}
-
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 8px;
-}
-
-.pill {
-  display: inline-block;
-  padding: 2px 6px;
-  border: 1px solid var(--line);
-  background: var(--soft);
-  font-size: 0.75rem;
+  color: var(--muted);
+  font-size: 0.095in;
   font-weight: 700;
+  line-height: 1.2;
+}
+
+.call-number {
+  color: var(--green);
+  font-family: var(--heading-font);
+  font-size: 0.085in;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .description {
-  margin-bottom: 0;
   color: #333;
-  font-size: 0.9rem;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  font-size: 0.088in;
+  line-height: 1.25;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
-.platforms {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--line);
+.digital-options {
+  color: var(--blue);
+  font-size: 0.082in;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: auto;
 }
-
-.platforms strong {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.82rem;
-}
-
-.platforms a { text-decoration: none; }
 
 .loading-line {
-  height: 12px;
-  margin: 7px 0;
+  height: 0.08in;
+  margin: 0.04in 0;
   background: var(--soft);
 }
 
@@ -215,48 +261,51 @@ button:disabled {
 .loading-line.medium { width: 75%; }
 .loading-line.long { width: 95%; }
 
-footer {
-  margin-top: 24px;
-  text-align: center;
-  font-size: 0.85rem;
-}
-
 @media (max-width: 760px) {
-  .wrap { padding: 14px; }
-  .site-header { display: block; }
-  .controls { margin-top: 12px; text-align: left; }
-  .book-grid { grid-template-columns: 1fr; }
+  .screen-tools,
+  .error,
+  .pages { max-width: none; margin-left: 0.75rem; margin-right: 0.75rem; }
+  .book-page { min-height: auto; padding: 1rem; }
+  .book-grid { grid-template-columns: 1fr; grid-template-rows: none; }
 }
 
 @media print {
-  @page { size: letter portrait; margin: 0.35in; }
+  @page { size: letter portrait; margin: 0; }
 
-  .wrap { max-width: none; padding: 0; }
-  .site-header { padding-bottom: 8px; }
-  .controls,
-  .notice,
-  .error,
-  footer { display: none !important; }
-  h1 { font-size: 1.8rem; }
-  .site-header p { font-size: 0.85rem; margin-bottom: 0; }
-  .list-section { margin-top: 10px; break-inside: avoid; }
-  .section-head { margin-bottom: 5px; }
-  .section-head h2 { font-size: 1.05rem; }
-  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  html,
+  body {
+    width: 8.5in;
+    margin: 0;
+    background: #fff;
+  }
+
+  .screen-tools,
+  .error { display: none !important; }
+
+  .pages {
+    display: block;
+    width: 8.5in;
+    max-width: none;
+    margin: 0;
+  }
+
+  .book-page {
+    width: 8.5in;
+    height: 11in;
+    min-height: 11in;
+    padding: 0.38in;
+    box-shadow: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .book-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
   .book-card {
-    grid-template-columns: 50px 1fr;
-    gap: 7px;
-    padding: 7px;
     break-inside: avoid;
     page-break-inside: avoid;
   }
-  .cover-link,
-  .cover-placeholder { width: 50px; height: 75px; }
-  .book-title { font-size: 0.76rem; margin-bottom: 1px; }
-  .author { font-size: 0.68rem; margin-bottom: 2px; }
-  .meta { gap: 3px; margin-bottom: 3px; }
-  .pill { font-size: 0.58rem; padding: 1px 4px; }
-  .description { font-size: 0.62rem; line-height: 1.22; -webkit-line-clamp: 3; }
-  .platforms { margin-top: 3px; padding-top: 3px; }
-  .platforms strong { display: none; }
 }

@@ -4,55 +4,64 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>New Books at Springfield Township Library</title>
+  <link rel="preload" href="/spri-nyt/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/spri-nyt/fonts/Kollektif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/spri-nyt/fonts/OpenSauceOne-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css" />
+  <script src="main.js" defer></script>
 </head>
 <body>
-  <main class="wrap">
-    <header class="site-header">
-      <div>
-        <h1>New Books at Springfield Township Library</h1>
-        <p>The ten most recently added adult fiction and nonfiction books.</p>
-      </div>
-      <div class="controls" aria-label="List controls">
-        <button id="refreshBtn" type="button" class="secondary">Refresh</button>
-        <button id="printBtn" type="button" disabled>Checking lists...</button>
-        <p id="status" class="status" role="status">Loading catalog data…</p>
-      </div>
-    </header>
+  <div class="screen-tools" aria-label="List controls">
+    <button id="refreshBtn" type="button">Refresh</button>
+    <button id="printBtn" type="button" disabled>Checking lists...</button>
+    <p id="status" role="status">Loading catalog data…</p>
+  </div>
 
-    <div id="notice" class="notice" hidden></div>
-    <div id="error" class="error" hidden></div>
+  <div id="error" class="error" hidden></div>
 
-    <section class="list-section" aria-labelledby="fictionHeading">
-      <div class="section-head">
+  <main class="pages">
+    <section class="book-page" aria-labelledby="fictionHeading">
+      <header class="page-header">
+        <img class="library-logo" src="/spri-nyt/spriLogo.png" alt="Springfield Township Library logo" />
+        <div class="header-copy">
+          <h1>New Books</h1>
+          <p>Springfield Township Library</p>
+        </div>
+      </header>
+
+      <div class="list-heading">
         <h2 id="fictionHeading">Adult Fiction</h2>
-        <span id="fictionCount" class="count"></span>
       </div>
+
       <div id="fictionList" class="book-grid" aria-live="polite"></div>
     </section>
 
-    <section class="list-section" aria-labelledby="nonfictionHeading">
-      <div class="section-head">
+    <section class="book-page" aria-labelledby="nonfictionHeading">
+      <header class="page-header">
+        <img class="library-logo" src="/spri-nyt/spriLogo.png" alt="Springfield Township Library logo" />
+        <div class="header-copy">
+          <h1>New Books</h1>
+          <p>Springfield Township Library</p>
+        </div>
+      </header>
+
+      <div class="list-heading">
         <h2 id="nonfictionHeading">Adult Nonfiction</h2>
-        <span id="nonfictionCount" class="count"></span>
       </div>
+
       <div id="nonfictionList" class="book-grid" aria-live="polite"></div>
     </section>
-
-    <footer id="footerStamp"></footer>
   </main>
 
   <template id="loadingCardTemplate">
     <article class="book-card loading-card" aria-hidden="true">
       <div class="cover-placeholder">Loading</div>
-      <div>
+      <div class="book-copy">
         <div class="loading-line long"></div>
         <div class="loading-line medium"></div>
         <div class="loading-line short"></div>
       </div>
     </article>
   </template>
-
-  <script src="main.js" defer></script>
 </body>
 </html>
