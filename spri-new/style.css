@@ -1,28 +1,28 @@
 @font-face {
- font-family: "Bebas Neue";
- src: url('/spri-nyt/fonts/BebasNeue-Regular.woff2') format('woff2'),
-  url('/spri-nyt/fonts/BebasNeue-Regular.woff') format('woff');
- font-weight: 400;
- font-style: normal;
- font-display: swap;
+  font-family: "Bebas Neue";
+  src: url('/spri-nyt/fonts/BebasNeue-Regular.woff2') format('woff2'),
+       url('/spri-nyt/fonts/BebasNeue-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
- font-family: "Kollektif";
- src: url('/spri-nyt/fonts/Kollektif.woff2') format('woff2'),
-  url('/spri-nyt/fonts/Kollektif.woff') format('woff');
- font-weight: 400 800;
- font-style: normal;
- font-display: swap;
+  font-family: "Kollektif";
+  src: url('/spri-nyt/fonts/Kollektif.woff2') format('woff2'),
+       url('/spri-nyt/fonts/Kollektif.woff') format('woff');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
- font-family: "Open Sauce";
- src: url('/spri-nyt/fonts/OpenSauceOne-Regular.woff2') format('woff2'),
-  url('/spri-nyt/fonts/OpenSauceOne-Regular.woff') format('woff');
- font-weight: 400;
- font-style: normal;
- font-display: swap;
+  font-family: "Open Sauce One";
+  src: url('/spri-nyt/fonts/OpenSauceOne-Regular.woff2') format('woff2'),
+       url('/spri-nyt/fonts/OpenSauceOne-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -36,12 +36,16 @@
   --error: #8f1d1d;
 
   --title-font: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  --subtitle-font: "Open Sauce", "Open Sans", "Segoe UI", Arial, sans-serif;
+  --subtitle-font: "Open Sauce One", "Open Sans", "Segoe UI", Arial, sans-serif;
   --heading-font: "Kollektif", "Avenir Next", "Segoe UI", Arial, sans-serif;
   --body-font: "Open Sauce One", "Open Sans", "Segoe UI", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
+
+html {
+  background: #eeeeee;
+}
 
 body {
   margin: 0;
@@ -110,6 +114,7 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: 0.22in;
+  flex: 0 0 auto;
   padding-bottom: 0.16in;
   border-bottom: 0.045in solid var(--green);
 }
@@ -151,6 +156,7 @@ button:disabled {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  flex: 0 0 auto;
   padding: 0.14in 0 0.1in;
 }
 
@@ -167,14 +173,17 @@ button:disabled {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(5, minmax(0, 1fr));
+  grid-auto-flow: column;
   gap: 0.1in;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .book-card {
   display: grid;
-  grid-template-columns: 0.72in 1fr;
+  grid-template-columns: 0.72in minmax(0, 1fr);
   gap: 0.09in;
+  min-width: 0;
   min-height: 0;
   padding: 0.08in;
   border: 1px solid var(--line);
@@ -206,9 +215,11 @@ button:disabled {
 
 .book-copy {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 0.025in;
+  overflow: hidden;
 }
 
 .book-title {
@@ -266,15 +277,23 @@ button:disabled {
   .error,
   .pages { max-width: none; margin-left: 0.75rem; margin-right: 0.75rem; }
   .book-page { min-height: auto; padding: 1rem; }
-  .book-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+  .book-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
 }
 
 @media print {
-  @page { size: letter portrait; margin: 0; }
+  @page {
+    size: letter portrait;
+    margin: 0.25in;
+  }
 
   html,
   body {
-    width: 8.5in;
+    width: auto;
+    height: auto;
     margin: 0;
     background: #fff;
   }
@@ -284,17 +303,22 @@ button:disabled {
 
   .pages {
     display: block;
-    width: 8.5in;
+    width: auto;
     max-width: none;
     margin: 0;
+    padding: 0;
   }
 
   .book-page {
-    width: 8.5in;
-    height: 11in;
-    min-height: 11in;
-    padding: 0.38in;
+    width: 100%;
+    height: 10.5in;
+    min-height: 0;
+    max-height: 10.5in;
+    padding: 0;
+    margin: 0;
+    background: #fff;
     box-shadow: none;
+    overflow: hidden;
     page-break-after: always;
     break-after: page;
   }
@@ -304,8 +328,83 @@ button:disabled {
     break-after: auto;
   }
 
+  .page-header {
+    gap: 0.16in;
+    padding-bottom: 0.1in;
+    border-bottom-width: 0.035in;
+  }
+
+  .library-logo {
+    width: 0.82in;
+  }
+
+  .header-copy h1 {
+    font-size: 0.43in;
+  }
+
+  .header-copy p {
+    font-size: 0.12in;
+  }
+
+  .list-heading {
+    padding: 0.1in 0 0.075in;
+  }
+
+  .list-heading h2 {
+    font-size: 0.18in;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    grid-auto-flow: column;
+    gap: 0.07in;
+    height: calc(10.5in - 1.08in);
+    min-height: 0;
+  }
+
   .book-card {
+    grid-template-columns: 0.58in minmax(0, 1fr);
+    gap: 0.065in;
+    padding: 0.06in;
+    min-height: 0;
+    overflow: hidden;
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  .cover,
+  .cover-placeholder {
+    width: 0.58in;
+    height: 0.87in;
+  }
+
+  .book-copy {
+    gap: 0.018in;
+  }
+
+  .book-title {
+    font-size: 0.102in;
+    line-height: 1.12;
+  }
+
+  .author {
+    font-size: 0.078in;
+    line-height: 1.15;
+  }
+
+  .call-number {
+    font-size: 0.074in;
+  }
+
+  .description {
+    font-size: 0.072in;
+    line-height: 1.2;
+    -webkit-line-clamp: 4;
+  }
+
+  .digital-options {
+    font-size: 0.07in;
+    line-height: 1.15;
   }
 }
