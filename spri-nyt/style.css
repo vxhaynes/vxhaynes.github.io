@@ -111,7 +111,7 @@
  background: linear-gradient(90deg, var(--spri-green), var(--spri-blue));
  color: #fff;
  display: grid;
- grid-template-columns: 105px 1fr;
+ grid-template-columns: 105px minmax(0, 1fr) 136px;
  gap: 1rem;
  align-items: center;
  padding: 1rem 1.25rem;
@@ -129,6 +129,33 @@
 
 .spri-header-text {
  text-align: left;
+}
+
+.spri-header-qr {
+ justify-self: end;
+ align-self: center;
+ display: grid;
+ justify-items: center;
+ gap: .3rem;
+ max-width: 132px;
+ text-align: center;
+}
+
+.spri-header-qr-image {
+ display: block;
+ width: 96px;
+ height: 96px;
+ background: #fff;
+ border: 6px solid #fff;
+ box-sizing: border-box;
+}
+
+.spri-header-qr-caption {
+ color: #fff;
+ font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+ font-size: .64rem;
+ font-weight: 700;
+ line-height: 1.12;
 }
 
 .spri-brand-name {
@@ -292,7 +319,20 @@
  }
 
  .spri-nyt-header {
-   grid-template-columns: 85px 1fr;
+   grid-template-columns: 85px minmax(0, 1fr) 118px;
+ }
+
+ .spri-header-qr {
+   max-width: 112px;
+ }
+
+ .spri-header-qr-image {
+   width: 86px;
+   height: 86px;
+ }
+
+ .spri-header-qr-caption {
+   font-size: .58rem;
  }
 
  .spri-brand-logo {
@@ -337,6 +377,22 @@
    gap: .75rem;
    padding: .85rem;
    margin-bottom: 1rem;
+ }
+
+ .spri-header-qr {
+   grid-column: 1 / -1;
+   justify-self: center;
+   max-width: 210px;
+   margin-top: .25rem;
+ }
+
+ .spri-header-qr-image {
+   width: 96px;
+   height: 96px;
+ }
+
+ .spri-header-qr-caption {
+   font-size: .72rem;
  }
 
  .spri-brand-logo {
@@ -427,10 +483,10 @@
  .spri-nyt-header {
    background: linear-gradient(90deg, #008037, #5271ff) !important;
    color: #fff !important;
-   grid-template-columns: .82in 1fr;
-   gap: .16in;
-   padding: .22in .28in;
-   margin: 0 0 .22in;
+   grid-template-columns: .82in 1fr .98in;
+   gap: .12in;
+   padding: .18in .22in;
+   margin: 0 0 .18in;
  }
 
  .spri-brand-logo {
@@ -438,6 +494,22 @@
    height: .78in;
    padding: .04in;
    box-shadow: none;
+ }
+
+ .spri-header-qr {
+   max-width: .98in;
+   gap: .035in;
+ }
+
+ .spri-header-qr-image {
+   width: .68in;
+   height: .68in;
+   border: .035in solid #fff;
+ }
+
+ .spri-header-qr-caption {
+   font-size: 5.3pt;
+   line-height: 1.05;
  }
 
  .spri-brand-name {

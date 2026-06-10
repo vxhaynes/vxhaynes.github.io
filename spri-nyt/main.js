@@ -3,6 +3,7 @@
   if (!root) return;
 
   const workerUrl = "https://spri-nyt-list.vxha.workers.dev";
+  const PUBLIC_WIDGET_URL = "https://vxhaynes.github.io/spri-nyt";
 
    const lists = [
      {
@@ -387,8 +388,11 @@
   ];
 
   const BRANCH_STORAGE_KEY = "spriNytSelectedBranchId";
+  const QR_CAPTION = "Scan to view this flyer in your browser. Tap the links to find the books right on your device!";
   let selectedBranch = getInitialBranch();
   let currentListData = [];
+  let isAvailabilityChecking = true;
+  let availabilityBatchId = 0;
 
 
   function escapeHtml(value) {
@@ -453,6 +457,9 @@
   }
 
   function getInitialBranch() {
+    const urlBranch = getBranchFromUrl();
+    if (urlBranch) return urlBranch;
+
     let savedId = "";
 
     try {
@@ -461,11 +468,51 @@
       savedId = "";
     }
 
+    return getBranchById(savedId) || getBranchById("71") || branches[0];
+  }
+
+  function getBranchById(id) {
     return branches.find(function (branch) {
-      return String(branch.id) === String(savedId);
-    }) || branches.find(function (branch) {
-      return String(branch.id) === "71";
-    }) || branches[0];
+      return String(branch.id) === String(id);
+    });
+  }
+
+  function getBranchFromUrl() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return getBranchById(params.get("id"));
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function getBranchFlyerUrl(branch) {
+    return PUBLIC_WIDGET_URL + "?id=" + encodeURIComponent(String((branch || selectedBranch).id));
+  }
+
+  function syncUrlToSelectedBranch() {
+    const flyerUrl = getBranchFlyerUrl(selectedBranch);
+
+    try {
+      window.history.replaceState({}, "", flyerUrl);
+    } catch (error) {
+      // Ignore URL update errors.
+    }
+  }
+
+  function makeQrCodeUrl(value) {
+    return "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=" + encodeURIComponent(value);
+  }
+
+  function setPrintButtonLoading(isLoading) {
+    isAvailabilityChecking = Boolean(isLoading);
+
+    const button = root.querySelector(".spri-print-button");
+    if (!button) return;
+
+    button.textContent = isAvailabilityChecking ? "Checking lists..." : "Print lists";
+    button.disabled = isAvailabilityChecking;
+    button.setAttribute("aria-disabled", isAvailabilityChecking ? "true" : "false");
   }
 
   function saveSelectedBranch() {
@@ -489,6 +536,10 @@
   }
 
   function renderControlsHtml() {
+    const printDisabledAttr = isAvailabilityChecking
+      ? 'disabled aria-disabled="true"'
+      : 'aria-disabled="false"';
+
     return `
       <div class="spri-widget-toolbar">
         <label class="spri-library-picker">
@@ -498,8 +549,13 @@
           </select>
         </label>
 
-        <button class="spri-print-button" type="button" onclick="window.print()">
-          Print lists
+        <button
+          class="spri-print-button"
+          type="button"
+          onclick="window.print()"
+          ${printDisabledAttr}
+        >
+          ${isAvailabilityChecking ? "Checking lists..." : "Print lists"}
         </button>
       </div>
     `;
@@ -509,10 +565,8 @@
     const select = document.getElementById("spri-library-select");
     if (!select) return;
 
-    select.addEventListener("change", function () {
-      const nextBranch = branches.find(function (branch) {
-        return String(branch.id) === String(select.value);
-      });
+    select.addEventListener("change", async function () {
+      const nextBranch = getBranchById(select.value);
 
       if (!nextBranch || String(nextBranch.id) === String(selectedBranch.id)) {
         return;
@@ -520,10 +574,12 @@
 
       selectedBranch = nextBranch;
       saveSelectedBranch();
+      syncUrlToSelectedBranch();
 
       if (currentListData.length) {
+        setPrintButtonLoading(true);
         renderLists(currentListData);
-        checkAllAvailability(currentListData);
+        await checkAllAvailability(currentListData);
       } else {
         renderLoading();
       }
@@ -531,6 +587,9 @@
   }
 
   function renderHeaderHtml(list, dateHtml) {
+    const flyerUrl = getBranchFlyerUrl(selectedBranch);
+    const qrUrl = makeQrCodeUrl(flyerUrl);
+
     return `
       <header class="spri-nyt-header">
         <img
@@ -546,6 +605,18 @@
           </h2>
           <div class="spri-nyt-date">
             ${dateHtml}
+          </div>
+        </div>
+
+        <div class="spri-header-qr">
+          <img
+            class="spri-header-qr-image"
+            src="${escapeHtml(qrUrl)}"
+            alt="QR code for ${escapeHtml(flyerUrl)}"
+            loading="eager"
+          >
+          <div class="spri-header-qr-caption">
+            ${escapeHtml(QR_CAPTION)}
           </div>
         </div>
       </header>
@@ -767,7 +838,7 @@
     hooplaEl.innerHTML = links.join(" ");
   }
 
-  async function checkAvailability(list, book, index) {
+  async function checkAvailability(list, book, index, batchId) {
     const id = makeBookId(list.key, index);
     const item = document.getElementById(id);
     if (!item) return;
@@ -785,6 +856,8 @@
     try {
       const data = await fetchJson(workerUrl + "/book?" + params.toString());
 
+      if (batchId !== availabilityBatchId) return;
+
       statusEl.textContent = data.label || data.error || "Check catalog";
       statusEl.dataset.status = data.status || "unknown";
 
@@ -792,6 +865,8 @@
       renderLibbyLinks(item, data);
       renderHooplaLinks(item, data);
     } catch (error) {
+      if (batchId !== availabilityBatchId) return;
+
       statusEl.textContent = "Availability check failed: " + String(error.message || error);
       statusEl.dataset.status = "error";
     }
@@ -805,18 +880,25 @@
      });
    }
    
-  function checkAllAvailability(listData) {
+  async function checkAllAvailability(listData) {
+    const batchId = ++availabilityBatchId;
+    setPrintButtonLoading(true);
+
     const jobs = [];
 
     listData.forEach(function (list) {
       list.books.slice(0, 15).forEach(function (book, index) {
         jobs.push(function () {
-          return checkAvailability(list, book, index);
+          return checkAvailability(list, book, index, batchId);
         });
       });
     });
 
-    runLimited(jobs, 6);
+    await runLimited(jobs, 6);
+
+    if (batchId === availabilityBatchId) {
+      setPrintButtonLoading(false);
+    }
   }
 
   async function runLimited(jobs, limit) {
@@ -861,13 +943,14 @@
       return;
     }
 
+    syncUrlToSelectedBranch();
     renderLoading();
 
     try {
       const listData = await Promise.all(lists.map(loadList));
       currentListData = listData;
       renderLists(currentListData);
-      checkAllAvailability(currentListData);
+      await checkAllAvailability(currentListData);
     } catch (error) {
       renderError("The bestseller lists could not be loaded.");
     }
