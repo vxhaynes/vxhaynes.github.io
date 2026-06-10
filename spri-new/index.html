@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Books at Springfield Township Library</title>
+  <style>
+    :root {
+      --bg: #f6f2e9;
+      --paper: #fffaf1;
+      --ink: #1f2520;
+      --muted: #60685f;
+      --line: #d8cfbf;
+      --accent: #008037;
+      --accent-ink: #ffffff;
+      --soft: #ece4d5;
+      --warn: #8a5a00;
+      --error: #9f1d1d;
+      --radius: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(45, 37, 24, 0.08);
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3.3rem);
+      letter-spacing: -0.055em;
+      line-height: 0.96;
+    }
+
+    .title-block p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 68ch;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      min-width: 220px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 750;
+      cursor: pointer;
+      background: var(--accent);
+      color: var(--accent-ink);
+      box-shadow: 0 8px 18px rgba(0, 128, 55, 0.18);
+    }
+
+    button.secondary {
+      color: var(--ink);
+      background: var(--soft);
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      box-shadow: none;
+    }
+
+    .status {
+      width: 100%;
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff7d8;
+      color: var(--warn);
+      border: 1px solid #ead891;
+      display: none;
+    }
+
+    .notice[data-show="true"] { display: block; }
+
+    .list-section {
+      margin-top: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head .count {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .book-card {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      min-height: 162px;
+      padding: 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 26px rgba(45, 37, 24, 0.055);
+      overflow: hidden;
+    }
+
+    .cover-link,
+    .cover-placeholder {
+      display: block;
+      width: 92px;
+      height: 138px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #e1d5c0, #fff5df);
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      text-decoration: none;
+    }
+
+    .cover-link img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .cover-placeholder {
+      display: grid;
+      place-items: center;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .book-title {
+      margin: 0 0 3px;
+      font-size: 1.08rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .book-title a {
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.15em;
+    }
+
+    .author {
+      margin: 0 0 7px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .pill.available { background: #dbeedd; color: #174a25; }
+    .pill.unavailable { background: #f0dedb; color: #7b261e; }
+    .pill.digital { background: #e1e8f6; color: #1d3c70; }
+
+    .description {
+      margin: 0;
+      color: #384039;
+      font-size: 0.91rem;
+      line-height: 1.38;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .platforms {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--line);
+      font-size: 0.86rem;
+    }
+
+    .platforms strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .platforms a {
+      text-decoration: none;
+    }
+
+    .loading-grid .book-card {
+      min-height: 160px;
+      opacity: 0.72;
+    }
+
+    .skeleton-line {
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #e1d8c8, #f4eddc, #e1d8c8);
+      background-size: 220% 100%;
+      animation: shimmer 1.3s linear infinite;
+      margin: 7px 0;
+    }
+
+    .skeleton-line.short { width: 55%; }
+    .skeleton-line.medium { width: 75%; }
+    .skeleton-line.long { width: 95%; }
+
+    @keyframes shimmer {
+      to { background-position: -220% 0; }
+    }
+
+    .error {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 14px;
+      color: var(--error);
+      background: #fff1f1;
+      border: 1px solid #efc4c4;
+      display: none;
+      white-space: pre-wrap;
+    }
+
+    .error[data-show="true"] { display: block; }
+
+    footer {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 14px; }
+      header { display: block; }
+      .controls { justify-content: flex-start; margin-top: 16px; }
+      .status { text-align: left; }
+      .book-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-head .count { display: block; margin-top: 4px; }
+    }
+
+    @media print {
+      @page { size: letter portrait; margin: 0.35in; }
+
+      :root {
+        --bg: white;
+        --paper: white;
+        --ink: #111;
+        --muted: #333;
+        --line: #bbb;
+        --soft: #f1f1f1;
+      }
+
+      body { background: white; }
+      .wrap { max-width: none; padding: 0; }
+      header {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0 0 10px;
+      }
+      .title-block h1 { font-size: 2rem; }
+      .title-block p { font-size: 0.9rem; margin-top: 4px; }
+      .controls, .notice, .error, footer { display: none !important; }
+      .list-section { margin-top: 10px; break-inside: avoid; }
+      .section-head { margin-bottom: 6px; }
+      .section-head h2 { font-size: 1.15rem; }
+      .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .book-card {
+        grid-template-columns: 58px 1fr;
+        gap: 8px;
+        min-height: 104px;
+        padding: 8px;
+        border-radius: 10px;
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .cover-link,
+      .cover-placeholder { width: 58px; height: 86px; border-radius: 6px; }
+      .book-title { font-size: 0.82rem; margin-bottom: 1px; }
+      .author { font-size: 0.74rem; margin-bottom: 3px; }
+      .meta { gap: 3px; margin-bottom: 3px; }
+      .pill { font-size: 0.62rem; padding: 2px 5px; }
+      .description { font-size: 0.68rem; line-height: 1.24; -webkit-line-clamp: 3; }
+      .platforms { margin-top: 4px; padding-top: 4px; font-size: 0.63rem; }
+      .platforms strong { margin-bottom: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title-block">
+        <h1>New Books at Springfield Township Library</h1>
+        <p>The ten most recently added adult fiction and nonfiction books, with shelf location, description, and digital availability.</p>
+      </div>
+      <div class="controls">
+        <button id="refreshBtn" class="secondary" type="button">Refresh lists</button>
+        <button id="printBtn" type="button" disabled>Checking lists...</button>
+        <div id="status" class="status">Loading catalog data…</div>
+      </div>
+    </header>
+
+    <div id="notice" class="notice"></div>
+    <div id="error" class="error"></div>
+
+    <section class="list-section" aria-labelledby="fictionHeading">
+      <div class="section-head">
+        <h2 id="fictionHeading">Adult Fiction</h2>
+        <span id="fictionCount" class="count"></span>
+      </div>
+      <div id="fictionList" class="book-grid loading-grid"></div>
+    </section>
+
+    <section class="list-section" aria-labelledby="nonfictionHeading">
+      <div class="section-head">
+        <h2 id="nonfictionHeading">Adult Nonfiction</h2>
+        <span id="nonfictionCount" class="count"></span>
+      </div>
+      <div id="nonfictionList" class="book-grid loading-grid"></div>
+    </section>
+
+    <footer id="footerStamp"></footer>
+  </div>
+
+  <template id="loadingCardTemplate">
+    <article class="book-card" aria-hidden="true">
+      <div class="cover-placeholder">Loading cover</div>
+      <div>
+        <div class="skeleton-line long"></div>
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line long"></div>
+        <div class="skeleton-line long"></div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    // After you deploy worker.js to Cloudflare Workers, paste your Worker URL here.
+    // Example: https://springfield-new-books.your-account.workers.dev
+    const WORKER_URL = 'https://spri-new.vxha.workers.dev';
+
+    // You can temporarily override this with ?api=https://your-worker.workers.dev/api/books
+    const API_URL = new URLSearchParams(location.search).get('api') || `${WORKER_URL.replace(/\/$/, '')}/api/books`;
+
+    const els = {
+      fictionList: document.getElementById('fictionList'),
+      nonfictionList: document.getElementById('nonfictionList'),
+      fictionCount: document.getElementById('fictionCount'),
+      nonfictionCount: document.getElementById('nonfictionCount'),
+      printBtn: document.getElementById('printBtn'),
+      refreshBtn: document.getElementById('refreshBtn'),
+      status: document.getElementById('status'),
+      notice: document.getElementById('notice'),
+      error: document.getElementById('error'),
+      footerStamp: document.getElementById('footerStamp'),
+      loadingCardTemplate: document.getElementById('loadingCardTemplate')
+    };
+
+    function showLoading() {
+      els.error.dataset.show = 'false';
+      els.notice.dataset.show = 'false';
+      els.printBtn.disabled = true;
+      els.printBtn.textContent = 'Checking lists...';
+      els.status.textContent = 'Loading catalog data…';
+      [els.fictionList, els.nonfictionList].forEach(list => {
+        list.classList.add('loading-grid');
+        list.replaceChildren();
+        for (let i = 0; i < 6; i++) {
+          list.append(els.loadingCardTemplate.content.cloneNode(true));
+        }
+      });
+      els.fictionCount.textContent = '';
+      els.nonfictionCount.textContent = '';
+    }
+
+    function setText(el, value) {
+      el.textContent = value || '';
+    }
+
+    function createPill(text, className = '') {
+      const span = document.createElement('span');
+      span.className = `pill ${className}`.trim();
+      span.textContent = text;
+      return span;
+    }
+
+    function renderBook(book) {
+      const article = document.createElement('article');
+      article.className = 'book-card';
+
+      const coverAnchor = document.createElement('a');
+      coverAnchor.href = book.catalogUrl;
+      coverAnchor.target = '_blank';
+      coverAnchor.rel = 'noopener noreferrer';
+      coverAnchor.className = 'cover-link';
+      coverAnchor.setAttribute('aria-label', `Open catalog record for ${book.title}`);
+
+      if (book.coverUrl) {
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.alt = `Cover of ${book.title}`;
+        img.src = book.coverUrl;
+        img.onerror = () => {
+          const fallback = document.createElement('div');
+          fallback.className = 'cover-placeholder';
+          fallback.textContent = 'No cover available';
+          coverAnchor.replaceWith(fallback);
+        };
+        coverAnchor.append(img);
+      } else {
+        const fallback = document.createElement('div');
+        fallback.className = 'cover-placeholder';
+        fallback.textContent = 'No cover available';
+        article.append(fallback);
+      }
+
+      if (book.coverUrl) article.append(coverAnchor);
+
+      const body = document.createElement('div');
+
+      const title = document.createElement('h3');
+      title.className = 'book-title';
+      const titleLink = document.createElement('a');
+      titleLink.href = book.catalogUrl;
+      titleLink.target = '_blank';
+      titleLink.rel = 'noopener noreferrer';
+      setText(titleLink, book.title || 'Untitled');
+      title.append(titleLink);
+      body.append(title);
+
+      const author = document.createElement('p');
+      author.className = 'author';
+      setText(author, book.author ? `by ${book.author}` : 'Author not listed');
+      body.append(author);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      if (book.callClass) meta.append(createPill(`Shelf: ${book.callClass}`));
+      if (book.onshelf === true) meta.append(createPill('On shelf', 'available'));
+      if (book.onshelf === false) meta.append(createPill('Checked out / unavailable', 'unavailable'));
+      body.append(meta);
+
+      if (book.description) {
+        const description = document.createElement('p');
+        description.className = 'description';
+        setText(description, book.description);
+        body.append(description);
+      }
+
+      if (Array.isArray(book.platforms) && book.platforms.length > 0) {
+        const platforms = document.createElement('div');
+        platforms.className = 'platforms';
+        const label = document.createElement('strong');
+        label.textContent = 'Also available on these platforms:';
+        platforms.append(label);
+
+        const metaPlatforms = document.createElement('div');
+        metaPlatforms.className = 'meta';
+        book.platforms.forEach(platform => {
+          const pill = createPill(platform.label, 'digital');
+          if (platform.url) {
+            const link = document.createElement('a');
+            link.href = platform.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.append(pill);
+            metaPlatforms.append(link);
+          } else {
+            metaPlatforms.append(pill);
+          }
+        });
+        platforms.append(metaPlatforms);
+        body.append(platforms);
+      }
+
+      article.append(body);
+      return article;
+    }
+
+    function renderList(container, countEl, books) {
+      container.classList.remove('loading-grid');
+      container.replaceChildren();
+      books.forEach(book => container.append(renderBook(book)));
+      countEl.textContent = `${books.length} book${books.length === 1 ? '' : 's'}`;
+    }
+
+    async function loadBooks({ refresh = false } = {}) {
+      showLoading();
+
+      if (API_URL.includes('YOUR-SUBDOMAIN')) {
+        throw new Error('Set WORKER_URL in index.html to your deployed Cloudflare Worker URL, or add ?api=https://your-worker.workers.dev/api/books to this page URL.');
+      }
+
+      const url = new URL(API_URL, location.href);
+      if (refresh) url.searchParams.set('refresh', '1');
+
+      const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok || !data?.ok) {
+        const message = data?.error || `Request failed with HTTP ${response.status}`;
+        throw new Error(message);
+      }
+
+      renderList(els.fictionList, els.fictionCount, data.lists.fiction || []);
+      renderList(els.nonfictionList, els.nonfictionCount, data.lists.nonfiction || []);
+
+      els.printBtn.disabled = false;
+      els.printBtn.textContent = 'Print lists';
+      els.status.textContent = `Updated ${new Date(data.generatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
+      els.footerStamp.textContent = `Printed from Springfield Township Library catalog data. Generated ${new Date(data.generatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}.`;
+
+      const warnings = data.warnings || [];
+      if (warnings.length) {
+        els.notice.textContent = warnings.join(' ');
+        els.notice.dataset.show = 'true';
+      }
+    }
+
+    els.printBtn.addEventListener('click', () => window.print());
+    els.refreshBtn.addEventListener('click', () => loadBooks({ refresh: true }).catch(showError));
+
+    function showError(error) {
+      els.printBtn.disabled = true;
+      els.printBtn.textContent = 'Checking lists...';
+      els.status.textContent = 'Could not load lists.';
+      els.error.textContent = `${error.message}\n\nTry refreshing. If this continues, check the Cloudflare Worker logs for the catalog or Hoopla request that failed.`;
+      els.error.dataset.show = 'true';
+    }
+
+    loadBooks().catch(showError);
+  </script>
+</body>
+</html>
