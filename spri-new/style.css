@@ -358,15 +358,15 @@ button:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(5, minmax(0, 1fr));
     grid-auto-flow: column;
-    gap: 0.07in;
+    gap: 0.065in;
     height: calc(10.5in - 1.08in);
     min-height: 0;
   }
 
   .book-card {
-    grid-template-columns: 0.58in minmax(0, 1fr);
+    grid-template-columns: 0.64in minmax(0, 1fr);
     gap: 0.065in;
-    padding: 0.06in;
+    padding: 0.055in;
     min-height: 0;
     overflow: hidden;
     break-inside: avoid;
@@ -375,36 +375,36 @@ button:disabled {
 
   .cover,
   .cover-placeholder {
-    width: 0.58in;
-    height: 0.87in;
+    width: 0.64in;
+    height: 0.96in;
   }
 
   .book-copy {
-    gap: 0.018in;
+    gap: 0.02in;
   }
 
   .book-title {
-    font-size: 0.102in;
-    line-height: 1.12;
+    font-size: 0.118in;
+    line-height: 1.1;
   }
 
   .author {
-    font-size: 0.078in;
-    line-height: 1.15;
+    font-size: 0.09in;
+    line-height: 1.12;
   }
 
   .call-number {
-    font-size: 0.074in;
+    font-size: 0.085in;
   }
 
   .description {
-    font-size: 0.072in;
-    line-height: 1.2;
-    -webkit-line-clamp: 4;
+    font-size: 0.083in;
+    line-height: 1.18;
+    -webkit-line-clamp: 3;
   }
 
   .digital-options {
-    font-size: 0.07in;
-    line-height: 1.15;
+    font-size: 0.082in;
+    line-height: 1.12;
   }
 }
