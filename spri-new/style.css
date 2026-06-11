@@ -259,7 +259,7 @@ button:disabled {
   font-size: 0.082in;
   font-weight: 800;
   line-height: 1.2;
-  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .loading-line {
@@ -404,7 +404,7 @@ button:disabled {
   }
 
   .digital-options {
-    font-size: 0.1in;
+    font-size: 0.1245in;
     line-height: 1.12;
   }
 }
