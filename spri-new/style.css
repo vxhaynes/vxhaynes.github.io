@@ -364,7 +364,7 @@ button:disabled {
   }
 
   .book-card {
-    grid-template-columns: 0.8in minmax(0, 1fr);
+    grid-template-columns: 1in minmax(0, 1fr);
     gap: 0.065in;
     padding: 0.055in;
     min-height: 0;
@@ -375,8 +375,8 @@ button:disabled {
 
   .cover,
   .cover-placeholder {
-    width: 0.80in;
-    height: 1.12in;
+    width: 1in;
+    height: 1.4in;
   }
 
   .book-copy {
@@ -400,7 +400,7 @@ button:disabled {
   .description {
     font-size: 0.1245in;
     line-height: 1.18;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
   }
 
   .digital-options {
