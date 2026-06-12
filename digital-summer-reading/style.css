@@ -1,0 +1,457 @@
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("assets/fonts/BebasNeue-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sauce One";
+  src: url("assets/fonts/OpenSauceOne-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kollektif";
+  src: url("assets/fonts/Kollektif.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --spri-green: #008037;
+  --spri-blue: #5271ff;
+  --soil: #342314;
+  --soil-soft: #6f4c2d;
+  --sand: #f7ead0;
+  --paper: #fffaf0;
+  --bone: #fff4dc;
+  --ink: #1c1713;
+  --muted: #5b5149;
+  --line: rgba(52, 35, 20, 0.18);
+  --shadow: rgba(31, 22, 15, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #efe6d6;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(82, 113, 255, 0.12), transparent 24rem),
+    radial-gradient(circle at 88% 4%, rgba(0, 128, 55, 0.12), transparent 20rem),
+    #efe6d6;
+  font-family: "Open Sauce One", Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 1.32;
+}
+
+.print-pack {
+  display: grid;
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.page {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0 auto;
+  padding: 0.38in 0.42in 0.28in;
+  overflow: hidden;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.64), rgba(255, 244, 220, 0.92)),
+    repeating-linear-gradient(0deg, rgba(111, 76, 45, 0.08) 0 1px, transparent 1px 16px),
+    var(--paper);
+  border: 1px solid rgba(52, 35, 20, 0.18);
+  box-shadow: 0 12px 40px var(--shadow);
+}
+
+.page::before,
+.page::after {
+  content: "";
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page::before {
+  bottom: 0;
+  height: 1.2in;
+  background:
+    radial-gradient(ellipse at 12% 40%, rgba(52, 35, 20, 0.18), transparent 28%),
+    radial-gradient(ellipse at 80% 56%, rgba(0, 128, 55, 0.16), transparent 34%),
+    linear-gradient(172deg, transparent 0 20%, rgba(111, 76, 45, 0.2) 21% 38%, rgba(52, 35, 20, 0.16) 39% 58%, rgba(82, 113, 255, 0.16) 59% 74%, rgba(0, 128, 55, 0.18) 75% 100%);
+  opacity: 0.55;
+}
+
+.page::after {
+  top: 1.1in;
+  height: 0.16in;
+  background: linear-gradient(90deg, var(--spri-green), var(--spri-blue));
+  opacity: 0.95;
+}
+
+.page-header,
+.book-grid,
+.page-footer,
+.hero-band,
+.intro-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  display: grid;
+  grid-template-columns: 0.88in 1fr;
+  gap: 0.16in;
+  align-items: center;
+  padding-bottom: 0.2in;
+}
+
+.compact-header {
+  padding-bottom: 0.3in;
+}
+
+.library-logo {
+  width: 0.8in;
+  height: 0.8in;
+  object-fit: contain;
+}
+
+.kicker {
+  margin: 0 0 0.03in;
+  color: var(--spri-green);
+  font-family: "Kollektif", "Arial Narrow", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: var(--soil);
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 48px;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 0.05in 0 0;
+  color: var(--spri-blue);
+  font-family: "Open Sauce One", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.hero-band {
+  display: flex;
+  align-items: stretch;
+  height: 0.55in;
+  margin: 0.08in 0 0.14in;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--sand);
+}
+
+.stratum {
+  flex: 1;
+  clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 84%);
+}
+
+.stratum-one {
+  background: rgba(0, 128, 55, 0.82);
+}
+
+.stratum-two {
+  margin-left: -0.22in;
+  background: rgba(82, 113, 255, 0.78);
+}
+
+.stratum-three {
+  margin-left: -0.22in;
+  background: rgba(111, 76, 45, 0.75);
+}
+
+.fossil {
+  position: absolute;
+  color: rgba(255, 250, 240, 0.82);
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.fossil-one { left: 14%; top: 18%; }
+.fossil-two { left: 48%; top: 12%; }
+.fossil-three { right: 15%; top: 12%; }
+
+.intro-copy {
+  max-width: 6.9in;
+  margin: 0 0 0.18in;
+  padding: 0.13in 0.17in;
+  border-left: 8px solid var(--spri-green);
+  background: rgba(255, 244, 220, 0.92);
+  color: var(--soil);
+  font-family: "Kollektif", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.book-grid {
+  display: grid;
+  gap: 0.16in;
+  align-content: start;
+}
+
+.three-books {
+  grid-template-rows: repeat(3, auto);
+}
+
+.book-card {
+  display: grid;
+  grid-template-columns: 1.32in 1fr;
+  min-height: 2.45in;
+  padding: 0.12in;
+  gap: 0.14in;
+  border: 1.6px solid rgba(52, 35, 20, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 250, 240, 0.91);
+  break-inside: avoid;
+}
+
+.feature-card {
+  min-height: 2.34in;
+}
+
+.cover-wrap {
+  position: relative;
+  width: 1.32in;
+  min-height: 1.95in;
+  margin: 0;
+  overflow: hidden;
+  border: 2px solid rgba(52, 35, 20, 0.36);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 250, 240, 0.45), transparent 32%),
+    linear-gradient(150deg, rgba(0, 128, 55, 0.85), rgba(82, 113, 255, 0.76));
+  box-shadow: 0 3px 10px rgba(52, 35, 20, 0.16);
+}
+
+.cover-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 20%, transparent 0 30%, rgba(255, 250, 240, 0.28) 31% 33%, transparent 34%),
+    radial-gradient(ellipse at 58% 64%, transparent 0 23%, rgba(255, 250, 240, 0.24) 24% 26%, transparent 27%),
+    repeating-linear-gradient(167deg, transparent 0 16px, rgba(52, 35, 20, 0.15) 17px 19px);
+  opacity: 0.66;
+}
+
+.cover-wrap::after {
+  content: attr(data-cover-label);
+  position: absolute;
+  inset: auto 0.1in 0.1in;
+  color: #fffaf0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 18px;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.cover-wrap img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  min-height: 1.95in;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-wrap.cover-missing img {
+  display: none;
+}
+
+.book-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.book-info h2 {
+  margin: 0;
+  color: var(--soil);
+  font-family: "Kollektif", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1.04;
+}
+
+.byline,
+.date {
+  margin: 0;
+}
+
+.byline {
+  margin-top: 0.03in;
+  color: var(--spri-green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.date {
+  color: var(--muted);
+  font-family: "Kollektif", Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.summary {
+  margin: 0.08in 0 0.08in;
+  font-size: 10.4px;
+}
+
+.formats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.05in;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.formats li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 0.24in;
+  padding: 0.03in 0.08in;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: var(--spri-blue);
+  background: rgba(82, 113, 255, 0.06);
+  font-family: "Kollektif", Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.formats li:nth-child(even) {
+  color: var(--spri-green);
+  background: rgba(0, 128, 55, 0.06);
+}
+
+.page-footer {
+  margin-top: 0.16in;
+  padding-top: 0.09in;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: "Kollektif", Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 900px) {
+  .print-pack {
+    padding: 0;
+    gap: 0;
+  }
+
+  .page {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 18px 28px;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .page-header {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .library-logo {
+    width: 58px;
+    height: 58px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .book-card {
+    grid-template-columns: 92px 1fr;
+    min-height: 0;
+  }
+
+  .cover-wrap {
+    width: 92px;
+    min-height: 138px;
+  }
+
+  .cover-wrap img {
+    min-height: 138px;
+  }
+
+  .summary {
+    font-size: 10px;
+  }
+}
+
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 8.5in;
+    background: #fff;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-pack {
+    display: block;
+    padding: 0;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
