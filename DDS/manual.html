@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <link rel="preload" href="/fonts/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Digital Desk Stats Manual</title>
     <link rel="icon" type="image/x-icon" href="/DDS/favicon.ico">
-      <style>
-        @font-face {
+    <style>
+      @font-face {
+        font-family: Metropolis;
+        src: url("/fonts/Metropolis-Regular.woff2") format("woff2"),
+          url("/fonts/Metropolis-Regular.woff") format("woff");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Metropolis;
+        src: url("/fonts/Metropolis-Bold.woff2") format("woff2"),
+          url("/fonts/Metropolis-Bold.woff") format("woff");
+        font-weight: bold;
+        font-display: swap;
+      }
+      body {
+          padding-right: 60px;
+          padding-left: 60px;
           font-family: Metropolis;
-          src: url("/fonts/Metropolis-Regular.woff2") format("woff2"),
-            url("/fonts/Metropolis-Regular.woff") format("woff");
-          font-display: swap;
-        }
-        @font-face {
-          font-family: Metropolis;
-          src: url("/fonts/Metropolis-Bold.woff2") format("woff2"),
-            url("/fonts/Metropolis-Bold.woff") format("woff");
-          font-weight: bold;
-          font-display: swap;
-        }
-        body {
-            padding-right: 60px;
-            padding-left: 60px;
-            font-family: Metropolis;
-        }
-      </style>
+      }
+    </style>
    </head>
    <body>
       <img src="/DDS/favicon.ico" alt="DDS header image" width="128" height="128">
