@@ -1,14 +1,39 @@
-  document.addEventListener('DOMContentLoaded', function () {
-    const navToggle = document.querySelector('.navToggle');
-    const topnav = document.querySelector('.topnav');
+document.addEventListener('DOMContentLoaded', function () {
+  const navToggle = document.querySelector('.navToggle');
+  const topnav = document.querySelector('.topnav');
+  const dropdown = document.querySelector('.navDropdown');
+  const dropdownToggle = document.querySelector('.dropdownToggle');
 
-    if (!navToggle || !topnav) return;
-
+  if (navToggle && topnav) {
     navToggle.addEventListener('click', function () {
       const isOpen = topnav.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
-  });
+  }
+
+  if (dropdown && dropdownToggle) {
+    dropdownToggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+
+      const isOpen = dropdown.classList.toggle('open');
+      dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        dropdown.classList.remove('open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+});
 
 const lightbox = document.getElementById('lightbox');
 const lightImg = lightbox.querySelector('img');
