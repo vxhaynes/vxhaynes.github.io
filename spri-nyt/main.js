@@ -3,7 +3,6 @@
   if (!root) return;
 
   const workerUrl = "https://spri-nyt-list.vxha.workers.dev";
-  const PUBLIC_WIDGET_URL = "https://vxhaynes.github.io/spri-nyt";
 
    const lists = [
      {
@@ -487,7 +486,7 @@
   }
 
   function getBranchFlyerUrl(branch) {
-    return PUBLIC_WIDGET_URL + "?id=" + encodeURIComponent(String((branch || selectedBranch).id));
+    return "https://vxhaynes.github.io/spri-nyt?id=" + encodeURIComponent(String((branch || selectedBranch).id));
   }
 
   function syncUrlToSelectedBranch() {
