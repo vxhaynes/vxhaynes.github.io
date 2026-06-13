@@ -1,6 +1,3 @@
-const API_URL = 'https://spri-new.vxha.workers.dev/api/books';
-const BOOKS_PER_PAGE = 10;
-
 const els = {
   fictionList: document.getElementById('fictionList'),
   nonfictionList: document.getElementById('nonfictionList'),
@@ -19,7 +16,7 @@ function showLoading() {
 
   [els.fictionList, els.nonfictionList].forEach(list => {
     list.replaceChildren();
-    for (let i = 0; i < BOOKS_PER_PAGE; i += 1) {
+    for (let i = 0; i < 10; i += 1) {
       list.append(els.loadingCardTemplate.content.cloneNode(true));
     }
   });
@@ -112,16 +109,16 @@ function getDigitalLabels(platforms) {
 function renderList(container, books) {
   container.replaceChildren();
 
-  const trimmed = (Array.isArray(books) ? books : []).slice(0, BOOKS_PER_PAGE);
+  const trimmed = (Array.isArray(books) ? books : []).slice(0, 10);
   trimmed.forEach(book => container.append(renderBook(book)));
 
-  for (let i = trimmed.length; i < BOOKS_PER_PAGE; i += 1) {
+  for (let i = trimmed.length; i < 10; i += 1) {
     container.append(renderEmptySlot());
   }
 }
 
 async function fetchList(list, refresh) {
-  const url = new URL(API_URL);
+  const url = new URL('https://spri-new.vxha.workers.dev/api/books');
   url.searchParams.set('list', list);
   if (refresh) url.searchParams.set('refresh', '1');
 
