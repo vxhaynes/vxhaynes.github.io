@@ -359,6 +359,7 @@ button:disabled {
     gap: 0.065in;
     height: calc(10.5in - 1.08in);
     min-height: 0;
+    border-bottom: 0.045in solid var(--green);
   }
 
   .book-card {
