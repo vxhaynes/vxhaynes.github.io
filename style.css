@@ -84,7 +84,7 @@ ul.topnav {
   margin: 0;
   list-style: none;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02rem;
 }
 
@@ -128,7 +128,7 @@ ul.topnav li a.active {
   padding: 0.4rem;
   margin: 0;
   list-style: none;
-  background: #fff;
+  background: #2b2b2b;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.16);
