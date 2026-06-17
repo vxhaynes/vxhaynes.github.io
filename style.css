@@ -537,3 +537,7 @@ a:hover, a:active {
   text-indent: -36px;
   padding-left: 36px;
 }
+.pubPrez a:link, a:visited {
+  text-decoration: underline;
+  font-weight: 500;
+}
