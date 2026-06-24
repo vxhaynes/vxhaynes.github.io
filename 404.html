@@ -6,11 +6,19 @@
   <title>Page Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preload" href="/fonts/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @font-face {
       font-family: Metropolis;
       src: url("/fonts/Metropolis-Regular.woff2") format("woff2"),
         url("/fonts/Metropolis-Regular.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: Metropolis;
+      src: url("/fonts/Metropolis-Bold.woff2") format("woff2"),
+        url("/fonts/Metropolis-Bold.woff") format("woff");
+      font-weight: 400;
       font-display: swap;
     }
 
@@ -59,6 +67,8 @@
 
     }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
 </head>
 
 <body>
