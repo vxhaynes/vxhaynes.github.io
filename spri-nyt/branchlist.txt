@@ -1,0 +1,386 @@
+const branches = [{
+		name: "Addison Township Public Library",
+		shortname: "Addison",
+		id: 43,
+		logo: "/spri-nyt/logos/AddisonTwpLogo.avif"
+	},
+	{
+		name: "Allen Park Public Library",
+		shortname: "Allen Park",
+		id: 4,
+		logo: "/spri-nyt/logos/AllenParkLogo.avif"
+	},
+	{
+		name: "Auburn Hills Public Library",
+		shortname: "Auburn Hills",
+		id: 50,
+		logo: "/spri-nyt/logos/AuburnHillsLogo.avif"
+	},
+	{
+		name: "Auburn Hills Public Library Lockers",
+		shortname: "Lockers",
+		id: 150,
+		logo: "/spri-nyt/logos/AuburnHillsLogo.avif"
+	},
+	{
+		name: "Belleville Area District Library Sumpter Branch",
+		shortname: "Sumpter",
+		id: 220,
+		logo: "/spri-nyt/logos/BellevilleAreaLogo.avif"
+	},
+	{
+		name: "Belleville Area District Library",
+		shortname: "Belleville",
+		id: 20,
+		logo: "/spri-nyt/logos/BellevilleAreaLogo.avif"
+	},
+	{
+		name: "Berkley Public Library",
+		shortname: "Berkley",
+		id: 30,
+		logo: "/spri-nyt/logos/BerkleyLogo.avif"
+	},
+	{
+		name: "Brighton District Library",
+		shortname: "Brighton",
+		id: 212,
+		logo: "/spri-nyt/logos/BrightonLogo.avif"
+	},
+	{
+		name: "Brighton District Library Lockers",
+		shortname: "Lockers",
+		id: 312,
+		logo: "/spri-nyt/logos/BrightonLogo.avif"
+	},
+	{
+		name: "Chelsea District Library",
+		shortname: "Chelsea",
+		id: 216,
+		logo: "/spri-nyt/logos/ChelseaLogo.avif"
+	},
+	{
+		name: "Chelsea Mobile Library",
+		shortname: "Mobile",
+		id: 316,
+		logo: "/spri-nyt/logos/ChelseaLogo.avif"
+	},
+	{
+		name: "Clawson Blair Memorial Library",
+		shortname: "Blair",
+		id: 15,
+		logo: "/spri-nyt/logos/ClawsonBlairLogo.avif"
+	},
+	{
+		name: "Commerce Township Community Library",
+		shortname: "Commerce",
+		id: 98,
+		logo: "/spri-nyt/logos/CommerceTwpLogo.avif"
+	},
+	{
+		name: "Dearborn Heights North - Caroline Kennedy Library",
+		shortname: "Caroline Kennedy",
+		id: 7,
+		logo: "/spri-nyt/logos/DearbornHeightsLogo.avif"
+	},
+	{
+		name: "Dearborn Heights South - JFK Jr Library",
+		shortname: "JFK Jr",
+		id: 28,
+		logo: "/spri-nyt/logos/DearbornHeightsLogo.avif"
+	},
+	{
+		name: "Dexter District Library",
+		shortname: "Dexter",
+		id: 221,
+		logo: "/spri-nyt/logos/DexterLogo.avif"
+	},
+	{
+		name: "Ecorse Public Library",
+		shortname: "Ecorse",
+		id: 10,
+		logo: "/spri-nyt/logos/EcorseLogo.avif"
+	},
+	{
+		name: "Ferndale Area District Library",
+		shortname: "Ferndale",
+		id: 69,
+		logo: "/spri-nyt/logos/FerndaleLogo.avif"
+	},
+	{
+		name: "Flat Rock Public Library",
+		shortname: "Flat Rock",
+		id: 18,
+		logo: "/spri-nyt/logos/FlatRockLogo.avif"
+	},
+	{
+		name: "Franklin Public Library",
+		shortname: "Franklin",
+		id: 40,
+		logo: "/spri-nyt/logos/FranklinLogo.avif"
+	},
+	{
+		name: "Garden City Public Library",
+		shortname: "Garden City",
+		id: 5,
+		logo: "/spri-nyt/logos/GardenCityLogo.avif"
+	},
+	{
+		name: "Hamtramck Public Library",
+		shortname: "Hamtramck",
+		id: 34,
+		logo: "/spri-nyt/logos/HamtramckLogo.avif"
+	},
+	{
+		name: "Hartland Cromaine Library",
+		shortname: "Cromaine",
+		id: 213,
+		logo: "/spri-nyt/logos/HartlandCromaineLogo.avif"
+	},
+	{
+		name: "Hartland Cromaine Library Lockers",
+		shortname: "Lockers",
+		id: 313,
+		logo: "/spri-nyt/logos/HartlandCromaineLogo.avif"
+	},
+	{
+		name: "Hazel Park Memorial District Library",
+		shortname: "Hazel Park",
+		id: 39,
+		logo: "/spri-nyt/logos/HazelParkLogo.avif"
+	},
+	{
+		name: "Highland Township Public Library",
+		shortname: "Highland",
+		id: 56,
+		logo: "/spri-nyt/logos/HighlandTownshipLogo.avif"
+	},
+	{
+		name: "Holly Township Library",
+		shortname: "Holly",
+		id: 222,
+		logo: "/spri-nyt/logos/HollyLogo.avif"
+	},
+	{
+		name: "Huntington Woods Library",
+		shortname: "Huntington Woods",
+		id: 31,
+		logo: "/spri-nyt/logos/HuntingtonWoodsLogo.avif"
+	},
+	{
+		name: "Inkster Leanna Hicks Public Library",
+		shortname: "Inkster",
+		id: 3,
+		logo: "/spri-nyt/logos/InksterLogo.avif"
+	},
+	{
+		name: "Lincoln Park Public Library",
+		shortname: "Lincoln Park",
+		id: 12,
+		logo: "/spri-nyt/logos/LincolnParkLogo.avif"
+	},
+	{
+		name: "Livonia Public Library Alfred Noble",
+		shortname: "Alfred Noble",
+		id: 19,
+		logo: "/spri-nyt/logos/LivoniaLogo.avif"
+	},
+	{
+		name: "Livonia Public Library Carl Sandburg",
+		shortname: "Carl Sandburg",
+		id: 21,
+		logo: "/spri-nyt/logos/LivoniaLogo.avif"
+	},
+	{
+		name: "Livonia Public Library Civic Center",
+		shortname: "Civic Center",
+		id: 32,
+		logo: "/spri-nyt/logos/LivoniaLogo.avif"
+	},
+	{
+		name: "Lyon Township Public Library",
+		shortname: "Lyon",
+		id: 93,
+		logo: "/spri-nyt/logos/LyonLogo.avif"
+	},
+	{
+		name: "Madison Heights Public Library",
+		shortname: "Madison Heights",
+		id: 29,
+		logo: "/spri-nyt/logos/MadisonHeightsLogo.avif"
+	},
+	{
+		name: "Manchester District Library",
+		shortname: "Manchester",
+		id: 217,
+		logo: "/spri-nyt/logos/ManchesterLogo.avif"
+	},
+	{
+		name: "Melvindale Public Library",
+		shortname: "Melvindale",
+		id: 6,
+		logo: "/spri-nyt/logos/MelvindaleLogo.avif"
+	},
+	{
+		name: "Milford Public Library",
+		shortname: "Milford",
+		id: 58,
+		logo: "/spri-nyt/logos/MilfordLogo.avif"
+	},
+	{
+		name: "Novi Lakeshore Lending Library",
+		shortname: "Lakeshore",
+		id: 166,
+		logo: "/spri-nyt/logos/NoviLogo.avif"
+	},
+	{
+		name: "Novi Public Library",
+		shortname: "Novi",
+		id: 66,
+		logo: "/spri-nyt/logos/NoviLogo.avif"
+	},
+	{
+		name: "Oak Park Public Library",
+		shortname: "Oak Park",
+		id: 37,
+		logo: "/spri-nyt/logos/OakParkLogo.avif"
+	},
+	{
+		name: "Oxford Public Library",
+		shortname: "Oxford",
+		id: 42,
+		logo: "/spri-nyt/logos/OxfordLogo.avif"
+	},
+	{
+		name: "Pontiac Public Library",
+		shortname: "Pontiac",
+		id: 41,
+		logo: "/spri-nyt/logos/PontiacLogo.avif"
+	},
+	{
+		name: "Redford Township District Library",
+		shortname: "Redford",
+		id: 9,
+		logo: "/spri-nyt/logos/RedfordLogo.avif"
+	},
+	{
+		name: "River Rouge Public Library",
+		shortname: "River Rouge",
+		id: 8,
+		logo: "/spri-nyt/logos/RiverRougeLogo.avif"
+	},
+	{
+		name: "Riverview Veterans Memorial Library",
+		shortname: "Riverview",
+		id: 24,
+		logo: "/spri-nyt/logos/RiverviewLogo.avif"
+	},
+	{
+		name: "Romulus Public Library",
+		shortname: "Romulus",
+		id: 22,
+		logo: "/spri-nyt/logos/RomulusLogo.avif"
+	},
+	{
+		name: "Royal Oak Public Library",
+		shortname: "Royal Oak",
+		id: 65,
+		logo: "/spri-nyt/logos/RoyalOakLogo.avif"
+	},
+	{
+		name: "Salem-South Lyon District Library",
+		shortname: "Salem-South Lyon",
+		id: 97,
+		logo: "/spri-nyt/logos/SalemSouthLyonLogo.avif"
+	},
+	{
+		name: "Southgate Veterans Memorial Library",
+		shortname: "Southgate",
+		id: 14,
+		logo: "/spri-nyt/logos/SouthgateLogo.avif"
+	},
+	{
+		name: "Springfield Township Library",
+		shortname: "Springfield",
+		id: 71,
+		logo: "/spri-nyt/logos/SpringfieldLogo.avif"
+	},
+	{
+		name: "Taylor Community Library",
+		shortname: "Taylor",
+		id: 26,
+		logo: "/spri-nyt/logos/TaylorLogo.avif"
+	},
+	{
+		name: "Trenton Veterans Memorial Library",
+		shortname: "Trenton",
+		id: 16,
+		logo: "/spri-nyt/logos/TrentonLogo.avif"
+	},
+	{
+		name: "Walled Lake City Library",
+		shortname: "Walled Lake",
+		id: 62,
+		logo: "/spri-nyt/logos/WalledLakeLogo.avif"
+	},
+	{
+		name: "Waterford Township Public Library",
+		shortname: "Waterford",
+		id: 64,
+		logo: "/spri-nyt/logos/WaterfordLogo.avif"
+	},
+	{
+		name: "Wayne Public Library",
+		shortname: "Wayne",
+		id: 23,
+		logo: "/spri-nyt/logos/WayneLogo.avif"
+	},
+	{
+		name: "White Lake Township Library",
+		shortname: "White Lake",
+		id: 73,
+		logo: "/spri-nyt/logos/WhiteLakeLogo.avif"
+	},
+	{
+		name: "Wixom Public Library",
+		shortname: "Wixom",
+		id: 38,
+		logo: "/spri-nyt/logos/WixomLogo.avif"
+	},
+	{
+		name: "Wyandotte Bacon Memorial District Library",
+		shortname: "Bacon",
+		id: 95,
+		logo: "/spri-nyt/logos/WyandotteBaconLogo.avif"
+	},
+	{
+		name: "Northville District Library",
+		shortname: "Northville",
+		id: 13,
+		logo: "/spri-nyt/logos/NorthvilleLogo.avif"
+	}
+];
+
+
+const dropdown = document.getElementById("myDropdown");
+const fragment = document.createDocumentFragment();
+
+branches.forEach(branch => {
+  const option = document.createElement("option");
+
+  option.value = branch.id;
+  option.textContent = branch.name;
+  fragment.appendChild(option);
+  
+});
+dropdown.appendChild(fragment);
+
+dropdown.addEventListener("change", function() {
+    const branchName = document.getElementById("branchName");
+    const branchShortName = document.getElementById("branchShortName");
+    const branchLogo = document.getElementById("branchLogo");
+    const selectedValue = Number(dropdown.value);
+    const branchObject = branches.find(branch => branch.id === selectedValue);
+    branchName.innerHTML = branchObject.name;
+    branchShortName.innerHTML = branchObject.shortname;
+    branchLogo.src = "https://vxhaynes.github.io"+branchObject.logo;
+});

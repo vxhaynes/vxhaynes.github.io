@@ -1,0 +1,583 @@
+@font-face {
+ font-family: "Bebas Neue";
+ src: url('fonts/BebasNeue-Regular.woff2') format('woff2'),
+  url('fonts/BebasNeue-Regular.woff') format('woff');
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+
+@font-face {
+ font-family: "Kollektif";
+ src: url('fonts/Kollektif.woff2') format('woff2'),
+  url('fonts/Kollektif.woff') format('woff');
+ font-weight: 400 800;
+ font-style: normal;
+ font-display: swap;
+}
+
+@font-face {
+ font-family: "Open Sauce";
+ src: url('fonts/OpenSauceOne-Regular.woff2') format('woff2'),
+  url('fonts/OpenSauceOne-Regular.woff') format('woff');
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+
+#spri-nyt-bestsellers {
+ --spri-green: #008037;
+ --spri-blue: #5271ff;
+ --spri-black: #111;
+ --spri-light: #f7faf8;
+
+ font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+ color: var(--spri-black);
+ max-width: 1100px;
+ margin: 0 auto;
+}
+
+
+.spri-widget-toolbar {
+ display: flex;
+ justify-content: space-between;
+ align-items: end;
+ gap: 1rem;
+ margin: 0 0 1rem;
+}
+
+.spri-library-picker {
+ display: grid;
+ gap: .25rem;
+ font-family: "Kollektif", Arial, Helvetica, sans-serif;
+ font-weight: 700;
+ color: var(--spri-black);
+ min-width: min(100%, 420px);
+}
+
+.spri-library-picker span {
+ font-size: .95rem;
+}
+
+.spri-library-picker select {
+ width: 100%;
+ border: 2px solid var(--spri-green);
+ border-radius: 0;
+ background: #fff;
+ color: var(--spri-black);
+ padding: .55rem .75rem;
+ font: inherit;
+ cursor: pointer;
+}
+
+.spri-library-picker select:focus {
+ outline: 3px solid rgba(82, 113, 255, .35);
+ outline-offset: 2px;
+}
+
+.spri-print-actions {
+ text-align: right;
+ margin: 0 0 1rem;
+}
+
+.spri-print-button {
+ border: 2px solid var(--spri-green);
+ background: #fff;
+ color: var(--spri-green);
+ padding: .55rem .9rem;
+ font-family: "Kollektif", Arial, Helvetica, sans-serif;
+ font-weight: 700;
+ cursor: pointer;
+}
+
+.spri-print-button:hover {
+ background: var(--spri-green);
+ color: #fff;
+}
+
+.spri-nyt-grid {
+ display: block;
+}
+
+.spri-nyt-column {
+ background: #fff;
+ margin: 0 auto 2.25rem;
+ padding: 1rem 1rem 1.25rem;
+ box-sizing: border-box;
+ border-top: 6px solid var(--spri-green);
+}
+
+.spri-nyt-header {
+ background: linear-gradient(90deg, var(--spri-green), var(--spri-blue));
+ color: #fff;
+ display: grid;
+ grid-template-columns: 105px minmax(0, 1fr) 136px;
+ gap: 1rem;
+ align-items: center;
+ padding: 1rem 1.25rem;
+ margin-bottom: 1.35rem;
+}
+
+.spri-brand-logo {
+ width: 100px;
+ height: 100px;
+ object-fit: contain;
+ background: #fff;
+ border-radius: 50%;
+ padding: .35rem;
+}
+
+.spri-header-text {
+ text-align: left;
+}
+
+.spri-header-qr {
+ justify-self: end;
+ align-self: center;
+ display: grid;
+ justify-items: center;
+ gap: .3rem;
+ max-width: 132px;
+ text-align: center;
+}
+
+.spri-header-qr-image {
+ display: block;
+ width: 96px;
+ height: 96px;
+ background: #fff;
+ border: 6px solid #fff;
+ box-sizing: border-box;
+}
+
+.spri-header-qr-caption {
+ color: #fff;
+ font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+ font-size: .64rem;
+ font-weight: 700;
+ line-height: 1.12;
+}
+
+.spri-brand-name {
+ font-family: "Bebas Neue", Impact, sans-serif;
+ font-size: 2rem;
+ letter-spacing: .04em;
+ line-height: 1;
+ margin: 0 0 .25rem;
+}
+
+.spri-list-title {
+ font-family: "Kollektif", Arial, Helvetica, sans-serif;
+ font-size: 2.25rem;
+ font-weight: 700;
+ line-height: 1.05;
+ margin: 0;
+}
+
+.spri-nyt-date {
+ margin-top: .45rem;
+ color: #fff;
+ font-size: 1.15rem;
+ font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+}
+
+.spri-nyt-list {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ column-gap: 1rem;
+ row-gap: 1rem;
+}
+
+.spri-nyt-item {
+ padding: 0;
+ border: 0;
+ break-inside: avoid;
+ page-break-inside: avoid;
+}
+
+.spri-nyt-book {
+ display: grid;
+ grid-template-columns: 112px 1fr;
+ gap: .65rem;
+ align-items: start;
+}
+
+.spri-nyt-cover-wrap {
+ display: block;
+}
+
+.spri-nyt-cover-wrap a {
+ display: block;
+}
+
+.spri-nyt-cover {
+ width: 112px;
+ height: 168px;
+ object-fit: cover;
+ border: 2px solid #eee;
+ box-shadow: 0 1px 4px rgba(0,0,0,.22);
+}
+
+.spri-nyt-info {
+ min-width: 0;
+}
+
+.spri-nyt-title {
+ font-family: "Kollektif", Arial, Helvetica, sans-serif;
+ font-weight: 800;
+ font-size: 1.08rem;
+ line-height: 1.05;
+}
+
+.spri-nyt-title a,
+.spri-nyt-status a {
+ color: inherit;
+ text-decoration: none;
+}
+
+.spri-nyt-title a:hover,
+.spri-nyt-status a:hover {
+ text-decoration: underline;
+}
+
+.spri-nyt-author {
+ margin-top: .12rem;
+ font-size: .92rem;
+ line-height: 1.08;
+}
+
+.spri-nyt-desc {
+ margin-top: .2rem;
+ color: #111;
+ font-size: .84rem;
+ line-height: 1.12;
+}
+
+.spri-nyt-status {
+ margin-top: .32rem;
+ font-weight: 800;
+ font-size: .82rem;
+ line-height: 1.1;
+ font-family: "Kollektif", Arial, Helvetica, sans-serif;
+}
+
+.spri-nyt-status[data-status="available"] {
+ color: var(--spri-green);
+}
+
+.spri-nyt-status[data-status="checked-out"] {
+ color: #8a5a00;
+}
+
+.spri-nyt-status[data-status="not-available"],
+.spri-nyt-status[data-status="not-found"] {
+ color: #666;
+}
+
+.spri-nyt-libby,
+.spri-nyt-hoopla {
+ margin-top: .25rem;
+ font-size: .8rem;
+ line-height: 1.14;
+}
+
+.spri-nyt-libby a,
+.spri-nyt-hoopla a {
+ display: block;
+ margin: .08rem 0 0;
+ color: var(--spri-blue);
+ font-weight: 700;
+ text-decoration: none;
+}
+
+.spri-nyt-libby a:hover,
+.spri-nyt-hoopla a:hover {
+ text-decoration: underline;
+}
+
+.spri-nyt-error {
+ border: 1px solid #ddd;
+ padding: .75rem;
+}
+
+.spri-print-footer {
+ margin-top: 1rem;
+ padding-top: .5rem;
+ border-top: 2px solid var(--spri-green);
+ color: #555;
+ font-size: .9rem;
+ text-align: right;
+ font-family: "Open Sauce", "Open Sauce One", Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 900px) {
+ .spri-nyt-list {
+   grid-template-columns: repeat(2, 1fr);
+ }
+
+ .spri-nyt-header {
+   grid-template-columns: 85px minmax(0, 1fr) 118px;
+ }
+
+ .spri-header-qr {
+   max-width: 112px;
+ }
+
+ .spri-header-qr-image {
+   width: 86px;
+   height: 86px;
+ }
+
+ .spri-header-qr-caption {
+   font-size: .58rem;
+ }
+
+ .spri-brand-logo {
+   width: 82px;
+   height: 82px;
+ }
+
+ .spri-list-title {
+   font-size: 1.9rem;
+ }
+}
+
+@media (max-width: 600px) {
+ #spri-nyt-bestsellers {
+   max-width: none;
+ }
+
+ .spri-print-actions {
+   text-align: left;
+ }
+
+ .spri-widget-toolbar {
+   display: grid;
+   gap: .75rem;
+   align-items: stretch;
+ }
+
+ .spri-library-picker {
+   min-width: 0;
+ }
+
+ .spri-print-button {
+   width: 100%;
+ }
+
+ .spri-nyt-column {
+   padding: .75rem;
+ }
+
+ .spri-nyt-header {
+   grid-template-columns: 64px 1fr;
+   gap: .75rem;
+   padding: .85rem;
+   margin-bottom: 1rem;
+ }
+
+ .spri-header-qr {
+   grid-column: 1 / -1;
+   justify-self: center;
+   max-width: 210px;
+   margin-top: .25rem;
+ }
+
+ .spri-header-qr-image {
+   width: 96px;
+   height: 96px;
+ }
+
+ .spri-header-qr-caption {
+   font-size: .72rem;
+ }
+
+ .spri-brand-logo {
+   width: 62px;
+   height: 62px;
+   padding: .2rem;
+ }
+
+ .spri-brand-name {
+   font-size: 1.35rem;
+ }
+
+ .spri-list-title {
+   font-size: 1.45rem;
+ }
+
+ .spri-nyt-date {
+   font-size: .95rem;
+ }
+
+ .spri-nyt-list {
+   grid-template-columns: 1fr;
+   row-gap: .9rem;
+ }
+
+ .spri-nyt-book {
+   grid-template-columns: 78px 1fr;
+   gap: .7rem;
+ }
+
+ .spri-nyt-cover {
+   width: 78px;
+   height: 117px;
+ }
+
+ .spri-nyt-title {
+   font-size: 1rem;
+   line-height: 1.12;
+ }
+
+ .spri-nyt-author,
+ .spri-nyt-desc,
+ .spri-nyt-status,
+ .spri-nyt-libby,
+ .spri-nyt-hoopla {
+   font-size: .9rem;
+   line-height: 1.18;
+ }
+}
+
+@media print {
+ @page {
+   size: letter portrait;
+   margin: .35in;
+ }
+
+ body {
+   -webkit-print-color-adjust: exact;
+   print-color-adjust: exact;
+   margin: 0;
+   background: #fff;
+ }
+
+ .spri-print-actions,
+ .spri-widget-toolbar {
+   display: none !important;
+ }
+
+ #spri-nyt-bestsellers {
+   max-width: none;
+   margin: 0;
+ }
+
+ .spri-nyt-column {
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   border-top: 0;
+   page-break-after: always;
+   break-after: page;
+ }
+
+ .spri-nyt-column:last-child {
+   page-break-after: auto;
+   break-after: auto;
+ }
+
+ .spri-nyt-header {
+   background: linear-gradient(90deg, #008037, #5271ff) !important;
+   color: #fff !important;
+   grid-template-columns: .82in 1fr .98in;
+   gap: .12in;
+   padding: .18in .22in;
+   margin: 0 0 .18in;
+ }
+
+ .spri-brand-logo {
+   width: .78in;
+   height: .78in;
+   padding: .04in;
+   box-shadow: none;
+ }
+
+ .spri-header-qr {
+   max-width: .98in;
+   gap: .035in;
+ }
+
+ .spri-header-qr-image {
+   width: .68in;
+   height: .68in;
+   border: .035in solid #fff;
+ }
+
+ .spri-header-qr-caption {
+   font-size: 5.3pt;
+   line-height: 1.05;
+ }
+
+ .spri-brand-name {
+   font-size: 18pt;
+ }
+
+ .spri-list-title {
+   font-size: 27pt;
+ }
+
+ .spri-nyt-date {
+   font-size: 14pt;
+   margin-top: .06in;
+ }
+
+ .spri-nyt-list {
+   grid-template-columns: repeat(3, 1fr);
+   column-gap: .17in;
+   row-gap: .13in;
+ }
+
+ .spri-nyt-book {
+   grid-template-columns: .9in 1fr;
+   gap: .08in;
+ }
+
+ .spri-nyt-cover {
+   width: .9in;
+   height: 1.35in;
+   box-shadow: none;
+   border: 0;
+ }
+
+ .spri-nyt-title {
+   font-size: 9.7pt;
+   line-height: .96;
+ }
+
+ .spri-nyt-author {
+   font-size: 8.2pt;
+   line-height: .96;
+ }
+
+ .spri-nyt-desc {
+   font-size: 7.3pt;
+   line-height: .98;
+ }
+
+ .spri-nyt-status,
+ .spri-nyt-libby,
+ .spri-nyt-hoopla {
+   font-size: 6.8pt;
+   line-height: .95;
+ }
+
+ .spri-nyt-title a,
+ .spri-nyt-status a,
+ .spri-nyt-libby a,
+ .spri-nyt-hoopla a {
+   text-decoration: none;
+ }
+
+  .spri-print-footer {
+    margin-top: .12in;
+    padding-top: .06in;
+    border-top: 1.5pt solid #008037;
+    font-size: 7.5pt;
+    text-align: right;
+    color: #555;
+  }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="preload" href="/fonts/Metropolis-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Metropolis-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Digital Desk Stats Manual</title>
+    <link rel="icon" type="image/x-icon" href="/DDS/favicon.ico">
+    <style>
+      @font-face {
+        font-family: Metropolis;
+        src: url("/fonts/Metropolis-Regular.woff2") format("woff2"),
+          url("/fonts/Metropolis-Regular.woff") format("woff");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Metropolis;
+        src: url("/fonts/Metropolis-Bold.woff2") format("woff2"),
+          url("/fonts/Metropolis-Bold.woff") format("woff");
+        font-weight: bold;
+        font-display: swap;
+      }
+      body {
+          padding-right: 60px;
+          padding-left: 60px;
+          font-family: Metropolis;
+      }
+    </style>
+   </head>
+   <body>
+      <img src="/DDS/favicon.ico" alt="DDS header image" width="128" height="128">
+      <h1>Digital Desk Stats 1.0.0.0 Manual</h1>
+      <p>Hello! Thank you for using Digital Desk Stats (DDS). This program tracks your stats whether it&rsquo;s reference, circ, or whatever you need to track. Hopefully this little program will save you some time in your day to day operations.</p>
+      <h2>Installation</h2>
+      <ol type="1">
+         <li>Download the <a href="#installer">installer program</a> and run it. Everything should run automatically. Don&rsquo;t worry, it&rsquo;s not malware &ndash; if you get a &ldquo;Windows protected your PC&rdquo; screen, click &ldquo;more info&rdquo; and then &ldquo;Run anyway.&rdquo;</li>
+         <ol type="a">
+            <li>Currently, it only runs on Windows. Apple support is on the ToDo list!</li>
+         </ol>
+         <li>Accept the license agreement and click &ldquo;Install.&rdquo; The program installs:</li>
+         <ol type="a">
+            <li>Digital Desk Stats - this goes in your Programs folder (found in <code>C:\Users\yourusername\AppData\Local\Programs\DigitalDeskStats</code>)</li>
+            <li><code>dds.ico</code> and <code>metropolis.ttf</code> - this is the icon you click on to open the program and the font that the program uses.</li>
+            <li>A collection of icons and graphics for customizing your layout.</li>
+            <li>A shortcut on your Desktop and your Start Menu.</li>
+         </ol>
+      </ol>
+      <h2>First time opening</h2>
+      <ol>
+         <li>You&rsquo;ll be greeted by a popup saying that default settings have been initialized. This is the part where you&rsquo;ll customize the program to your specific needs.</li>
+         <ol type="a">
+            <li>The settings you edit will be written to a file called <code>config.json</code>. In general, you shouldn't ever have to worry about this, but in case something goes wrong and you need to change it, it's in the folder you installed the program in.</li>
+         </ol>
+         <li>Navigate up to File &rarr; Options. This is where you&rsquo;ll customize the program to your needs.</li>
+         <li>In the <em>General</em> menu:</li>
+         <ol type="a">
+            <li>Enter your library&rsquo;s name in the <em>Library name</em> field.</li>
+            <li>Add your library's logo in the <em>Library logo</em> field. <u>Image must be in the .PNG file format</u>.</li>
+            <li><strong>IMPORTANT:</strong> Choose the folder where you&rsquo;ll save your stats in the <em>Stat log directory</em> field. This is where your stats will be written to in a .CSV file that can be opened in Excel.</li>
+            <ol type="i">
+               <li>Click the checkbox next to &ldquo;Network Directory&rdquo; if you plan on using a shared network drive, sometimes called an <code>H: Drive</code>. Do this if you have multiple computers that will be writing the same stats and sharing the same settings (for example, two computers at the reference desk). If you do this, make sure the folder is on a drive that all computers have read/write permissions for. <strong>Make sure to click Save after you pick the folder and click the Network Directory Box &ndash; this will make DDS &ldquo;read&rdquo; your settings into the program.</strong></li>
+               <li>If you will be using a network drive, <strong>pause here, go back to step 1 on each of the computers that will be sharing settings, get to this step, and repeat until all computers are pointing at the same network drive</strong>. Then, continue on.</li>
+            </ol>
+            <li>Set an optional password in the <em>Admin password</em> field. This will lock your options menu behind a password. If you forget it, you can find it in <code>config.json</code> under &ldquo;admin_password.&rdquo;</li>
+         </ol>
+      <p>Note that all these settings are optional. However, it is highly recommended that you pick a convenient location on your computer for the stats log location for easy retrieval.</p>
+         <li>In the <em>Statistics &amp; Subcategories</em> menu:</li>
+         <ol type="a">
+            <li>At the top, you can add, remove, and rename desks. These are groups of statistics.</li>
+            <li>In the left hand side (&ldquo;Statistics&rdquo;) box are your main statistics. There are a few in there by default, however, you can add, remove, or rename these in the corresponding fields.</li>
+            <li>In the right hand side (&ldquo;Subcategories&rdquo;) box are the subcategories. These are specific to each statistic. You can have as many of these as you like, and it&rsquo;s recommended these be tailored to each stat. Similar to the statistics, you can add, remove, and rename these as you wish.</li>
+            <li>You can add an optional description to each statistic in the <em>Stat description</em> box. This will display when you hover over the statistic in the main interface.</li>
+            <li>You can add an optional icon to each statistic in the <em>Stat icon</em> box. This will display next to the statistic in the main interface.</li>
+            <ol type="i">
+               <li>There are some default ones included with the program, however, if you want to add your own, you can do so in the &ldquo;icons&rdquo; folder within the folder where the program is installed. <u>It must be a a .PNG file</u> and make sure that it looks good shrunken down.</li>
+            </ol>
+         </ol>
+      <p>A general recommendation is that left hand side statistics be &ldquo;umbrellas&rdquo; or categories, and right hand side be more specific instances as needed for tracking. For example:</p>
+      <ul>
+         <li>A &ldquo;database&rdquo; statistic may have the databases listed as subcategories.</li>
+         <li>A &ldquo;directional&rdquo; statistic may have locations or general areas as subcategories.</li>
+         <li>A &ldquo;technology&rdquo; statistic may have devices as subcategories, or whether it&rsquo;s a patron device or library device.</li>
+      </ul>
+         <p>These are entirely up to you. In general, &ldquo;in-person,&rdquo; &ldquo;phone,&rdquo; &ldquo;email,&rdquo; and &ldquo;chat&rdquo; make good subcategories if you can&rsquo;t think of anything.</p>
+         <li>In the <em>Profiles</em> menu:</li>
+         <ol type="a">
+            <li>In the left hand side (&ldquo;Profiles&rdquo;) box are a list of users. Select one and sign in to modify or remove it.</li>
+            <li>On the right-hand side are the parameters for editing or creating a new profile. Enter an email, display name, and password, and choose an optional profile icon. Click &ldquo;Save profile&rdquo; to save any changes made.</li>
+            <li>Profile information can be found in <code>config.json</code> under &ldquo;profiles.&rdquo; Passwords are encrypted &ndash; if a user forgets their password, it&rsquo;s better to remove their profile in the file and have them create a new one in DDS.</li>
+         </ol>
+      </ol>
+      <ul>
+         <li>Profiles are optional. Statistics can still be recorded without signing in.</li>
+      </ul>
+      <p>Click &ldquo;Save&rdquo; to save your settings and &ldquo;Close&rdquo; to close the menu. If you need to make changes to any of these, you can do so by selecting File &rarr; Options.</p>
+      <h2>Using DDS</h2>
+      <ol>
+         <li>Select a statistic you wish to record on the left hand side.</li>
+         <li>Select a subcategory of that statistic on the right hand side.</li>
+         <li>This will record the date, time, statistic, and subcategory in a .CSV file in the folder you specified in Options. If you forget where that is, you can see in the options menu or in &ldquo;log_file&rdquo; in <code>config.json</code>.</li>
+         <ol type="a">
+            <li>If a user is signed in, their name will be recorded along with the statistic.</li>
+         </ol>
+         <li>A little graph will appear on the bottom of the screen visualizing your recorded statistics.</li>
+         <li>The status text below the title will update to include the last recorded statistic.</li>
+         <li>At the bottom left of the screen, a message will appear counting the total entries for the day.</li>
+      </ol>
+      <h2>Retrieving your stats</h2>
+      <p>You can retrieve stats either from the stat log directory you specified in the options menu, or, you can select File &rarr; Export Summary for a cleaner breakdown (recommended).</p>
+      <h2>Miscellaneous</h2>
+      <p>You can check for updates at Help &rarr; Check for Updates. Plans for the future include:</p>
+      <ul>
+         <li>Bug fixes (duh :P)</li>
+         <li>Built-in bug reporter/feature requester</li>
+         <li>Mac support</li>
+      </ul>
+      <p>You can read the maual at Help &rarr; Manual.</p>
+      <h2>Issues, bugs, questions, suggestions, etc.</h2>
+      <p>You can reach me at <a href="mailto:digital.desk.stats@gmail.com">digital.desk.stats@gmail.com</a></p>
+      <h2>Downloads</h2>
+      <p id="installer">Version 1.0.0.0 (most recent version)</p>
+      <ol>
+         <li><a href="/DDS/DDS_Installer_1.0.0.0.msi">Windows</a></li>
+      </ol>
+   </body>
+</html>
