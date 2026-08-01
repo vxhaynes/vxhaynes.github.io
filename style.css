@@ -271,17 +271,19 @@ a:hover, a:active {
   text-decoration: none !important;
 }
 .rezItem, .transItem {
-  background: #fff;
+  background: #f7f7f7;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 1rem 1.25rem;
   margin: 1rem 0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border 0.2s ease;
 }
 .rezItem:hover, .transItem:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 1px solid #222;
 }
 
 .mycourseNo {
@@ -398,7 +400,7 @@ a:hover, a:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fff;
-  border: 2px solid #222;
+  border: 1px solid #222;
 }
 .projImg {
   display: grid;
