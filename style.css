@@ -283,7 +283,7 @@ a:hover, a:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fff;
-  border: 1px solid #222;
+  border: 1px solid #60bf60;
 }
 
 .mycourseNo {
@@ -400,7 +400,7 @@ a:hover, a:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fff;
-  border: 1px solid #222;
+  border: 1px solid #60bf60;
 }
 .projImg {
   display: grid;
