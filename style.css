@@ -416,6 +416,13 @@ a:hover, a:active {
   object-fit: cover;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+.projImg img:hover {
+  filter: brightness(115%);
+  transform: translateY(-2px);
+  border: 1px solid #222;
 }
 #lightbox {
   position: fixed;
