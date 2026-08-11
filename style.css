@@ -259,6 +259,7 @@ a:link, a:visited {
   text-decoration: underline;
   font-weight: 600;
   color: #000;
+  transition: text-decoration 0.2s ease, color 0.2s ease;
 }
 a:hover, a:active {
   text-decoration: none;
@@ -555,6 +556,7 @@ a[href^="http"]::after {
   background-size: contain;
   background-repeat: no-repeat;
   vertical-align: middle;
+  transition: filter 0.2s ease;
 }
 a[href^="http"]:hover::after {
   filter: invert(66%) sepia(55%) saturate(390%) hue-rotate(71deg) brightness(88%) contrast(96%);
