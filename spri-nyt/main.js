@@ -1,4 +1,5 @@
 (function () {
+  const currentMonth = new Date().toLocaleString("en-US", { month: "long" }).toLowerCase();
   const root = document.getElementById("spri-nyt-bestsellers");
   if (!root) return;
 
@@ -328,7 +329,11 @@
       name: "Springfield Township Library",
       shortname: "Springfield",
       id: 71,
-      logo: "/spri-nyt/logos/SpringfieldLogo.avif"
+      logo: currentMonth === "october" 
+        ? "/spri-nyt/logos/SpringfieldLogo_Halloween.avif" 
+        : currentMonth === "december" 
+          ? "/spri-nyt/logos/SpringfieldLogo_Christmas.avif" 
+          : "/spri-nyt/logos/SpringfieldLogo.avif"
     },
     {
       name: "Taylor Community Library",
