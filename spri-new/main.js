@@ -1,3 +1,14 @@
+(function () {
+const currentMonth = new Date().getMonth(); 
+const logoElement = document.getElementById('library-logo');
+
+if (currentMonth === 9) {
+  logoElement.src = "/spri-nyt/logos/SpringfieldLogo_Halloween.avif";
+} else if (currentMonth === 11) {
+  logoElement.src = "/spri-nyt/logos/SpringfieldLogo_Christmas.avif";
+}
+})();
+
 const els = {
   fictionList: document.getElementById('fictionList'),
   nonfictionList: document.getElementById('nonfictionList'),
